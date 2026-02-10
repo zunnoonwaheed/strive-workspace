@@ -1278,44 +1278,387 @@ body {
 }
 
 @media (max-width: 768px) {
+  .page-container {
+    padding: 20px 16px;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    height: auto;
+    margin-bottom: 40px;
+  }
+
+  .hero-content {
+    padding: 0 16px;
+  }
+
+  .hero-main-content {
+    margin-top: 120px;
+    gap: 20px;
+  }
+
   .hero-title {
-    font-size: 32px;
+    font-size: 28px;
+    line-height: 1.3;
   }
 
   .hero-description {
     font-size: 16px;
   }
 
+  .hero-actions {
+    flex-direction: row;
+    gap: 8px;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    font-size: 14px;
+    padding: 10px 20px;
+  }
+
+  .location-card {
+    position: static;
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  /* Stats Bar */
+  .stats-bar {
+    flex-direction: column;
+    gap: 16px;
+    padding: 0;
+    margin-bottom: 40px;
+  }
+
+  /* Section Headers */
   .section-title {
-    font-size: 28px;
+    font-size: 24px;
   }
 
   .section-description {
-    font-size: 18px;
+    font-size: 16px;
   }
 
-  .stats-bar {
-    flex-wrap: wrap;
+  /* Features Section */
+  .features-section {
+    margin-bottom: 60px;
   }
 
-  .amenities-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .features-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .feature-card {
+    padding: 24px 16px;
+  }
+
+  .feature-title {
+    font-size: 22px;
+  }
+
+  .feature-description {
+    font-size: 16px;
+  }
+
+  /* Workspaces Section */
+  .workspaces-section {
+    margin-bottom: 60px;
+  }
+
+  .workspaces-content {
+    gap: 30px;
+  }
+
+  .workspaces-text {
+    flex: 1;
+  }
+
+  .workspace-carousel {
+    height: 400px;
+  }
+
+  /* Find Space Section */
+  .find-space-section {
+    margin-bottom: 60px;
   }
 
   .space-cards {
     flex-direction: column;
   }
 
+  .space-card {
+    width: 100%;
+  }
+
+  .space-image {
+    height: 300px;
+  }
+
+  /* Prime Desk Section */
+  .prime-desk-section {
+    margin-bottom: 60px;
+  }
+
+  .benefit-text {
+    font-size: 16px;
+  }
+
+  .full-width-image {
+    height: 300px;
+  }
+
+  /* Solutions Section */
+  .solutions-section {
+    margin-bottom: 60px;
+  }
+
+  .amenities-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .amenity-card {
+    height: 200px;
+  }
+
+  /* Workspace Types Section */
+  .workspace-types-section {
+    margin-bottom: 60px;
+  }
+
+  .workspace-types-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .workspace-type-card {
+    width: 100%;
+    height: auto;
+    min-height: 500px;
+  }
+
+  .card-content {
+    position: static;
+    width: 100%;
+    padding: 32px 20px;
+  }
+
+  .type-description {
+    font-size: 16px;
+  }
+
+  .pricing {
+    font-size: 20px;
+  }
+
+  .feature-text {
+    font-size: 16px;
+  }
+
+  /* Advantage Section */
+  .advantage-section {
+    margin-bottom: 60px;
+  }
+
+  .advantage-content {
+    gap: 30px;
+  }
+
+  .advantage-header {
+    gap: 16px;
+  }
+
+  .advantage-header .btn-primary {
+    width: 100%;
+    max-width: 200px;
+  }
+
+  .advantage-hero-image {
+    height: 300px;
+    border-radius: 12px;
+  }
+
+  .advantage-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .advantage-visual {
+    gap: 24px;
+  }
+
+  .advantage-name {
+    font-size: 16px;
+  }
+
+  .advantage-desc {
+    font-size: 14px;
+  }
+
+  /* Testimonials Section */
+  .testimonials-section {
+    margin-bottom: 60px;
+  }
+
   .testimonial-layout {
     flex-direction: column;
   }
 
+  .testimonial-image {
+    height: 250px;
+    width: 100%;
+  }
+
+  .testimonial-quote {
+    font-size: 18px;
+  }
+
+  .author-name {
+    font-size: 20px;
+  }
+
+  .author-title {
+    font-size: 18px;
+  }
+
+  .testimonial-controls {
+    flex-direction: row;
+    justify-content: center;
+    gap: 16px;
+  }
+
+  /* FAQ Section */
+  .faq-section {
+    margin-bottom: 60px;
+  }
+
+  .faq-content {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .faq-intro {
+    width: 100%;
+  }
+
+  .faq-list-wrapper {
+    width: 100%;
+    height: auto;
+    position: static;
+  }
+
+  .faq-card-background {
+    position: static;
+  }
+
+  .faq-list {
+    position: static;
+    width: 100%;
+  }
+
+  .faq-question {
+    font-size: 16px;
+  }
+
+  .faq-answer {
+    font-size: 14px;
+  }
+
+  /* Contact Section */
+  .contact-section {
+    margin-bottom: 60px;
+  }
+
+  .contact-content {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .contact-info {
+    width: 100%;
+  }
+
+  .contact-form-wrapper {
+    width: 100%;
+    padding: 32px 20px;
+  }
+
+  .contact-detail {
+    font-size: 16px;
+  }
+
+  .btn-submit {
+    width: 100%;
+    margin-top: 20px;
+  }
+
+  .contact-section-image {
+    height: 300px;
+    border-radius: 20px;
+  }
+
+  /* Footer */
   .footer-content {
     grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .footer {
+    margin: 0 -16px -20px;
+    padding: 40px 0 30px;
+  }
+
+  .footer-content,
+  .footer-bottom {
+    padding: 0 16px;
+  }
+
+  /* Chat Bot Button */
+  .chat-bot-button {
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
   }
 }
 
 @media (max-width: 480px) {
+  .page-container {
+    padding: 16px 12px;
+  }
+
+  .hero-title {
+    font-size: 24px;
+  }
+
+  .hero-description {
+    font-size: 14px;
+  }
+
+  .section-title {
+    font-size: 20px;
+  }
+
+  .section-description {
+    font-size: 14px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+  }
+
+  .advantage-header .btn-primary {
+    max-width: 100%;
+  }
+
   .amenities-grid {
     grid-template-columns: 1fr;
   }
