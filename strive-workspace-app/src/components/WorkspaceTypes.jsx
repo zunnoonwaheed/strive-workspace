@@ -57,9 +57,9 @@ const WorkspaceTypes = () => {
   return (
     <section className="workspace-types-section">
       <div className="workspace-types-grid">
-        {workspaceTypes.map(type => (
+        {workspaceTypes.map((type, index) => (
           <div key={type.id} className="workspace-type-card">
-            <div className="card-background"></div>
+            <div className={`card-background ${index % 2 === 0 ? 'card-frame-1' : 'card-frame-2'}`}></div>
             <div className="card-content">
               <div className="card-header">
                 <img src={type.image} alt={type.name} className="type-icon" />

@@ -3,9 +3,14 @@ const Hero = () => {
     <section className="hero-section">
       <div className="hero-background">
         <img
-          src="https://api.builder.io/api/v1/image/assets/TEMP/9048b6dedf7b953b82953425dfed5637bb7dfef6?width=2649"
-          alt="Modern office space"
-          className="hero-image"
+          src="/hero-bg.png"
+          alt="Hero background"
+          className="hero-bg-image"
+        />
+        <img
+          src="/hero-mobile.png"
+          alt="Mobile hero"
+          className="hero-mobile-image"
         />
       </div>
 

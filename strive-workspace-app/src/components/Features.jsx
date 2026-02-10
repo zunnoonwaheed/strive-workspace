@@ -1,6 +1,7 @@
 const Features = () => {
   return (
     <section className="features-section">
+      <img src="/section2-mobile-bg.png" alt="" className="features-mobile-bg" />
       <div className="section-header">
         <h2 className="section-title">Extraordinary Features, Built for Real Work</h2>
       </div>
