@@ -1,5 +1,5 @@
 const Advantages = () => {
-  const advantagesLeft = [
+  const advantages = [
     {
       id: 1,
       icon: (
@@ -9,6 +9,16 @@ const Advantages = () => {
       ),
       name: "Rapid Transit Access",
       description: "Located in the Evesham-Dietrich corridor, Strive provides a rapid commute via Route 73 and the NJ Turnpike."
+    },
+    {
+      id: 4,
+      icon: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M16 9.99951C16 11.0604 15.5786 12.0778 14.8284 12.8279C14.0783 13.5781 13.0609 13.9995 12 13.9995C10.9391 13.9995 9.92172 13.5781 9.17157 12.8279C8.42143 12.0778 8 11.0604 8 9.99951M3.103 6.03351H20.897M3.4 5.46651C3.14036 5.8127 3 6.23377 3 6.66651V19.9995C3 20.5299 3.21071 21.0387 3.58579 21.4137C3.96086 21.7888 4.46957 21.9995 5 21.9995H19C19.5304 21.9995 20.0391 21.7888 20.4142 21.4137C20.7893 21.0387 21 20.5299 21 19.9995V6.66651C21 6.23377 20.8596 5.8127 20.6 5.46651L18.6 2.79951C18.4137 2.55112 18.1721 2.34951 17.8944 2.21066C17.6167 2.0718 17.3105 1.99951 17 1.99951H7C6.68951 1.99951 6.38328 2.0718 6.10557 2.21066C5.82786 2.34951 5.58629 2.55112 5.4 2.79951L3.4 5.46651Z" stroke="#575FB9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      ),
+      name: "Lifestyle Integration",
+      description: "Close to South Jersey's top shopping and dining, making your commute easier near Route 73."
     },
     {
       id: 2,
@@ -21,29 +31,6 @@ const Advantages = () => {
       description: "Enjoy gigabit fiber for intensive calls and virtual meetings during your workday."
     },
     {
-      id: 3,
-      icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path d="M9 12L11 14L15 9.99996M20 13C20 18 16.5 20.5 12.34 21.95C12.1222 22.0238 11.8855 22.0202 11.67 21.94C7.5 20.5 4 18 4 13V5.99996C4 5.73474 4.10536 5.48039 4.29289 5.29285C4.48043 5.10532 4.73478 4.99996 5 4.99996C7 4.99996 9.5 3.79996 11.24 2.27996C11.4519 2.09896 11.7214 1.99951 12 1.99951C12.2786 1.99951 12.5481 2.09896 12.76 2.27996C14.51 3.80996 17 4.99996 19 4.99996C19.2652 4.99996 19.5196 5.10532 19.7071 5.29285C19.8946 5.48039 20 5.73474 20 5.99996V13Z" stroke="#575FB9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-      ),
-      name: "Elite Professionalism",
-      description: "Impress clients with premium private offices and executive suites featuring whiteboards and presentation support to help close deals."
-    }
-  ];
-
-  const advantagesRight = [
-    {
-      id: 4,
-      icon: (
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-          <path d="M16 9.99951C16 11.0604 15.5786 12.0778 14.8284 12.8279C14.0783 13.5781 13.0609 13.9995 12 13.9995C10.9391 13.9995 9.92172 13.5781 9.17157 12.8279C8.42143 12.0778 8 11.0604 8 9.99951M3.103 6.03351H20.897M3.4 5.46651C3.14036 5.8127 3 6.23377 3 6.66651V19.9995C3 20.5299 3.21071 21.0387 3.58579 21.4137C3.96086 21.7888 4.46957 21.9995 5 21.9995H19C19.5304 21.9995 20.0391 21.7888 20.4142 21.4137C20.7893 21.0387 21 20.5299 21 19.9995V6.66651C21 6.23377 20.8596 5.8127 20.6 5.46651L18.6 2.79951C18.4137 2.55112 18.1721 2.34951 17.8944 2.21066C17.6167 2.0718 17.3105 1.99951 17 1.99951H7C6.68951 1.99951 6.38328 2.0718 6.10557 2.21066C5.82786 2.34951 5.58629 2.55112 5.4 2.79951L3.4 5.46651Z" stroke="#575FB9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-      ),
-      name: "Lifestyle Integration",
-      description: "Close to South Jersey's top shopping and dining, making your commute easier near Route 73."
-    },
-    {
       id: 5,
       icon: (
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -52,6 +39,16 @@ const Advantages = () => {
       ),
       name: "Flexible Scalability",
       description: "We offer month-to-month options and flexible leasing plans designed to scale with your team's evolving professional needs."
+    },
+    {
+      id: 3,
+      icon: (
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <path d="M9 12L11 14L15 9.99996M20 13C20 18 16.5 20.5 12.34 21.95C12.1222 22.0238 11.8855 22.0202 11.67 21.94C7.5 20.5 4 18 4 13V5.99996C4 5.73474 4.10536 5.48039 4.29289 5.29285C4.48043 5.10532 4.73478 4.99996 5 4.99996C7 4.99996 9.5 3.79996 11.24 2.27996C11.4519 2.09896 11.7214 1.99951 12 1.99951C12.2786 1.99951 12.5481 2.09896 12.76 2.27996C14.51 3.80996 17 4.99996 19 4.99996C19.2652 4.99996 19.5196 5.10532 19.7071 5.29285C19.8946 5.48039 20 5.73474 20 5.99996V13Z" stroke="#575FB9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      ),
+      name: "Elite Professionalism",
+      description: "Impress clients with premium private offices and executive suites featuring whiteboards and presentation support to help close deals."
     },
     {
       id: 6,
@@ -86,29 +83,15 @@ const Advantages = () => {
           />
 
           <div className="advantage-grid">
-            <div className="advantage-features-left">
-              {advantagesLeft.map(advantage => (
-                <div key={advantage.id} className="advantage-card">
-                  <div className="advantage-icon">{advantage.icon}</div>
-                  <div className="advantage-text">
-                    <h3 className="advantage-name">{advantage.name}</h3>
-                    <p className="advantage-desc">{advantage.description}</p>
-                  </div>
+            {advantages.map(advantage => (
+              <div key={advantage.id} className="advantage-card">
+                <div className="advantage-icon">{advantage.icon}</div>
+                <div className="advantage-text">
+                  <h3 className="advantage-name">{advantage.name}</h3>
+                  <p className="advantage-desc">{advantage.description}</p>
                 </div>
-              ))}
-            </div>
-
-            <div className="advantage-features-right">
-              {advantagesRight.map(advantage => (
-                <div key={advantage.id} className="advantage-card">
-                  <div className="advantage-icon">{advantage.icon}</div>
-                  <div className="advantage-text">
-                    <h3 className="advantage-name">{advantage.name}</h3>
-                    <p className="advantage-desc">{advantage.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+              </div>
+            ))}
           </div>
         </div>
       </div>

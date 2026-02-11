@@ -80,6 +80,20 @@ const Solutions = () => {
               </div>
             </div>
           </div>
+
+          <div className="amenity-card">
+            <img
+              src="https://api.builder.io/api/v1/image/assets/TEMP/090648f9a1ce986a270896ac4f988f3196dc0460?width=594"
+              alt="Printing & Scanning"
+              className="amenity-image"
+            />
+            <div className="amenity-overlay">
+              <div className="amenity-info">
+                <h3 className="amenity-title">Printing & Scanning</h3>
+                <p className="amenity-description">Enterprise-grade multifunction devices and document management</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

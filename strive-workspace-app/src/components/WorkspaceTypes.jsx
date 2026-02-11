@@ -56,6 +56,15 @@ const WorkspaceTypes = () => {
 
   return (
     <section className="workspace-types-section">
+      <div className="workspace-types-header">
+        <div className="workspace-types-header-text">
+          <h2 className="section-title">Our Space Types</h2>
+          <p className="section-description">
+            Choose the workspace solution that perfectly fits your professional needs. Each option is designed with premium comfort and productivity in mind.
+          </p>
+        </div>
+        <button className="btn-primary">Schedule a Tour</button>
+      </div>
       <div className="workspace-types-grid">
         {workspaceTypes.map((type, index) => (
           <div key={type.id} className="workspace-type-card">

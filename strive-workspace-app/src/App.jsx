@@ -5,6 +5,7 @@ import Hero from './components/Hero';
 import StatsBar from './components/StatsBar';
 import Features from './components/Features';
 import Workspaces from './components/Workspaces';
+import WorkspaceDesigns from './components/WorkspaceDesigns';
 import FindSpace from './components/FindSpace';
 import PrimeDesk from './components/PrimeDesk';
 import Solutions from './components/Solutions';
@@ -35,7 +36,7 @@ function App() {
     }, observerOptions);
 
     // Observe all sections
-    const sections = document.querySelectorAll('.features-section, .workspaces-section, .find-space-section, .prime-desk-section, .solutions-section, .workspace-types-section, .advantage-section, .testimonials-section, .faq-section, .contact-section');
+    const sections = document.querySelectorAll('.workspaces-section, .features-section, .workspace-designs-section, .find-space-section, .prime-desk-section, .solutions-section, .workspace-types-section, .advantage-section, .testimonials-section, .faq-section, .contact-section');
     
     sections.forEach((section) => {
       section.style.opacity = '0';
@@ -56,8 +57,9 @@ function App() {
       <div className="page-container">
         <Hero />
         <StatsBar />
-        <Features />
         <Workspaces />
+        <Features />
+        <WorkspaceDesigns />
         <FindSpace />
         <PrimeDesk />
         <Solutions />
