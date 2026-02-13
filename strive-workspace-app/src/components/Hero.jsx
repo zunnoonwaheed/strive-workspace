@@ -19,10 +19,9 @@ const Hero = () => {
 
         <div className="hero-main-content">
           <div className="hero-text-block">
-            <h2 className="hero-title">Premium Private Offices & Coworking in Marlton, NJ</h2>
+            <h2 className="hero-title">Premium Private Offices & Coworking Space in Marlton, NJ</h2>
             <p className="hero-description">
-              A modern workspace built for focus, client meetings, and flexible growth — with high-speed internet,
-              meeting rooms, and a professional environment you'll feel proud to work from.
+              Professional coworking and office space in Marlton, South Jersey — built for client meetings, flexible growth, and focused work. High-speed internet, meeting rooms, and workspace you'll feel proud to call your own.
             </p>
           </div>
 

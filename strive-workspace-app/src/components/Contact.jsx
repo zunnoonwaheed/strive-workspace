@@ -1,7 +1,13 @@
 const Contact = () => {
   return (
-    <section className="contact-section">
-      <div className="contact-content">
+    <section className="contact-section" style={{
+      background: 'transparent',
+      backgroundColor: 'transparent'
+    }}>
+      <div className="contact-content" style={{
+      background: 'transparent',
+      backgroundColor: 'transparent'
+    }}>
         <div className="contact-info">
           <h2 className="section-title">Ready to Tour Your New Workspace?</h2>
           <p className="section-description">
@@ -32,9 +38,22 @@ const Contact = () => {
           </div>
         </div>
 
-        <div className="contact-form-wrapper">
-          <div className="form-background"></div>
-          <form className="contact-form">
+        <div className="contact-form-wrapper" style={{
+          background: 'transparent',
+          backgroundColor: 'transparent'
+        }}>
+          <div className="form-background" style={{
+            background: 'url(/subtract-3.png) no-repeat center',
+            backgroundSize: '100% 100%',
+            backgroundColor: 'transparent',
+            border: 'none',
+            padding: 0,
+            margin: 0
+          }}></div>
+          <form className="contact-form" style={{
+            background: 'transparent',
+            backgroundColor: 'transparent'
+          }}>
             <div className="form-group">
               <label className="form-label">Full Name</label>
               <input type="text" className="form-input" placeholder="Jane Smith" />

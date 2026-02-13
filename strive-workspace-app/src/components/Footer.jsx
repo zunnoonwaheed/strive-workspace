@@ -17,7 +17,7 @@ const Footer = () => {
               <div className="footer-main-content">
                 <div className="footer-brand-section">
                   <h3 className="footer-logo-small">Strive</h3>
-                  <p className="footer-tagline-large">Premium Private Offices & Coworking in Marlton, NJ</p>
+                  <p className="footer-tagline-large">Premium Private Offices & Coworking Space in Marlton, NJ</p>
                 </div>
 
                 <div className="footer-links-container">
@@ -69,7 +69,7 @@ const Footer = () => {
             <div className="footer-mobile-content">
               <div className="footer-brand">
                 <h3 className="footer-logo">Strive</h3>
-                <p className="footer-tagline">Private Offices & Coworking in Marlton, NJ</p>
+                <p className="footer-tagline">Premium Private Offices & Coworking Space in Marlton, NJ</p>
               </div>
 
               <div className="footer-divider"></div>

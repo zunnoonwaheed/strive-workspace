@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import Preloader from './components/Preloader';
 import Header from './components/Header';
 import ChatButton from './components/ChatButton';
 import Hero from './components/Hero';
@@ -18,6 +19,7 @@ import Footer from './components/Footer';
 import './App.css';
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     // Scroll animation observer
     const observerOptions = {
@@ -50,26 +52,43 @@ function App() {
     };
   }, []);
 
+  const handlePreloaderComplete = () => {
+    setIsLoading(false);
+    document.body.style.overflow = 'auto';
+  };
+
+  useEffect(() => {
+    // Prevent scrolling during preloader
+    if (isLoading) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'auto';
+    }
+  }, [isLoading]);
+
   return (
     <>
-      <Header />
-      <ChatButton />
-      <div className="page-container">
-        <Hero />
-        <StatsBar />
-        <Workspaces />
-        <Features />
-        <WorkspaceDesigns />
-        <FindSpace />
-        <PrimeDesk />
-        <Solutions />
-        <WorkspaceTypes />
-        <Advantages />
-        <Testimonials />
-        <FAQ />
-        <Contact />
+      {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
+      <div className={isLoading ? 'app-content-loading' : 'app-content-loaded'}>
+        <Header />
+        <ChatButton />
+        <div className="page-container">
+          <Hero />
+          <StatsBar />
+          <Workspaces />
+          <Features />
+          <WorkspaceDesigns />
+          <FindSpace />
+          <PrimeDesk />
+          <Solutions />
+          <WorkspaceTypes />
+          <Advantages />
+          <Testimonials />
+          <FAQ />
+          <Contact />
+        </div>
+        <Footer />
       </div>
-      <Footer />
     </>
   );
 }

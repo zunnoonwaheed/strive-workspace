@@ -10,40 +10,154 @@ const Solutions = () => {
           </p>
         </div>
 
-        <div className="amenities-grid">
-          <div className="amenity-card">
+        <div className="amenities-grid" style={{
+          boxShadow: '0 0 0 transparent',
+          WebkitBoxShadow: '0 0 0 transparent',
+          MozBoxShadow: '0 0 0 transparent',
+          filter: 'none',
+          WebkitFilter: 'none'
+        }}>
+          <div className="amenity-card" style={{
+            boxShadow: '0 0 0 transparent',
+            WebkitBoxShadow: '0 0 0 transparent',
+            MozBoxShadow: '0 0 0 transparent',
+            msBoxShadow: '0 0 0 transparent',
+            OBoxShadow: '0 0 0 transparent',
+            filter: 'none',
+            WebkitFilter: 'none',
+            MozFilter: 'none',
+            msFilter: 'none',
+            OFilter: 'none',
+            dropShadow: 'none',
+            WebkitDropShadow: 'none',
+            border: 'none',
+            outline: 'none'
+          }}>
             <img
               src="https://api.builder.io/api/v1/image/assets/TEMP/6cb69d8089f50ce1aa8a4b7a2f8508d47e44e0d4?width=835"
               alt="Fitness center"
               className="amenity-image"
+              style={{
+                boxShadow: '0 0 0 transparent',
+                WebkitBoxShadow: '0 0 0 transparent',
+                MozBoxShadow: '0 0 0 transparent',
+                msBoxShadow: '0 0 0 transparent',
+                OBoxShadow: '0 0 0 transparent',
+                border: 'none',
+                outline: 'none',
+                padding: 0,
+                margin: 0,
+                backgroundColor: 'transparent',
+                backgroundClip: 'padding-box',
+                WebkitBackgroundClip: 'padding-box',
+                filter: 'none',
+                WebkitFilter: 'none',
+                MozFilter: 'none',
+                msFilter: 'none',
+                OFilter: 'none',
+                dropShadow: 'none',
+                WebkitDropShadow: 'none'
+              }}
             />
             <div className="amenity-overlay">
               <div className="amenity-info">
                 <h3 className="amenity-title">On-site Fitness Center</h3>
-                <p className="amenity-description">Fully-equipped gym with cardio, weights, and wellness programs</p>
+                <p className="amenity-description">On-site fitness center exclusive to Marlton coworking members with cardio equipment and weights</p>
               </div>
             </div>
           </div>
 
-          <div className="amenity-card">
+          <div className="amenity-card" style={{
+            boxShadow: '0 0 0 transparent',
+            WebkitBoxShadow: '0 0 0 transparent',
+            MozBoxShadow: '0 0 0 transparent',
+            msBoxShadow: '0 0 0 transparent',
+            OBoxShadow: '0 0 0 transparent',
+            filter: 'none',
+            WebkitFilter: 'none',
+            MozFilter: 'none',
+            msFilter: 'none',
+            OFilter: 'none',
+            dropShadow: 'none',
+            WebkitDropShadow: 'none',
+            border: 'none',
+            outline: 'none'
+          }}>
             <img
               src="https://api.builder.io/api/v1/image/assets/TEMP/81e452afbf980909faac1b77e886452e0c6ab9ff?width=1249"
               alt="Community Kitchen"
               className="amenity-image"
+              style={{
+                boxShadow: '0 0 0 transparent',
+                WebkitBoxShadow: '0 0 0 transparent',
+                MozBoxShadow: '0 0 0 transparent',
+                msBoxShadow: '0 0 0 transparent',
+                OBoxShadow: '0 0 0 transparent',
+                border: 'none',
+                outline: 'none',
+                padding: 0,
+                margin: 0,
+                backgroundColor: 'transparent',
+                backgroundClip: 'padding-box',
+                WebkitBackgroundClip: 'padding-box',
+                filter: 'none',
+                WebkitFilter: 'none',
+                MozFilter: 'none',
+                msFilter: 'none',
+                OFilter: 'none',
+                dropShadow: 'none',
+                WebkitDropShadow: 'none'
+              }}
             />
             <div className="amenity-overlay">
               <div className="amenity-info">
                 <h3 className="amenity-title">Community Kitchen</h3>
-                <p className="amenity-description">Premium coffee bar, refrigerator, microwave & catering services</p>
+                <p className="amenity-description">Complimentary coffee bar, full kitchen, and breakout space for South Jersey professionals</p>
               </div>
             </div>
           </div>
 
-          <div className="amenity-card">
+          <div className="amenity-card" style={{
+            boxShadow: '0 0 0 transparent',
+            WebkitBoxShadow: '0 0 0 transparent',
+            MozBoxShadow: '0 0 0 transparent',
+            msBoxShadow: '0 0 0 transparent',
+            OBoxShadow: '0 0 0 transparent',
+            filter: 'none',
+            WebkitFilter: 'none',
+            MozFilter: 'none',
+            msFilter: 'none',
+            OFilter: 'none',
+            dropShadow: 'none',
+            WebkitDropShadow: 'none',
+            border: 'none',
+            outline: 'none'
+          }}>
             <img
               src="https://api.builder.io/api/v1/image/assets/TEMP/090648f9a1ce986a270896ac4f988f3196dc0460?width=594"
               alt="24/7 Security"
               className="amenity-image"
+              style={{
+                boxShadow: '0 0 0 transparent',
+                WebkitBoxShadow: '0 0 0 transparent',
+                MozBoxShadow: '0 0 0 transparent',
+                msBoxShadow: '0 0 0 transparent',
+                OBoxShadow: '0 0 0 transparent',
+                border: 'none',
+                outline: 'none',
+                padding: 0,
+                margin: 0,
+                backgroundColor: 'transparent',
+                backgroundClip: 'padding-box',
+                WebkitBackgroundClip: 'padding-box',
+                filter: 'none',
+                WebkitFilter: 'none',
+                MozFilter: 'none',
+                msFilter: 'none',
+                OFilter: 'none',
+                dropShadow: 'none',
+                WebkitDropShadow: 'none'
+              }}
             />
             <div className="amenity-overlay">
               <div className="amenity-info">
@@ -53,11 +167,47 @@ const Solutions = () => {
             </div>
           </div>
 
-          <div className="amenity-card">
+          <div className="amenity-card" style={{
+            boxShadow: '0 0 0 transparent',
+            WebkitBoxShadow: '0 0 0 transparent',
+            MozBoxShadow: '0 0 0 transparent',
+            msBoxShadow: '0 0 0 transparent',
+            OBoxShadow: '0 0 0 transparent',
+            filter: 'none',
+            WebkitFilter: 'none',
+            MozFilter: 'none',
+            msFilter: 'none',
+            OFilter: 'none',
+            dropShadow: 'none',
+            WebkitDropShadow: 'none',
+            border: 'none',
+            outline: 'none'
+          }}>
             <img
               src="https://api.builder.io/api/v1/image/assets/TEMP/fb75501e0d525fe5d00d0d78e1382ccfeb168784?width=592"
               alt="Outdoor Workspace"
               className="amenity-image"
+              style={{
+                boxShadow: '0 0 0 transparent',
+                WebkitBoxShadow: '0 0 0 transparent',
+                MozBoxShadow: '0 0 0 transparent',
+                msBoxShadow: '0 0 0 transparent',
+                OBoxShadow: '0 0 0 transparent',
+                border: 'none',
+                outline: 'none',
+                padding: 0,
+                margin: 0,
+                backgroundColor: 'transparent',
+                backgroundClip: 'padding-box',
+                WebkitBackgroundClip: 'padding-box',
+                filter: 'none',
+                WebkitFilter: 'none',
+                MozFilter: 'none',
+                msFilter: 'none',
+                OFilter: 'none',
+                dropShadow: 'none',
+                WebkitDropShadow: 'none'
+              }}
             />
             <div className="amenity-overlay">
               <div className="amenity-info">
@@ -67,25 +217,97 @@ const Solutions = () => {
             </div>
           </div>
 
-          <div className="amenity-card">
+          <div className="amenity-card" style={{
+            boxShadow: '0 0 0 transparent',
+            WebkitBoxShadow: '0 0 0 transparent',
+            MozBoxShadow: '0 0 0 transparent',
+            msBoxShadow: '0 0 0 transparent',
+            OBoxShadow: '0 0 0 transparent',
+            filter: 'none',
+            WebkitFilter: 'none',
+            MozFilter: 'none',
+            msFilter: 'none',
+            OFilter: 'none',
+            dropShadow: 'none',
+            WebkitDropShadow: 'none',
+            border: 'none',
+            outline: 'none'
+          }}>
             <img
               src="https://api.builder.io/api/v1/image/assets/TEMP/206d688d0c43da9917b550a2ee25af9ab7bbbdd5?width=674"
               alt="Enterprise Internet"
               className="amenity-image"
+              style={{
+                boxShadow: '0 0 0 transparent',
+                WebkitBoxShadow: '0 0 0 transparent',
+                MozBoxShadow: '0 0 0 transparent',
+                msBoxShadow: '0 0 0 transparent',
+                OBoxShadow: '0 0 0 transparent',
+                border: 'none',
+                outline: 'none',
+                padding: 0,
+                margin: 0,
+                backgroundColor: 'transparent',
+                backgroundClip: 'padding-box',
+                WebkitBackgroundClip: 'padding-box',
+                filter: 'none',
+                WebkitFilter: 'none',
+                MozFilter: 'none',
+                msFilter: 'none',
+                OFilter: 'none',
+                dropShadow: 'none',
+                WebkitDropShadow: 'none'
+              }}
             />
             <div className="amenity-overlay">
               <div className="amenity-info">
                 <h3 className="amenity-title">Enterprise Internet</h3>
-                <p className="amenity-description">Gigabit fiber with redundant backup for uninterrupted connectivity</p>
+                <p className="amenity-description">Gigabit fiber internet with 99.9% uptime for remote work and video conferencing</p>
               </div>
             </div>
           </div>
 
-          <div className="amenity-card">
+          <div className="amenity-card" style={{
+            boxShadow: '0 0 0 transparent',
+            WebkitBoxShadow: '0 0 0 transparent',
+            MozBoxShadow: '0 0 0 transparent',
+            msBoxShadow: '0 0 0 transparent',
+            OBoxShadow: '0 0 0 transparent',
+            filter: 'none',
+            WebkitFilter: 'none',
+            MozFilter: 'none',
+            msFilter: 'none',
+            OFilter: 'none',
+            dropShadow: 'none',
+            WebkitDropShadow: 'none',
+            border: 'none',
+            outline: 'none'
+          }}>
             <img
               src="https://api.builder.io/api/v1/image/assets/TEMP/090648f9a1ce986a270896ac4f988f3196dc0460?width=594"
               alt="Printing & Scanning"
               className="amenity-image"
+              style={{
+                boxShadow: '0 0 0 transparent',
+                WebkitBoxShadow: '0 0 0 transparent',
+                MozBoxShadow: '0 0 0 transparent',
+                msBoxShadow: '0 0 0 transparent',
+                OBoxShadow: '0 0 0 transparent',
+                border: 'none',
+                outline: 'none',
+                padding: 0,
+                margin: 0,
+                backgroundColor: 'transparent',
+                backgroundClip: 'padding-box',
+                WebkitBackgroundClip: 'padding-box',
+                filter: 'none',
+                WebkitFilter: 'none',
+                MozFilter: 'none',
+                msFilter: 'none',
+                OFilter: 'none',
+                dropShadow: 'none',
+                WebkitDropShadow: 'none'
+              }}
             />
             <div className="amenity-overlay">
               <div className="amenity-info">

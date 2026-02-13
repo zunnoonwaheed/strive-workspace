@@ -4,7 +4,7 @@ const Workspaces = () => {
       <div className="workspaces-header">
         <h2 className="section-title">Built for Professionals Who Take Work Seriously</h2>
         <p className="section-description">
-          Whether you're building a company, meeting clients, or simply need a reliable place to work each day — our space was created to support your momentum.
+          Whether you're building a startup, meeting clients, or need professional office space in Marlton away from home — our flexible coworking space in South Jersey was created to support your momentum and growth.
         </p>
       </div>
 
@@ -16,7 +16,7 @@ const Workspaces = () => {
             className="professional-image"
           />
           <div className="professional-info">
-            <h3 className="professional-title">Entrepreneurs Startups</h3>
+            <h3 className="professional-title">Startups & Entrepreneurs in South Jersey</h3>
             <p className="professional-description">
               Launch and grow in a credible environment. Flexible offices help you scale with your team.
             </p>
@@ -30,7 +30,7 @@ const Workspaces = () => {
             className="professional-image"
           />
           <div className="professional-info">
-            <h3 className="professional-title">Remote Professionals</h3>
+            <h3 className="professional-title">Remote Workers & Freelancers</h3>
             <p className="professional-description">
               Escape home distractions. Enjoy reliable internet, focused spaces, and meeting rooms when you need them.
             </p>
@@ -44,7 +44,7 @@ const Workspaces = () => {
             className="professional-image"
           />
           <div className="professional-info">
-            <h3 className="professional-title">Agencies & Consultants</h3>
+            <h3 className="professional-title">Marketing Agencies & Consultants</h3>
             <p className="professional-description">
               Impress clients with on-demand sessions, make every interaction-room professional & memorable.
             </p>
@@ -58,7 +58,7 @@ const Workspaces = () => {
             className="professional-image"
           />
           <div className="professional-info">
-            <h3 className="professional-title">Growing Teams</h3>
+            <h3 className="professional-title">Growing Teams & Small Businesses</h3>
             <p className="professional-description">
               Build your team in a productive, distraction-free environment without long-term lease commitments.
             </p>

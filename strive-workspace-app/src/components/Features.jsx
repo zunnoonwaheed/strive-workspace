@@ -13,8 +13,8 @@ const Features = () => {
           </svg>
           <div className="feature-content">
             <div className="feature-text">
-              <h3 className="feature-title">Flexible Leasing</h3>
-              <p className="feature-description">Month-to-month options designed to scale with your team.</p>
+              <h3 className="feature-title">Month-to-Month Office Leasing</h3>
+              <p className="feature-description">Flexible month-to-month office space with no long-term commitment, perfect for growing teams in Marlton.</p>
             </div>
             <button className="btn-feature">Explore Flexible Plans</button>
           </div>
@@ -26,8 +26,8 @@ const Features = () => {
           </svg>
           <div className="feature-content">
             <div className="feature-text">
-              <h3 className="feature-title">High-Speed Internet</h3>
-              <p className="feature-description">Reliable gigabit fiber connectivity to support calls, meetings, and deep work.</p>
+              <h3 className="feature-title">Enterprise-Grade Fiber Internet</h3>
+              <p className="feature-description">Gigabit fiber internet connectivity for remote work, video calls, and seamless collaboration in our Marlton workspace.</p>
             </div>
             <button className="btn-feature">Explore Amenities</button>
           </div>
@@ -39,8 +39,8 @@ const Features = () => {
           </svg>
           <div className="feature-content">
             <div className="feature-text">
-              <h3 className="feature-title">Professional Meeting Rooms</h3>
-              <p className="feature-description">Conference-ready spaces with whiteboards and presentation support.</p>
+              <h3 className="feature-title">Conference & Meeting Room Rentals</h3>
+              <p className="feature-description">Professional meeting rooms in Marlton with AV equipment, whiteboards, and conference technology for client presentations.</p>
             </div>
             <button className="btn-feature">View Meeting Rooms</button>
           </div>

@@ -6,23 +6,33 @@ const FAQ = () => {
   const faqs = [
     {
       id: 1,
-      question: "What defines the Strive Workspaces experience in Marlton, NJ?",
-      answer: "Strive Workspaces is more than a traditional office rental; it is a high-performance ecosystem designed for professionals who value focus and executive-level aesthetics. Our Marlton location serves as a central hub for businesses in the Evesham-Dietrich corridor, providing a sophisticated atmosphere that home offices often lack. We provide \"plug-and-play\" solutions, meaning you can walk in on day one and have access to premium furniture, professional cleaning, and a community of like-minded innovators without the typical overhead of commercial real estate."
+      question: "What makes Strive the best coworking space in Marlton, NJ?",
+      answer: "Strive Workspaces is South Jersey's premier coworking and office space in Marlton, designed for professionals who need flexibility without sacrificing quality. Located on Route 73 in Burlington County, our Marlton workspace offers private offices, dedicated desks, meeting room rentals, and hot desking — all with month-to-month flexibility. Unlike traditional office leases in South Jersey, we provide turnkey workspace solutions with high-speed fiber internet, 24/7 access, on-site fitness center, and professional amenities from day one. Our location puts you minutes from Cherry Hill, Mount Laurel, and the NJ Turnpike, making it the ideal workspace for professionals who want to avoid the Philadelphia commute."
     },
     {
       id: 2,
-      question: "How does flexible leasing benefit modern businesses and growing teams?",
-      answer: ""
+      question: "How much does coworking space cost in Marlton, NJ?",
+      answer: "Strive Workspaces offers flexible pricing to match your needs: Hot Desk (Day Pass): Starting at $25/day for flexible shared workspace access. Dedicated Desk: Starting at $350/month for your reserved workspace with 24/7 access. Private Office: Starting at $800/month for fully-furnished executive suites. Meeting Room Rental: Starting at $45/hour for professional conference spaces. All memberships include high-speed fiber internet, access to our community kitchen, printing services, and networking events. Unlike other coworking spaces in South Jersey, we offer month-to-month leasing with no long-term commitment — making it affordable to scale as your business grows."
     },
     {
       id: 3,
-      question: "What technical infrastructure is available for high-performance work?",
-      answer: ""
+      question: "Can I rent office space in Marlton without a long-term lease?",
+      answer: "Yes! Strive Workspaces specializes in flexible, month-to-month office space rentals in Marlton. Unlike traditional commercial real estate which requires 3-5 year leases, our private offices and coworking memberships have no long-term commitment. This makes Strive ideal for: Startups testing the South Jersey market before committing to a lease, Remote workers who need professional workspace a few days per week, Growing teams that need to scale up or down quickly, Consultants who want a prestigious Marlton business address without overhead. You can upgrade from a dedicated desk to a private office, or downgrade if needed — all with 30 days' notice. Our Burlington County location offers the flexibility modern businesses need."
     },
     {
       id: 4,
-      question: "Can I host formal client meetings and presentations at your facility?",
-      answer: ""
+      question: "Can I use Strive Workspaces for client meetings and presentations?",
+      answer: "Absolutely! Strive Workspaces Marlton is designed for professionals who meet clients regularly. Our facility offers: Professional Meeting Rooms: Conference rooms seating 4-50 people, 4K video conferencing equipment, Smart boards and presentation displays, Professional sound system and lighting, Whiteboard walls and flip charts, High-speed internet for virtual attendees. Hourly and Day Rentals: Meeting rooms start at $45/hour and can be reserved by the hour, half-day, or full day — perfect for client presentations, team workshops, depositions, training sessions, or board meetings. Impressive First Impression: Strive's location on Route 73 in Marlton provides a prestigious South Jersey business address that's easy for clients to find (major highway frontage), has ample free parking on-site, professional reception area, and is walking distance to lunch options at Marlton Town Center. Many consultants, attorneys, therapists, financial advisors, and agency owners choose Strive specifically for the ability to host professional client meetings without the cost of a traditional office lease in Burlington County."
+    },
+    {
+      id: 5,
+      question: "Where exactly is Strive Workspaces located in Marlton?",
+      answer: "Strive Workspaces is located in the Evesham District at the intersection of Route 73 and Route 70 in Marlton, New Jersey — the heart of Burlington County's business corridor. Easy access from: Route 73 North/South: Direct frontage on Route 73, Route 70 East/West: 2 minutes from intersection, NJ Turnpike: 5 minutes from Exit 4, Cherry Hill: 8-minute drive via Route 70, Mount Laurel: 10-minute drive via Route 73, Moorestown: 12 minutes via Route 73 South, Philadelphia: 25 minutes without traffic. Nearby landmarks: Marlton Town Center (walking distance), Wegmans Plaza, Evesham Township Municipal Complex, Multiple dining and retail options on Route 73. Ample free parking is available on-site, making it convenient for client meetings and daily commutes across South Jersey."
+    },
+    {
+      id: 6,
+      question: "What's included in a coworking membership at Strive Marlton?",
+      answer: "Every coworking membership at Strive Workspaces Marlton includes: Workspace Essentials: High-speed gigabit fiber internet (WiFi + ethernet), Ergonomic desk and chair setup, 24/7 building access with keycard entry, Printing, scanning, and copying services. Professional Amenities: Complimentary coffee bar and beverages, Full-service community kitchen (refrigerator, microwave), Professional mailing address at your Marlton business location, Mail and package handling services. Meeting & Collaboration: Meeting room credits (varies by membership tier), Access to conference rooms and phone booths, High-speed internet for video conferencing, Whiteboard and presentation equipment. Wellness & Community: On-site fitness center access, Monthly networking events with South Jersey professionals, Outdoor workspace and terrace seating, Private wellness and lactation rooms. Unlike crowded coffee shops or isolating home offices, Strive gives South Jersey professionals everything needed to work productively — without the overhead of a traditional office lease."
     }
   ];
 

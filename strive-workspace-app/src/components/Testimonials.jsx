@@ -12,8 +12,7 @@ const Testimonials = () => {
 
             <div className="testimonial-text-block">
               <blockquote className="testimonial-quote">
-                "Strive Workspaces transformed how clients perceive my business. Having a professional meeting space
-                in a prime Marlton location helped us close more deals this quarter."
+                "Switching to Strive's Marlton office space transformed how clients perceive my consulting business. Having a professional coworking space and meeting rooms in South Jersey helped close more deals without the Philadelphia commute."
               </blockquote>
 
               <div className="testimonial-author">

@@ -3,7 +3,7 @@ const WorkspaceTypes = () => {
     {
       id: 1,
       name: "Hot Desk",
-      description: "Flexible shared workspace perfect for freelancers and remote workers who need a professional environment without the commitment of a dedicated space.",
+      description: "Flexible coworking day passes in Marlton for freelancers and remote workers. Professional shared workspace without long-term commitment — perfect for occasional office needs in South Jersey.",
       pricing: "Starting from $25/day",
       image: "https://api.builder.io/api/v1/image/assets/TEMP/dd95b01da0823d5f625438e2f9eed069b4045a29?width=258",
       features: [
@@ -16,7 +16,7 @@ const WorkspaceTypes = () => {
     {
       id: 2,
       name: "Meeting Rooms",
-      description: "State-of-the-art conference and collaboration spaces. Equipped with premium AV technology, whiteboards, and professional ambiance for client presentations, team meetings, and workshops.",
+      description: "Professional meeting room rentals in Marlton by the hour. Conference spaces with AV technology, whiteboards, and presentation equipment — ideal for client meetings, team workshops, and training sessions in South Jersey.",
       pricing: "Starting from $45/hour",
       image: "https://api.builder.io/api/v1/image/assets/TEMP/da24caef5b16a5410c070a500e7ecfaebf6d923d?width=258",
       features: [
@@ -29,7 +29,7 @@ const WorkspaceTypes = () => {
     {
       id: 3,
       name: "Private Office",
-      description: "Exclusive, fully-furnished executive suites designed for maximum privacy and professionalism. Perfect for startups, consultants, and growing teams that need a permanent, prestigious business address.",
+      description: "Private office space for rent in Marlton with flexible month-to-month leasing. Fully-furnished executive suites perfect for consultants, startups, and growing teams in South Jersey.",
       pricing: "Starting from $800/month",
       image: "https://api.builder.io/api/v1/image/assets/TEMP/a92347875beeccd7db59f05c9b267abd86e11728?width=258",
       features: [
@@ -42,7 +42,7 @@ const WorkspaceTypes = () => {
     {
       id: 4,
       name: "Dedicated Desks",
-      description: "Your personal workspace in a vibrant coworking environment. Get the benefits of a fully-serviced office with the energy and networking opportunities of an open community.",
+      description: "Reserved dedicated desk in Marlton's premier coworking space. Your personal workspace with the networking benefits of shared office space — includes 24/7 access, high-speed internet, and meeting room credits.",
       pricing: "Starting from $350/month",
       image: "https://api.builder.io/api/v1/image/assets/TEMP/dd95b01da0823d5f625438e2f9eed069b4045a29?width=258",
       features: [

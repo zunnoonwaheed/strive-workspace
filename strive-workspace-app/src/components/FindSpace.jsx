@@ -3,9 +3,9 @@ const FindSpace = () => {
     <section className="find-space-section">
       <div className="find-space-content">
         <div className="find-space-form-wrapper">
-          <h2 className="section-title">Find Your Strive Space</h2>
+          <h2 className="section-title">Find Coworking Space in South Jersey</h2>
           <p className="section-description">
-            Discover South Jersey's premium workspace. Filter by region and type.
+            Discover premium office space and coworking in Marlton, Cherry Hill, and Burlington County. Filter by location and workspace type.
           </p>
 
           <div className="filter-form">
@@ -27,6 +27,20 @@ const FindSpace = () => {
               src="https://api.builder.io/api/v1/image/assets/TEMP/34a01d8d71ec7ca5090fcbc8977f40399e02ae41?width=733"
               alt="Marlton West location"
               className="space-image"
+              style={{
+                boxShadow: 'none',
+                WebkitBoxShadow: 'none',
+                MozBoxShadow: 'none',
+                msBoxShadow: 'none',
+                OBoxShadow: 'none',
+                border: 'none',
+                outline: 'none',
+                padding: 0,
+                margin: 0,
+                backgroundColor: 'transparent',
+                backgroundClip: 'padding-box',
+                WebkitBackgroundClip: 'padding-box'
+              }}
             />
             <div className="space-info">
               <p className="space-location">Marlton West</p>
@@ -39,6 +53,20 @@ const FindSpace = () => {
               src="https://api.builder.io/api/v1/image/assets/TEMP/ca080e553ff10fd88d58ab033058dc5a6745ba00?width=733"
               alt="Cherry Hill location"
               className="space-image"
+              style={{
+                boxShadow: 'none',
+                WebkitBoxShadow: 'none',
+                MozBoxShadow: 'none',
+                msBoxShadow: 'none',
+                OBoxShadow: 'none',
+                border: 'none',
+                outline: 'none',
+                padding: 0,
+                margin: 0,
+                backgroundColor: 'transparent',
+                backgroundClip: 'padding-box',
+                WebkitBackgroundClip: 'padding-box'
+              }}
             />
             <div className="space-info">
               <p className="space-location">Cherry Hill</p>
