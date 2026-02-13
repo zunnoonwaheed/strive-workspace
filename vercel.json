@@ -1,0 +1,12 @@
+{
+  "buildCommand": "cd strive-workspace-app && npm run build",
+  "outputDirectory": "strive-workspace-app/dist",
+  "installCommand": "cd strive-workspace-app && npm install",
+  "framework": "vite",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
+}
