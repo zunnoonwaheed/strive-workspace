@@ -35,9 +35,9 @@ const WorkspaceDesigns = () => {
     <section className="workspace-designs-section">
       <div className="workspace-designs-content">
         <div className="workspace-designs-text">
-          <h2 className="section-title">Workspaces Designed for High-Performance Days</h2>
+          <h2 className="section-title">High-Performance Workspaces</h2>
           <p className="section-description">
-            Whether you need privacy, a collaborative environment, or a client-ready setting — Strive gives you premium spaces that feel professional from day one.
+            Strive provides spaces for privacy, collaboration, and meetings.
           </p>
           <button className="btn-primary">Schedule a Tour</button>
         </div>

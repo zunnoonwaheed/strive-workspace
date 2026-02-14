@@ -2,9 +2,9 @@ const WorkspaceTypes = () => {
   const workspaceTypes = [
     {
       id: 1,
-      name: "Hot Desk",
-      description: "Flexible coworking day passes in Marlton for freelancers and remote workers. Professional shared workspace without long-term commitment — perfect for occasional office needs in South Jersey.",
-      pricing: "Starting from $25/day",
+      name: "Hot Desks/Coworking",
+      description: "Flexible, day-pass or membership-based workspaces for freelancers, remote workers, and flexible professionals. Perfect for those who need workspace without long-term commitment.",
+      pricing: "Starting from $25/day or $150/month",
       image: "https://api.builder.io/api/v1/image/assets/TEMP/dd95b01da0823d5f625438e2f9eed069b4045a29?width=258",
       features: [
         "Flexible daily, weekly, or monthly passes",
@@ -60,7 +60,7 @@ const WorkspaceTypes = () => {
         <div className="workspace-types-header-text">
           <h2 className="section-title">Our Space Types</h2>
           <p className="section-description">
-            Choose the workspace solution that perfectly fits your professional needs. Each option is designed with premium comfort and productivity in mind.
+            Choose the workspace solution for comfort and productivity.
           </p>
         </div>
         <button className="btn-primary">Schedule a Tour</button>
