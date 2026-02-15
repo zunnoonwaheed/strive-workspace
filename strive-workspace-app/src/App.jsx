@@ -20,37 +20,68 @@ import './App.css';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+  // Scroll-triggered reveal for headings and text across the site
   useEffect(() => {
-    // Scroll animation observer
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
+    if (isLoading) return;
+
+    const revealOptions = {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
     };
 
-    const observer = new IntersectionObserver((entries) => {
+    const revealObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.style.opacity = '1';
-          entry.target.style.transform = 'translateY(0)';
-          observer.unobserve(entry.target);
+          entry.target.classList.add('reveal-visible');
+          revealObserver.unobserve(entry.target);
         }
       });
-    }, observerOptions);
+    }, revealOptions);
 
-    // Observe all sections
-    const sections = document.querySelectorAll('.workspaces-section, .features-section, .workspace-designs-section, .find-space-section, .prime-desk-section, .solutions-section, .workspace-types-section, .advantage-section, .testimonials-section, .faq-section, .contact-section');
-    
-    sections.forEach((section) => {
-      section.style.opacity = '0';
-      section.style.transform = 'translateY(30px)';
-      section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
-      observer.observe(section);
-    });
+    const revealSelectors = [
+      '.section-title',
+      '.section-description',
+      '.professional-title',
+      '.professional-description',
+      '.feature-title',
+      '.feature-description',
+      '.amenity-title',
+      '.amenity-description',
+      '.workspace-card-title',
+      '.workspace-card-subtitle',
+      '.workspace-card-description',
+      '.type-name',
+      '.type-description',
+      '.advantage-name',
+      '.advantage-desc',
+      '.advantage-description',
+      '.space-name',
+      '.space-description',
+      '.faq-question',
+      '.testimonials-section .section-title',
+      '.contact-info .section-title',
+      '.contact-info .section-description',
+      '.prime-desk-text .section-title',
+      '.prime-desk-text .section-description',
+      '.find-space-form-wrapper .section-title',
+      '.find-space-form-wrapper .section-description',
+      '.solutions-header .section-title',
+      '.solutions-header .section-description',
+      '.advantage-header .section-title',
+      '.advantage-header .section-description',
+      '.faq-intro .section-title',
+      '.faq-intro .section-description',
+      '.workspaces-header .section-title',
+      '.workspaces-header .section-description'
+    ];
+
+    const revealElements = document.querySelectorAll(revealSelectors.join(', '));
+    revealElements.forEach((el) => revealObserver.observe(el));
 
     return () => {
-      sections.forEach((section) => observer.unobserve(section));
+      revealElements.forEach((el) => revealObserver.unobserve(el));
     };
-  }, []);
+  }, [isLoading]);
 
   const handlePreloaderComplete = () => {
     setIsLoading(false);

@@ -1,3 +1,5 @@
+import { STRIVE_LINKS } from '../links';
+
 const WorkspaceTypes = () => {
   const workspaceTypes = [
     {
@@ -63,7 +65,7 @@ const WorkspaceTypes = () => {
             Choose the workspace solution for comfort and productivity.
           </p>
         </div>
-        <button className="btn-primary">Schedule a Tour</button>
+        <a className="btn-primary" href={STRIVE_LINKS.scheduleTour} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', textDecoration: 'none' }}>Schedule a Tour</a>
       </div>
       <div className="workspace-types-grid">
         {workspaceTypes.map((type, index) => (

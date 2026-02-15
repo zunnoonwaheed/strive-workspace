@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 const testimonialsData = [
   {
     image: "https://api.builder.io/api/v1/image/assets/TEMP/206d688d0c43da9917b550a2ee25af9ab7bbbdd5?width=674",
-    quote: "Switching to Strive's Marlton office space transformed how clients perceive my consulting business. Having a professional coworking space and meeting rooms in South Jersey helped close more deals without the Philadelphia commute.",
+    quote: "Strive Workspaces changed client perceptions. A professional meeting space in Marlton helped us close more deals.",
     name: "Marlton Innovator",
     title: "Agency Founder",
   },
@@ -73,31 +73,30 @@ const Testimonials = () => {
             </div>
 
             <div className="testimonial-controls">
-              <button className="control-btn" aria-label="Next testimonial" onClick={goToNext}>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="#575FB9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-                </svg>
-              </button>
               <button className="control-btn" aria-label="Previous testimonial" onClick={goToPrev}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
                   <path d="M19 12H5M5 12L12 5M5 12L12 19" stroke="#575FB9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </button>
+              <div className="testimonial-pagination">
+                {testimonialsData.map((_, index) => (
+                  <span
+                    key={index}
+                    className={`dot ${index === currentIndex ? 'active' : ''}`}
+                    onClick={() => setCurrentIndex(index)}
+                    onKeyDown={(e) => e.key === 'Enter' && setCurrentIndex(index)}
+                    role="button"
+                    tabIndex={0}
+                    aria-label={`Go to testimonial ${index + 1}`}
+                  />
+                ))}
+              </div>
+              <button className="control-btn" aria-label="Next testimonial" onClick={goToNext}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                  <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="#575FB9" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
             </div>
-          </div>
-
-          <div className="testimonial-pagination">
-            {testimonialsData.map((_, index) => (
-              <span
-                key={index}
-                className={`dot ${index === currentIndex ? 'active' : ''}`}
-                onClick={() => setCurrentIndex(index)}
-                onKeyDown={(e) => e.key === 'Enter' && setCurrentIndex(index)}
-                role="button"
-                tabIndex={0}
-                aria-label={`Go to testimonial ${index + 1}`}
-              />
-            ))}
           </div>
         </div>
       </div>

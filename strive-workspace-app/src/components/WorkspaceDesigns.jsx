@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { STRIVE_LINKS } from '../links';
 
 const WorkspaceDesigns = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -39,7 +40,7 @@ const WorkspaceDesigns = () => {
           <p className="section-description">
             Strive provides spaces for privacy, collaboration, and meetings.
           </p>
-          <button className="btn-primary">Schedule a Tour</button>
+          <a className="btn-primary" href={STRIVE_LINKS.scheduleTour} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', textDecoration: 'none' }}>Schedule a Tour</a>
         </div>
 
         <div className="workspace-carousel-container" style={{ 

@@ -1,3 +1,5 @@
+import { STRIVE_LINKS } from '../links';
+
 const PrimeDesk = () => {
   return (
     <section className="prime-desk-section">
@@ -37,7 +39,7 @@ const PrimeDesk = () => {
             </div>
           </div>
 
-          <button className="btn-primary">Schedule a Tour</button>
+          <a className="btn-primary" href={STRIVE_LINKS.scheduleTour} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', textDecoration: 'none' }}>Schedule a Tour</a>
         </div>
 
         <div className="prime-desk-image">

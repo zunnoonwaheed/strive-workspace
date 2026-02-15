@@ -1,3 +1,5 @@
+import { STRIVE_LINKS } from '../links';
+
 const Features = () => {
   return (
     <section className="features-section">
@@ -16,7 +18,7 @@ const Features = () => {
               <h3 className="feature-title">Month-to-Month Office Leasing</h3>
               <p className="feature-description">Flexible month-to-month office space with no long-term commitment, perfect for growing teams in Marlton.</p>
             </div>
-            <button className="btn-feature">Explore Flexible Plans</button>
+            <a className="btn-feature" href={STRIVE_LINKS.pricing} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', textDecoration: 'none' }}>Explore Flexible Plans</a>
           </div>
         </div>
 
@@ -29,7 +31,7 @@ const Features = () => {
               <h3 className="feature-title">Enterprise-Grade Fiber Internet</h3>
               <p className="feature-description">Gigabit fiber internet connectivity for remote work, video calls, and seamless collaboration in our Marlton workspace.</p>
             </div>
-            <button className="btn-feature">Explore Amenities</button>
+            <a className="btn-feature" href={STRIVE_LINKS.home} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', textDecoration: 'none' }}>Explore Amenities</a>
           </div>
         </div>
 
@@ -42,7 +44,7 @@ const Features = () => {
               <h3 className="feature-title">Conference & Meeting Room Rentals</h3>
               <p className="feature-description">Professional meeting rooms in Marlton with AV equipment, whiteboards, and conference technology for client presentations.</p>
             </div>
-            <button className="btn-feature">View Meeting Rooms</button>
+            <a className="btn-feature" href={STRIVE_LINKS.meetingRooms} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', textDecoration: 'none' }}>View Meeting Rooms</a>
           </div>
         </div>
       </div>

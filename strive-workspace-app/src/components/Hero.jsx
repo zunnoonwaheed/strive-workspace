@@ -1,3 +1,5 @@
+import { STRIVE_LINKS } from '../links';
+
 const Hero = () => {
   return (
     <section className="hero-section">
@@ -26,7 +28,7 @@ const Hero = () => {
           </div>
 
           <div className="hero-actions">
-            <button className="btn-primary">Schedule a Tour</button>
+            <a className="btn-primary" href={STRIVE_LINKS.scheduleTour} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', textDecoration: 'none' }}>Schedule a Tour</a>
             <button className="btn-secondary">Chat With Us Now</button>
           </div>
         </div>

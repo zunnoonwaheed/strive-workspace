@@ -34,7 +34,7 @@ const Solutions = () => {
             outline: 'none'
           }}>
             <img
-              src="https://api.builder.io/api/v1/image/assets/TEMP/6cb69d8089f50ce1aa8a4b7a2f8508d47e44e0d4?width=835"
+              src="/solutions/Frame_2147226711_3.png"
               alt="Fitness center"
               className="amenity-image"
               style={{
@@ -84,7 +84,7 @@ const Solutions = () => {
             outline: 'none'
           }}>
             <img
-              src="https://api.builder.io/api/v1/image/assets/TEMP/81e452afbf980909faac1b77e886452e0c6ab9ff?width=1249"
+              src="/solutions/Frame_2147226712_1.png"
               alt="Community Kitchen"
               className="amenity-image"
               style={{
@@ -134,7 +134,7 @@ const Solutions = () => {
             outline: 'none'
           }}>
             <img
-              src="https://api.builder.io/api/v1/image/assets/TEMP/090648f9a1ce986a270896ac4f988f3196dc0460?width=594"
+              src="/solutions/Frame_2147226713_1.png"
               alt="24/7 Security"
               className="amenity-image"
               style={{
@@ -184,7 +184,7 @@ const Solutions = () => {
             outline: 'none'
           }}>
             <img
-              src="https://api.builder.io/api/v1/image/assets/TEMP/fb75501e0d525fe5d00d0d78e1382ccfeb168784?width=592"
+              src="/solutions/Frame_2147226711_2.png"
               alt="Outdoor Workspace"
               className="amenity-image"
               style={{
@@ -234,7 +234,7 @@ const Solutions = () => {
             outline: 'none'
           }}>
             <img
-              src="https://api.builder.io/api/v1/image/assets/TEMP/206d688d0c43da9917b550a2ee25af9ab7bbbdd5?width=674"
+              src="/solutions/Frame_2147226712_2.png"
               alt="Enterprise Internet"
               className="amenity-image"
               style={{
@@ -284,7 +284,7 @@ const Solutions = () => {
             outline: 'none'
           }}>
             <img
-              src="https://api.builder.io/api/v1/image/assets/TEMP/090648f9a1ce986a270896ac4f988f3196dc0460?width=594"
+              src="/solutions/Frame_2147226713.png"
               alt="Printing & Scanning"
               className="amenity-image"
               style={{

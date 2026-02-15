@@ -1,3 +1,5 @@
+import { STRIVE_LINKS } from '../links';
+
 const Footer = () => {
   return (
     <footer className="footer">
@@ -24,30 +26,30 @@ const Footer = () => {
                   <div className="footer-column">
                     <h4 className="footer-heading">Company</h4>
                     <ul className="footer-links">
-                      <li><a href="#" className="footer-link">Location</a></li>
-                      <li><a href="#" className="footer-link">Amenities</a></li>
-                      <li><a href="#" className="footer-link">Membership Options</a></li>
-                      <li><a href="#" className="footer-link">FAQs</a></li>
+                      <li><a href={STRIVE_LINKS.locations} className="footer-link" target="_blank" rel="noopener noreferrer">Location</a></li>
+                      <li><a href={STRIVE_LINKS.home} className="footer-link" target="_blank" rel="noopener noreferrer">Amenities</a></li>
+                      <li><a href={STRIVE_LINKS.pricing} className="footer-link" target="_blank" rel="noopener noreferrer">Membership Options</a></li>
+                      <li><a href={STRIVE_LINKS.home} className="footer-link" target="_blank" rel="noopener noreferrer">FAQs</a></li>
                     </ul>
                   </div>
 
                   <div className="footer-column">
                     <h4 className="footer-heading">Product</h4>
                     <ul className="footer-links">
-                      <li><a href="#" className="footer-link">Private Offices</a></li>
-                      <li><a href="#" className="footer-link">Coworking Spaces</a></li>
-                      <li><a href="#" className="footer-link">Meeting Rooms</a></li>
-                      <li><a href="#" className="footer-link">Schedule a Tour</a></li>
+                      <li><a href={STRIVE_LINKS.privateOffices} className="footer-link" target="_blank" rel="noopener noreferrer">Private Offices</a></li>
+                      <li><a href={STRIVE_LINKS.hotDesks} className="footer-link" target="_blank" rel="noopener noreferrer">Coworking Spaces</a></li>
+                      <li><a href={STRIVE_LINKS.meetingRooms} className="footer-link" target="_blank" rel="noopener noreferrer">Meeting Rooms</a></li>
+                      <li><a href={STRIVE_LINKS.scheduleTour} className="footer-link" target="_blank" rel="noopener noreferrer">Schedule a Tour</a></li>
                     </ul>
                   </div>
 
                   <div className="footer-column">
                     <h4 className="footer-heading">Resources</h4>
                     <ul className="footer-links">
-                      <li><a href="#" className="footer-link">Tour Checklist</a></li>
-                      <li><a href="#" className="footer-link">Workspace Guide</a></li>
-                      <li><a href="#" className="footer-link">Terms of Service</a></li>
-                      <li><a href="#" className="footer-link">Privacy Policy</a></li>
+                      <li><a href={STRIVE_LINKS.contact} className="footer-link" target="_blank" rel="noopener noreferrer">Tour Checklist</a></li>
+                      <li><a href={STRIVE_LINKS.home} className="footer-link" target="_blank" rel="noopener noreferrer">Workspace Guide</a></li>
+                      <li><a href={STRIVE_LINKS.terms} className="footer-link" target="_blank" rel="noopener noreferrer">Terms of Service</a></li>
+                      <li><a href={STRIVE_LINKS.privacy} className="footer-link" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
                     </ul>
                   </div>
                 </div>
@@ -58,9 +60,9 @@ const Footer = () => {
               <div className="footer-copyright">
                 <p className="footer-copyright-text">© 2026 Strive Workspaces. All rights reserved.</p>
                 <div className="footer-legal-links">
-                  <a href="#" className="footer-link">Privacy Policy</a>
+                  <a href={STRIVE_LINKS.privacy} className="footer-link" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
                   <span className="footer-bullet"> • </span>
-                  <a href="#" className="footer-link">Terms of Service</a>
+                  <a href={STRIVE_LINKS.terms} className="footer-link" target="_blank" rel="noopener noreferrer">Terms of Service</a>
                 </div>
               </div>
             </div>
@@ -78,20 +80,20 @@ const Footer = () => {
                 <div className="footer-column">
                   <h4 className="footer-heading">Product</h4>
                   <ul className="footer-links">
-                    <li><a href="#" className="footer-link">Private Offices</a></li>
-                    <li><a href="#" className="footer-link">Coworking Spaces</a></li>
-                    <li><a href="#" className="footer-link">Meeting Rooms</a></li>
-                    <li><a href="#" className="footer-link">Schedule a Tour</a></li>
+                    <li><a href={STRIVE_LINKS.privateOffices} className="footer-link" target="_blank" rel="noopener noreferrer">Private Offices</a></li>
+                    <li><a href={STRIVE_LINKS.hotDesks} className="footer-link" target="_blank" rel="noopener noreferrer">Coworking Spaces</a></li>
+                    <li><a href={STRIVE_LINKS.meetingRooms} className="footer-link" target="_blank" rel="noopener noreferrer">Meeting Rooms</a></li>
+                    <li><a href={STRIVE_LINKS.scheduleTour} className="footer-link" target="_blank" rel="noopener noreferrer">Schedule a Tour</a></li>
                   </ul>
                 </div>
 
                 <div className="footer-column">
                   <h4 className="footer-heading">Resources</h4>
                   <ul className="footer-links">
-                    <li><a href="#" className="footer-link">Tour Checklist</a></li>
-                    <li><a href="#" className="footer-link">Workspace Guide</a></li>
-                    <li><a href="#" className="footer-link">Terms of Service</a></li>
-                    <li><a href="#" className="footer-link">Privacy Policy</a></li>
+                    <li><a href={STRIVE_LINKS.contact} className="footer-link" target="_blank" rel="noopener noreferrer">Tour Checklist</a></li>
+                    <li><a href={STRIVE_LINKS.home} className="footer-link" target="_blank" rel="noopener noreferrer">Workspace Guide</a></li>
+                    <li><a href={STRIVE_LINKS.terms} className="footer-link" target="_blank" rel="noopener noreferrer">Terms of Service</a></li>
+                    <li><a href={STRIVE_LINKS.privacy} className="footer-link" target="_blank" rel="noopener noreferrer">Privacy Policy</a></li>
                   </ul>
                 </div>
               </div>

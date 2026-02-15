@@ -49,7 +49,7 @@ const FAQ = () => {
             Everything you need to know about our flexible private offices, high-speed fiber connectivity, and the
             strategic advantages of working in South Jersey's most professional business environment.
           </p>
-          <button className="btn-primary">Ask a Question</button>
+          <a className="btn-primary" href="https://striveworkspaces.com/contact-us/" target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', textDecoration: 'none' }}>Ask a Question</a>
         </div>
 
         <div className="faq-list-wrapper">

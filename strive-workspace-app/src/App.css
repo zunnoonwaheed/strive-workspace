@@ -66,6 +66,28 @@ body {
   }
 }
 
+@keyframes heroFadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroSectionReveal {
+  from {
+    opacity: 0;
+    transform: scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -73,6 +95,76 @@ body {
   to {
     opacity: 1;
   }
+}
+
+/* Scroll reveal: headings and text animate in when scrolled into view */
+.professional-title,
+.professional-description,
+.feature-title,
+.feature-description,
+.amenity-title,
+.amenity-description,
+.workspace-card-title,
+.workspace-card-subtitle,
+.workspace-card-description,
+.type-name,
+.type-description,
+.advantage-name,
+.advantage-desc,
+.advantage-description,
+.space-name,
+.space-description,
+.faq-question {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.professional-title.reveal-visible,
+.professional-description.reveal-visible,
+.feature-title.reveal-visible,
+.feature-description.reveal-visible,
+.amenity-title.reveal-visible,
+.amenity-description.reveal-visible,
+.workspace-card-title.reveal-visible,
+.workspace-card-subtitle.reveal-visible,
+.workspace-card-description.reveal-visible,
+.type-name.reveal-visible,
+.type-description.reveal-visible,
+.advantage-name.reveal-visible,
+.advantage-desc.reveal-visible,
+.advantage-description.reveal-visible,
+.space-name.reveal-visible,
+.space-description.reveal-visible,
+.faq-question.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.professional-description { transition-delay: 0.06s; }
+.professional-description.reveal-visible { transition-delay: 0.12s; }
+.feature-description { transition-delay: 0.06s; }
+.feature-description.reveal-visible { transition-delay: 0.12s; }
+.amenity-description { transition-delay: 0.06s; }
+.amenity-description.reveal-visible { transition-delay: 0.12s; }
+.workspace-card-subtitle { transition-delay: 0.06s; }
+.workspace-card-subtitle.reveal-visible { transition-delay: 0.12s; }
+.workspace-card-description { transition-delay: 0.06s; }
+.workspace-card-description.reveal-visible { transition-delay: 0.12s; }
+.type-description { transition-delay: 0.06s; }
+.type-description.reveal-visible { transition-delay: 0.12s; }
+.advantage-desc { transition-delay: 0.06s; }
+.advantage-desc.reveal-visible { transition-delay: 0.12s; }
+.advantage-description { transition-delay: 0.06s; }
+.advantage-description.reveal-visible { transition-delay: 0.12s; }
+.space-description { transition-delay: 0.06s; }
+.space-description.reveal-visible { transition-delay: 0.12s; }
+
+/* Advantage cards: always show heading and text on desktop (all 6 visible) */
+.advantage-card .advantage-name,
+.advantage-card .advantage-desc {
+  opacity: 1;
+  transform: none;
 }
 
 @keyframes slideInLeft {
@@ -410,6 +502,7 @@ img:hover {
   box-shadow: 0 4px 12px rgba(87, 95, 185, 0.3);
   white-space: nowrap;
   text-align: center;
+  text-align: center;
 }
 
 .nav-cta-btn:hover {
@@ -460,7 +553,7 @@ img:hover {
   margin: 0 auto;
   padding-top: 60px;
   padding-right: 60px;
-  padding-bottom: 60px;
+  padding-bottom: 24px;
   padding-left: 60px;
   position: relative;
   box-sizing: border-box;
@@ -476,11 +569,7 @@ img:hover {
   height: 631px;
   margin-bottom: 80px;
   box-shadow: none;
-  animation: fadeIn 0.8s ease-out;
-}
-
-.hero-section .hero-content {
-  animation: fadeInUp 1s ease-out 0.2s both;
+  animation: heroSectionReveal 0.9s ease-out both;
 }
 
 .hero-background {
@@ -521,6 +610,7 @@ img:hover {
   position: absolute;
   top: 0;
   left: 10px;
+  animation: heroFadeInUp 0.7s ease-out 0s both;
 }
 
 .hero-main-content {
@@ -544,6 +634,7 @@ img:hover {
   color: var(--core-white);
   max-width: 641px;
   line-height: 1.2;
+  animation: heroFadeInUp 0.7s ease-out 0.15s both;
 }
 
 .hero-description {
@@ -551,12 +642,14 @@ img:hover {
   font-weight: 500;
   color: var(--bg);
   line-height: 1.4;
+  animation: heroFadeInUp 0.7s ease-out 0.35s both;
 }
 
 .hero-actions {
   display: flex;
   gap: 12px;
   justify-content: center;
+  animation: heroFadeInUp 0.7s ease-out 0.55s both;
 }
 
 .btn-primary {
@@ -568,6 +661,7 @@ img:hover {
   font-size: 20px;
   font-weight: 600;
   border: none;
+  text-align: center;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
@@ -617,6 +711,7 @@ img:hover {
   font-family: 'DM Sans', sans-serif;
   font-size: 20px;
   font-weight: 600;
+  text-align: center;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   backdrop-filter: blur(10px);
@@ -779,8 +874,16 @@ img:hover {
   font-weight: 600;
   color: var(--neutral-800);
   margin-bottom: 12px;
-  animation: fadeInUp 0.8s ease-out;
   transform-origin: left;
+  /* scroll-reveal: initial state */
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.section-title.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 .section-title:hover {
@@ -791,8 +894,18 @@ img:hover {
   font-size: 24px;
   font-weight: 500;
   color: var(--neutral-600);
-  animation: fadeInUp 0.8s ease-out 0.2s both;
   transform-origin: left;
+  /* scroll-reveal: initial state, stagger after title */
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.55s ease-out, transform 0.55s ease-out;
+  transition-delay: 0.08s;
+}
+
+.section-description.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 0.15s;
 }
 
 .features-grid {
@@ -870,6 +983,7 @@ img:hover {
   font-weight: 500;
   border: none;
   cursor: pointer;
+  text-align: center;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -2153,7 +2267,7 @@ img:hover {
 .workspace-type-card {
   position: relative;
   width: 632.5px;
-  height: 760px;
+  height: 920px;
   filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.16));
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -2184,17 +2298,18 @@ img:hover {
   position: absolute;
   top: 111px;
   left: 41px;
+  right: 41px;
   width: 550px;
+  max-width: calc(100% - 82px);
   height: calc(100% - 191px);
   display: flex;
   flex-direction: column;
   gap: 28px;
   padding-bottom: 80px;
-  padding-right: 41px;
   z-index: 1;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   box-sizing: border-box;
-  max-width: calc(100% - 82px);
 }
 
 .card-header {
@@ -2203,7 +2318,7 @@ img:hover {
   gap: 20px;
   flex-shrink: 0;
   max-width: 100%;
-  overflow: hidden;
+  min-width: 0;
 }
 
 .type-icon {
@@ -2235,15 +2350,14 @@ img:hover {
   font-weight: 500;
   color: var(--neutral-600);
   line-height: 1.4;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-height: 84px;
+  display: block;
+  overflow: visible;
   word-wrap: break-word;
   overflow-wrap: break-word;
+  word-break: break-word;
   max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
 }
 
 .pricing {
@@ -2262,8 +2376,9 @@ img:hover {
   gap: 16px;
   margin-bottom: 0;
   padding-bottom: 0;
-  flex: 1;
+  flex: 1 1 auto;
   min-height: 0;
+  min-width: 0;
 }
 
 .features-list:last-child {
@@ -2276,7 +2391,7 @@ img:hover {
   gap: 13.5px;
   margin-bottom: 0;
   max-width: 100%;
-  overflow: hidden;
+  min-width: 0;
 }
 
 .feature-item:last-child {
@@ -2361,11 +2476,11 @@ img:hover {
 .advantage-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 24px;
+  gap: 28px 32px;
 }
 
 .advantage-card {
-  padding: 20px;
+  padding: 20px 0;
   background: transparent;
   border-radius: 0;
   display: flex;
@@ -2374,6 +2489,7 @@ img:hover {
   box-shadow: none;
   border: none;
   transition: none;
+  min-height: 0;
 }
 
 .advantage-card:hover {
@@ -2383,20 +2499,32 @@ img:hover {
 }
 
 .advantage-icon {
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  background: #E4E7F5;
-  border-radius: 8px;
+  background: #E0E3F3;
+  border-radius: 12px;
   padding: 0;
 }
 
 .advantage-icon svg {
   width: 24px;
   height: 24px;
+}
+
+.advantage-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+
+.advantage-icon:has(img) {
+  background: transparent;
+  padding: 0;
 }
 
 .advantage-text {
@@ -2504,8 +2632,10 @@ img:hover {
 
 .testimonial-controls {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
 }
 
 .control-btn {
@@ -2540,6 +2670,7 @@ img:hover {
   justify-content: center;
   gap: 8.4px;
   animation: fadeInUp 0.6s ease-out 0.4s both;
+  flex-shrink: 0;
 }
 
 .dot {
@@ -2752,7 +2883,7 @@ img:hover {
 
 /* Contact Section */
 .contact-section {
-  margin-bottom: 120px;
+  margin-bottom: 0;
   position: relative;
   transition: opacity 0.6s ease-out, transform 0.6s ease-out;
   background: transparent !important;
@@ -2766,7 +2897,7 @@ img:hover {
 .contact-content {
   display: flex;
   gap: 56px;
-  margin-bottom: 60px;
+  margin-bottom: 0;
   background: transparent !important;
   background-color: transparent !important;
   animation: slideUp 0.8s ease-out 0.2s both;
@@ -2831,13 +2962,16 @@ img:hover {
   max-width: 100%;
   padding: 0;
   box-sizing: border-box;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.16);
+  box-shadow: none;
   overflow-x: hidden;
   overflow-y: visible;
   background: transparent !important;
   background-color: transparent !important;
   background-image: none !important;
   border: none !important;
+  outline: none !important;
+  border-left: none !important;
+  border-right: none !important;
 }
 
 .contact-form-wrapper::before,
@@ -2848,11 +2982,15 @@ img:hover {
 }
 
 .contact-form-wrapper .form-background {
+  display: block !important;
   background: url('/subtract-3.png') no-repeat center !important;
   background-size: 100% 100% !important;
   background-color: transparent !important;
   background-image: url('/subtract-3.png') !important;
   border: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  outline: none !important;
   padding: 0 !important;
   margin: 0 !important;
 }
@@ -2883,8 +3021,9 @@ img:hover {
 
 .contact-form-wrapper .form-input,
 .contact-form-wrapper .form-select {
-  background: #FFFFFF !important;
-  background-color: #FFFFFF !important;
+  background: #F3F5FB !important;
+  background-color: #F3F5FB !important;
+  accent-color: #575FB9;
 }
 
 .form-background {
@@ -2905,6 +3044,9 @@ img:hover {
   pointer-events: none;
   display: block !important;
   border: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  outline: none !important;
   padding: 0 !important;
   margin: 0 !important;
 }
@@ -2966,7 +3108,7 @@ img:hover {
 .form-input {
   padding: 16px 20px;
   border-radius: 100px;
-  background: #FFFFFF;
+  background: #F3F5FB;
   border: none;
   font-family: 'DM Sans', sans-serif;
   font-size: 16px;
@@ -2979,7 +3121,8 @@ img:hover {
   transform-origin: center;
 }
 
-.form-input:focus {
+.form-input:focus,
+.form-input:focus-visible {
   outline: none;
   box-shadow: 0 0 0 3px rgba(87, 95, 185, 0.2);
 }
@@ -2996,7 +3139,7 @@ img:hover {
 .form-select {
   padding: 16px 20px;
   border-radius: 100px;
-  background: #FFFFFF;
+  background: #F3F5FB;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -3024,15 +3167,59 @@ img:hover {
   color: var(--neutral-400);
 }
 
-.btn-submit {
-  padding: 14px 40px;
-  border-radius: 100px;
-  background: #E4E7F5;
-  color: #343565;
+/* Native select styled to match form-select */
+.form-select.form-select-native {
+  width: 100%;
   font-family: 'DM Sans', sans-serif;
   font-size: 16px;
   font-weight: 500;
+  color: var(--neutral-800);
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg width='24' height='24' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7.41 15.41L12 10.83L16.59 15.41L18 14L12 8L6 14L7.41 15.41Z' fill='%23CFCFCF'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 16px center;
+  background-size: 24px 24px;
+  padding-right: 48px;
+  cursor: pointer;
+}
+
+.form-select.form-select-native:focus,
+.form-select.form-select-native:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(87, 95, 185, 0.2);
+}
+
+.form-select.form-select-native option {
+  background: #F3F5FB;
+  color: var(--neutral-800);
+}
+
+.form-select.form-select-native:invalid,
+.form-select.form-select-native option[value=""]:checked {
+  color: var(--neutral-400);
+}
+
+.form-success {
+  padding: 24px 0;
+  text-align: center;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--neutral-800);
+}
+
+.btn-submit {
+  padding: 14px 40px;
+  border-radius: 9999px;
+  background: #F3F5FB;
+  color: #333C67;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 600;
   border: none;
+  text-align: center;
   cursor: pointer;
   margin: 8px auto 0 auto;
   width: auto;
@@ -3048,6 +3235,7 @@ img:hover {
   overflow: hidden;
   animation: slideUp 0.6s ease-out;
   transform-origin: center;
+  box-shadow: 0 2px 12px rgba(51, 60, 103, 0.06);
 }
 
 .btn-submit::before {
@@ -3058,7 +3246,7 @@ img:hover {
   width: 0;
   height: 0;
   border-radius: 50%;
-  background: rgba(52, 53, 101, 0.1);
+  background: rgba(51, 60, 103, 0.06);
   transform: translate(-50%, -50%);
   transition: width 0.6s, height 0.6s;
 }
@@ -3069,13 +3257,14 @@ img:hover {
 }
 
 .btn-submit:hover {
-  opacity: 0.9;
-  transform: translateY(-2px) scale(1.02);
-  box-shadow: 0 8px 20px rgba(52, 53, 101, 0.3);
+  background: #F3F5FB;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(51, 60, 103, 0.1);
 }
 
 .btn-submit:active {
-  transform: translateY(0) scale(0.98);
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(51, 60, 103, 0.1);
 }
 
 .contact-section-image {
@@ -3143,6 +3332,7 @@ img:hover {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  margin-top: 16px;
 }
 
 .footer-logo {
@@ -3334,11 +3524,12 @@ img:hover {
     min-width: 0;
     padding: 0;
     box-sizing: border-box;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.16);
+    box-shadow: none;
     overflow-x: hidden;
   }
   
   .form-background {
+    display: block !important;
     background-size: 100% 100%;
   }
   
@@ -3350,7 +3541,7 @@ img:hover {
     box-sizing: border-box;
     overflow-x: hidden;
   }
-
+  
   .faq-list-wrapper {
     width: 100%;
   }
@@ -4178,6 +4369,8 @@ img:hover {
     background: #FFFFFF;
     padding-top: 24px;
     padding-bottom: 80px;
+    padding-left: 0;
+    padding-right: 0;
     overflow-x: hidden;
   }
 
@@ -4200,7 +4393,7 @@ img:hover {
     display: flex;
     flex-direction: row;
     width: 100%;
-    max-width: 100vw;
+    max-width: 100%;
     min-width: 0;
     gap: 0;
     overflow-x: auto;
@@ -4211,11 +4404,11 @@ img:hover {
     scrollbar-width: none;
     -ms-overflow-style: none;
     padding-bottom: 8px;
-    margin-left: -20px;
-    margin-right: -20px;
-    padding-left: 0;
-    padding-right: 0;
+    padding-left: 20px;
+    padding-right: 20px;
     box-sizing: border-box;
+    margin-left: 0;
+    margin-right: 0;
   }
 
   .workspace-types-grid::-webkit-scrollbar {
@@ -4226,7 +4419,8 @@ img:hover {
     flex: 0 0 100%;
     width: 100%;
     min-width: 0;
-    max-width: 100%;
+    max-width: calc(100vw - 40px);
+    width: calc(100vw - 40px);
     scroll-snap-align: center;
     scroll-snap-stop: always;
     height: auto;
@@ -4236,6 +4430,12 @@ img:hover {
     background: transparent;
     box-sizing: border-box;
     position: relative;
+    filter: none !important;
+    -webkit-filter: none !important;
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+    -webkit-box-shadow: none !important;
   }
 
   .card-background,
@@ -4249,6 +4449,9 @@ img:hover {
     background-position: center;
     background-repeat: no-repeat;
     z-index: 0;
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
   }
 
   .card-content {
@@ -4257,7 +4460,7 @@ img:hover {
     width: 100% !important;
     max-width: 100%;
     min-width: 0;
-    padding: 20px 16px 56px;
+    padding: 24px 36px 56px 20px;
     box-sizing: border-box;
     overflow-x: hidden;
     overflow-y: visible;
@@ -4266,6 +4469,9 @@ img:hover {
     display: flex;
     flex-direction: column;
     gap: 16px;
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
   }
 
   .card-header {
@@ -4277,42 +4483,47 @@ img:hover {
     box-sizing: border-box;
   }
 
-  .type-icon {
+  .workspace-type-card .type-icon {
     width: 64px;
     height: 64px;
     border-radius: 12px;
     object-fit: cover;
+    box-shadow: none !important;
   }
 
   .divider {
     background: #E0E0E0;
   }
 
-  .type-name {
+  .workspace-type-card .type-name {
     font-family: 'Playfair Display', serif;
     font-size: 20px;
     font-weight: 600;
     color: #2D2E30;
     max-width: 100%;
+    min-width: 0;
     word-break: break-word;
+    overflow-wrap: break-word;
   }
 
-  .type-description {
+  .workspace-type-card .type-description {
     font-size: 14px;
     line-height: 1.5;
     color: #596677;
     display: block;
     width: 100%;
     max-width: 100%;
-    min-width: 0;
+    min-width: 0 !important;
     -webkit-line-clamp: unset;
     -webkit-box-orient: unset;
-    overflow-wrap: break-word;
+    overflow-wrap: anywhere;
     word-break: break-word;
     hyphens: auto;
     box-sizing: border-box;
-    overflow-x: hidden;
-    overflow-y: visible;
+    overflow: visible;
+    white-space: normal;
+    word-wrap: break-word;
+    padding-right: 12px;
   }
 
   .pricing {
@@ -4373,13 +4584,14 @@ img:hover {
     font-size: 14px;
     line-height: 1.5;
     color: #596677;
-    min-width: 0;
+    min-width: 0 !important;
     width: 100%;
     max-width: 100%;
-    overflow-wrap: break-word;
+    overflow-wrap: anywhere;
     word-break: break-word;
     hyphens: auto;
     box-sizing: border-box;
+    padding-right: 12px;
   }
 
   /* Advantage Section */
@@ -4434,6 +4646,10 @@ img:hover {
     border: none;
   }
 
+  .advantage-card:nth-child(n+4) {
+    display: none;
+  }
+
   .advantage-icon {
     width: 40px;
     height: 40px;
@@ -4467,34 +4683,59 @@ img:hover {
   }
 
   .testimonial-container {
-    padding: 20px 16px;
+    padding: 0;
     border-radius: 16px;
-    background: #FAFAFA;
+    background: #FFFFFF;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+  }
+
+  .testimonial-container:hover {
+    transform: none;
+  }
+
+  .testimonial-container:hover .testimonial-image {
+    transform: none;
   }
 
   .testimonial-content {
-    gap: 16px;
+    gap: 0;
   }
 
   .testimonial-layout {
     flex-direction: column;
-    gap: 16px;
+    gap: 0;
   }
 
   .testimonial-image {
-    width: 200px;
-    height: 200px;
-    border-radius: 25px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    max-height: 280px;
+    object-fit: cover;
+    border-radius: 0;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
   }
 
   .testimonial-text-block {
-    gap: 16px;
+    gap: 12px;
+    padding: 24px 20px 16px;
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
   }
 
   .testimonial-quote {
     font-size: 14px;
     line-height: 1.6;
     font-weight: 400;
+    width: 100%;
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    box-sizing: border-box;
   }
 
   .testimonial-author {
@@ -4514,19 +4755,22 @@ img:hover {
 
   .testimonial-controls {
     flex-direction: row;
+    align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 16px;
+    padding: 20px 20px 24px;
   }
 
   .control-btn {
-    width: 40px;
-    height: 40px;
-    border-radius: 20px;
+    width: 44px;
+    height: 44px;
+    border-radius: 22px;
+    background: #E4E7F5;
   }
 
   .control-btn svg {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
   }
 
   .testimonial-pagination {
@@ -4536,6 +4780,11 @@ img:hover {
   .dot {
     width: 8px;
     height: 8px;
+    border-radius: 50%;
+  }
+
+  .dot.active {
+    background: var(--b-600);
   }
 
   /* FAQ Section */
@@ -4551,6 +4800,8 @@ img:hover {
 
   .faq-intro {
     width: 100%;
+    max-width: 100%;
+    min-width: 0;
     gap: 20px;
   }
 
@@ -4571,8 +4822,11 @@ img:hover {
 
   .faq-list-wrapper {
     width: 100%;
-    height: auto;
     max-width: 100%;
+    min-width: 0;
+    height: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
   }
 
   .faq-card-background {
@@ -4582,37 +4836,44 @@ img:hover {
   .faq-list {
     padding: 24px 16px;
     gap: 12px;
-  }
-
-  .faq-item {
-    padding: 16px;
-    border-radius: 12px;
-  }
-
-  .faq-list-wrapper {
     width: 100%;
-    height: auto;
     max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
   }
 
-  .faq-card-background {
-    display: block;
-    background-size: 100% 100%;
-  }
-
-  .faq-list {
-    padding: 24px 16px;
-    gap: 12px;
+  /* Show 4 FAQs on mobile (hide last 2) */
+  .faq-list .faq-item:nth-child(n+5) {
+    display: none;
   }
 
   .faq-item {
     padding: 16px;
     border-radius: 12px;
     background: var(--core-white);
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: hidden;
+    box-sizing: border-box;
+  }
+
+  /* First FAQ card: push whole card down so it sits lower in section */
+  .faq-list .faq-item:first-child {
+    margin-top: 71px;
+  }
+
+  /* Expanded FAQ: answer scrolls inside container (no extra space between question and answer) */
+  .faq-item.expanded .faq-answer {
+    max-height: 50vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
   }
 
   .faq-question-header {
-    align-items: center;
+    align-items: flex-start;
+    min-width: 0;
+    gap: 12px;
   }
 
   .faq-question {
@@ -4620,7 +4881,11 @@ img:hover {
     font-size: 15px;
     font-weight: 600;
     line-height: 1.4;
-    margin-right: 12px;
+    margin-right: 0;
+    flex: 1;
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
   }
 
   .faq-answer {
@@ -4629,10 +4894,17 @@ img:hover {
     text-align: left;
     margin-top: 16px;
     letter-spacing: 0.01em;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    box-sizing: border-box;
   }
 
   .faq-toggle {
     padding: 4px;
+    flex-shrink: 0;
   }
 
   .faq-toggle svg {
@@ -4642,7 +4914,7 @@ img:hover {
 
   /* Contact Section */
   .contact-section {
-    margin-bottom: 40px;
+    margin-bottom: 0;
   }
 
   .contact-content {
@@ -4660,12 +4932,12 @@ img:hover {
     min-width: 0;
     padding: 0;
     box-sizing: border-box;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.16);
+    box-shadow: none;
     overflow-x: hidden;
   }
   
   .form-background {
-    background-size: 100% 100%;
+    display: none !important;
   }
   
   .contact-form {
@@ -4713,7 +4985,7 @@ img:hover {
   }
 
   .form-background {
-    display: block;
+    display: block !important;
     background-size: 100% 100%;
   }
 
@@ -4731,13 +5003,13 @@ img:hover {
     font-size: 14px;
     border-radius: 100px;
     border: 1px solid #E8E8E8;
-    background: #FFFFFF;
+    background: #F3F5FB;
     height: 44px;
     box-sizing: border-box;
   }
   
   .form-select {
-    background: #FFFFFF;
+    background: #F3F5FB;
     height: 44px;
     box-sizing: border-box;
   }
@@ -4762,9 +5034,13 @@ img:hover {
     max-width: fit-content;
     margin: 8px auto 0 auto;
     font-size: 14px;
-    padding: 12px 24px;
-    background: #E4E7F5;
-    color: #343565;
+    font-weight: 600;
+    padding: 12px 28px;
+    background: #F3F5FB;
+    color: #333C67;
+    border: none;
+    border-radius: 9999px;
+    box-shadow: 0 2px 12px rgba(51, 60, 103, 0.06);
     height: auto;
     min-height: 44px;
   }
@@ -4812,6 +5088,7 @@ img:hover {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    margin-top: 20px;
   }
 
   .footer-logo {
@@ -4829,11 +5106,6 @@ img:hover {
 
   .footer-divider {
     margin: 24px 0;
-  }
-
-  .footer-links-container {
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
   }
 
   .footer-column {
@@ -5138,47 +5410,73 @@ img:hover {
   }
 
   .workspace-types-grid {
-    margin-left: -16px;
-    margin-right: -16px;
+    margin-left: 0;
+    margin-right: 0;
     padding-left: 0;
     padding-right: 0;
     gap: 0;
+    box-sizing: border-box;
   }
 
   .workspace-type-card {
     flex: 0 0 100%;
+    width: calc(100vw - 32px);
     min-width: 100%;
+    max-width: calc(100vw - 32px);
     border-radius: 0;
     min-height: 560px;
+    filter: none !important;
+    -webkit-filter: none !important;
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .workspace-type-card .card-background,
+  .workspace-type-card .card-frame-1,
+  .workspace-type-card .card-frame-2 {
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
   }
 
   .card-content {
-    padding: 18px 14px 56px;
+    padding: 24px 36px 56px 20px;
     width: 100% !important;
     max-width: 100%;
     overflow-x: hidden;
+    outline: none !important;
+    border: none !important;
+    box-shadow: none !important;
   }
 
-  .type-icon {
+  .workspace-type-card .type-icon {
     width: 56px;
     height: 56px;
+    box-shadow: none !important;
   }
 
   .type-name {
     font-size: 19px;
+    word-break: break-word;
+    overflow-wrap: break-word;
   }
 
-  .type-description {
+  .workspace-type-card .type-description {
     font-size: 13px;
     display: block;
     width: 100%;
     max-width: 100%;
-    min-width: 0;
+    min-width: 0 !important;
     -webkit-line-clamp: unset;
     -webkit-box-orient: unset;
     overflow: visible;
     max-height: none;
     word-break: break-word;
+    overflow-wrap: anywhere;
+    white-space: normal;
+    word-wrap: break-word;
+    padding-right: 12px;
   }
 
   .pricing {
@@ -5188,9 +5486,11 @@ img:hover {
   .workspace-type-card .feature-text {
     font-size: 12px;
     display: block;
-    min-width: 0;
+    min-width: 0 !important;
     max-width: 100%;
     word-break: break-word;
+    overflow-wrap: anywhere;
+    padding-right: 12px;
   }
 
   .advantage-hero-image {
@@ -5206,17 +5506,29 @@ img:hover {
   }
 
   .testimonial-container {
-    padding: 18px 14px;
+    padding: 0;
   }
 
   .testimonial-image {
-    width: 180px;
-    height: 180px;
-    border-radius: 22px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1;
+    max-height: 260px;
+    border-radius: 0;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+  }
+
+  .testimonial-text-block {
+    padding: 20px 16px 16px;
   }
 
   .testimonial-quote {
     font-size: 13px;
+  }
+
+  .testimonial-controls {
+    padding: 16px 16px 20px;
   }
 
   .author-name {
@@ -5227,12 +5539,24 @@ img:hover {
     font-size: 13px;
   }
 
+  .faq-item {
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  .faq-item.expanded .faq-answer {
+    max-height: 45vh;
+  }
+
   .faq-question {
     font-size: 14px;
+    min-width: 0;
   }
 
   .faq-answer {
     font-size: 12px;
+    min-width: 0;
   }
 
   .contact-form-wrapper {
@@ -5241,11 +5565,12 @@ img:hover {
     min-width: 0;
     padding: 0;
     box-sizing: border-box;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.16);
+    box-shadow: none;
     overflow-x: hidden;
   }
   
   .form-background {
+    display: block !important;
     background-size: 100% 100%;
   }
   
@@ -5272,20 +5597,26 @@ img:hover {
   .form-select {
     font-size: 13px;
     padding: 11px 14px;
-    background: #FFFFFF;
+    background: #F3F5FB;
     height: 40px;
     box-sizing: border-box;
   }
 
   .btn-submit {
     font-size: 13px;
-    padding: 11px 20px;
+    font-weight: 600;
+    padding: 11px 24px;
     width: auto;
     max-width: fit-content;
     height: auto;
     min-height: 40px;
     margin: 8px auto 0 auto;
     box-sizing: border-box;
+    background: #F3F5FB;
+    color: #333C67;
+    border: none;
+    border-radius: 9999px;
+    box-shadow: 0 2px 12px rgba(51, 60, 103, 0.06);
   }
 
   .footer-container {
@@ -5298,6 +5629,10 @@ img:hover {
 
   .footer-content-wrapper {
     padding: 40px 24px 44px;
+  }
+
+  .footer-brand {
+    margin-top: 16px;
   }
 
   .footer-logo {

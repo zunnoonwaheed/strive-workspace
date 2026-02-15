@@ -1,4 +1,37 @@
+import { useState } from 'react';
+
+const SPACE_TYPES = [
+  'Private Office',
+  'Hot Desks/Coworking',
+  'Dedicated Desk',
+  'Meeting Room',
+  'Virtual Office',
+];
+
+const SEAT_OPTIONS = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '10+'];
+
+const LOCATIONS = [
+  'Select a Location',
+  'Marlton',
+  'Philadelphia',
+  'New York',
+  'Other',
+];
+
 const Contact = () => {
+  const [fullName, setFullName] = useState('');
+  const [email, setEmail] = useState('');
+  const [spaceType, setSpaceType] = useState('Private Office');
+  const [numberOfSeats, setNumberOfSeats] = useState('1');
+  const [location, setLocation] = useState('');
+  const [submitted, setSubmitted] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setSubmitted(true);
+    // In a real app you would send to an API or email service here
+  };
+
   return (
     <section className="contact-section" style={{
       background: 'transparent',
@@ -53,50 +86,93 @@ const Contact = () => {
           <form className="contact-form" style={{
             background: 'transparent',
             backgroundColor: 'transparent'
-          }}>
-            <div className="form-group">
-              <label className="form-label">Full Name</label>
-              <input type="text" className="form-input" placeholder="Jane Smith" />
-            </div>
-
-            <div className="form-group">
-              <label className="form-label">Email Address</label>
-              <input type="email" className="form-input" placeholder="jane@work.com" />
-            </div>
-
-            <div className="form-group">
-              <label className="form-label">Space Type</label>
-              <div className="form-select">
-                <span className="select-text">Private Office</span>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M7.41 15.41L12 10.83L16.59 15.41L18 14L12 8L6 14L7.41 15.41Z" fill="#CFCFCF"/>
-                </svg>
+          }} onSubmit={handleSubmit}>
+            {submitted ? (
+              <div className="form-success">
+                <p>Thanks! We&apos;ll get back to you within 24 hours.</p>
               </div>
-            </div>
+            ) : (
+              <>
+                <div className="form-group">
+                  <label className="form-label" htmlFor="contact-fullName">Full Name</label>
+                  <input
+                    id="contact-fullName"
+                    type="text"
+                    name="fullName"
+                    className="form-input"
+                    placeholder="Jane Smith"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
+                    required
+                  />
+                </div>
 
-            <div className="form-group">
-              <label className="form-label">Number Of Seats</label>
-              <div className="form-select">
-                <span className="select-text">1</span>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M7.41 15.41L12 10.83L16.59 15.41L18 14L12 8L6 14L7.41 15.41Z" fill="#CFCFCF"/>
-                </svg>
-              </div>
-            </div>
+                <div className="form-group">
+                  <label className="form-label" htmlFor="contact-email">Email Address</label>
+                  <input
+                    id="contact-email"
+                    type="email"
+                    name="email"
+                    className="form-input"
+                    placeholder="jane@work.com"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    required
+                  />
+                </div>
 
-            <div className="form-group">
-              <label className="form-label">Location</label>
-              <div className="form-select">
-                <span className="select-text">Select a Location</span>
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M7.41 15.41L12 10.83L16.59 15.41L18 14L12 8L6 14L7.41 15.41Z" fill="#CFCFCF"/>
-                </svg>
-              </div>
-            </div>
+                <div className="form-group">
+                  <label className="form-label" htmlFor="contact-spaceType">Space Type</label>
+                  <select
+                    id="contact-spaceType"
+                    name="spaceType"
+                    className="form-select form-select-native"
+                    value={spaceType}
+                    onChange={(e) => setSpaceType(e.target.value)}
+                  >
+                    {SPACE_TYPES.map((opt) => (
+                      <option key={opt} value={opt}>{opt}</option>
+                    ))}
+                  </select>
+                </div>
 
-            <div className="form-group">
-              <button type="submit" className="btn-submit">Submit</button>
-            </div>
+                <div className="form-group">
+                  <label className="form-label" htmlFor="contact-seats">Number Of Seats</label>
+                  <select
+                    id="contact-seats"
+                    name="numberOfSeats"
+                    className="form-select form-select-native"
+                    value={numberOfSeats}
+                    onChange={(e) => setNumberOfSeats(e.target.value)}
+                  >
+                    {SEAT_OPTIONS.map((opt) => (
+                      <option key={opt} value={opt}>{opt}</option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <label className="form-label" htmlFor="contact-location">Location</label>
+                  <select
+                    id="contact-location"
+                    name="location"
+                    className="form-select form-select-native"
+                    value={location}
+                    onChange={(e) => setLocation(e.target.value)}
+                  >
+                    {LOCATIONS.map((opt) => (
+                      <option key={opt} value={opt === 'Select a Location' ? '' : opt}>
+                        {opt}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="form-group">
+                  <button type="submit" className="btn-submit">Submit</button>
+                </div>
+              </>
+            )}
           </form>
         </div>
       </div>
