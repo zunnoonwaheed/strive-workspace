@@ -20,7 +20,7 @@ const StatsBar = () => {
 
   return (
     <div className="stats-bar">
-      <p className="partners-intro">We are partners with:</p>
+      <p className="partners-intro">Join Us at These Locations</p>
       <div className="marquee-container">
         <div className="marquee-track">
           {marqueePartners.map((partner, index) => (

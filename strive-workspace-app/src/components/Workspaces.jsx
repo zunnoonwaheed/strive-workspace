@@ -53,7 +53,7 @@ const Workspaces = () => {
 
         <div className="professional-card">
           <img
-            src="https://api.builder.io/api/v1/image/assets/TEMP/6cb69d8089f50ce1aa8a4b7a2f8508d47e44e0d4?width=835"
+            src="/workspace-growing-teams.webp"
             alt="Growing Teams"
             className="professional-image"
           />

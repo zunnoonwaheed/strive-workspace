@@ -3,6 +3,8 @@ import { STRIVE_LINKS } from '../links';
 
 const WorkspaceDesigns = () => {
   const carouselRef = useRef(null);
+  const isArrowClickRef = useRef(false);
+  const pauseAutoScrollRef = useRef(null);
 
   const workspaces = [
     {
@@ -35,7 +37,7 @@ const WorkspaceDesigns = () => {
       price: '$160',
       period: 'hr',
       description: 'Versatile venues for workshops, seminars, and networking events.',
-      image: 'https://api.builder.io/api/v1/image/assets/TEMP/6cb69d8089f50ce1aa8a4b7a2f8508d47e44e0d4?width=835',
+      image: '/workspace-event-spaces.webp',
     },
     {
       id: 5,
@@ -58,17 +60,81 @@ const WorkspaceDesigns = () => {
   // Duplicate workspaces for seamless infinite scroll
   const duplicatedWorkspaces = [...workspaces, ...workspaces];
 
+  const scrollToNext = () => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+    const firstCard = carousel.querySelector('.workspace-type-card-carousel');
+    if (!firstCard) return;
+    const computedStyle = window.getComputedStyle(carousel);
+    const gap = parseFloat(computedStyle.gap) || 24;
+    const cardWidth = firstCard.offsetWidth + gap;
+    const currentScroll = carousel.scrollLeft;
+    const targetScroll = currentScroll + cardWidth;
+    
+    // Mark as arrow click and pause auto-scroll
+    isArrowClickRef.current = true;
+    if (pauseAutoScrollRef.current) {
+      pauseAutoScrollRef.current(true);
+    }
+    
+    carousel.scrollTo({ left: targetScroll, behavior: 'smooth' });
+    
+    // Reset flag and resume auto-scroll after scroll completes
+    setTimeout(() => {
+      isArrowClickRef.current = false;
+      if (pauseAutoScrollRef.current) {
+        pauseAutoScrollRef.current(false);
+      }
+    }, 800);
+  };
+
+  const scrollToPrev = () => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+    const firstCard = carousel.querySelector('.workspace-type-card-carousel');
+    if (!firstCard) return;
+    const computedStyle = window.getComputedStyle(carousel);
+    const gap = parseFloat(computedStyle.gap) || 24;
+    const cardWidth = firstCard.offsetWidth + gap;
+    const currentScroll = carousel.scrollLeft;
+    const targetScroll = currentScroll - cardWidth;
+    
+    // Mark as arrow click and pause auto-scroll
+    isArrowClickRef.current = true;
+    if (pauseAutoScrollRef.current) {
+      pauseAutoScrollRef.current(true);
+    }
+    
+    carousel.scrollTo({ left: targetScroll, behavior: 'smooth' });
+    
+    // Reset flag and resume auto-scroll after scroll completes
+    setTimeout(() => {
+      isArrowClickRef.current = false;
+      if (pauseAutoScrollRef.current) {
+        pauseAutoScrollRef.current(false);
+      }
+    }, 800);
+  };
+
   useEffect(() => {
     const carousel = carouselRef.current;
     if (!carousel) return;
 
     let scrollPosition = 0;
-    const scrollSpeed = 1.5; // pixels per frame (increased for faster scrolling)
+    const scrollSpeed = 4; // pixels per frame (increased for faster, smoother scrolling)
     let isPaused = false;
     let animationFrameId = null;
     let userScrollTimeout = null;
     let lastScrollLeft = 0;
     let isUserScrolling = false;
+
+    // Expose pause function to arrow handlers
+    pauseAutoScrollRef.current = (pause) => {
+      isPaused = pause;
+      if (!pause) {
+        scrollPosition = carousel.scrollLeft;
+      }
+    };
 
     const getCardWidth = () => {
       const firstCard = carousel.querySelector('.workspace-type-card-carousel');
@@ -132,6 +198,12 @@ const WorkspaceDesigns = () => {
     };
 
     const handleScroll = () => {
+      // Ignore scroll events triggered by arrow clicks
+      if (isArrowClickRef.current) {
+        lastScrollLeft = carousel.scrollLeft;
+        return;
+      }
+      
       // Detect if user is manually scrolling
       const currentScrollLeft = carousel.scrollLeft;
       const scrollDifference = Math.abs(currentScrollLeft - lastScrollLeft);
@@ -186,6 +258,15 @@ const WorkspaceDesigns = () => {
       </div>
 
       <div className="workspace-types-carousel-wrapper">
+        <button 
+          className="carousel-arrow carousel-arrow-left"
+          onClick={scrollToPrev}
+          aria-label="Previous workspace"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
         <div 
           ref={carouselRef}
           className="workspace-types-carousel"
@@ -211,6 +292,16 @@ const WorkspaceDesigns = () => {
             </div>
           ))}
         </div>
+        <button 
+          className="carousel-arrow carousel-arrow-right"
+          onClick={scrollToNext}
+          
+          aria-label="Next workspace"
+        >
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          </svg>
+        </button>
       </div>
     </section>
   );

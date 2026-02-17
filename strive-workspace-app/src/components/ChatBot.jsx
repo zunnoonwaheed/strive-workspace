@@ -107,7 +107,7 @@ const ChatBot = ({ isOpen, onClose }) => {
     if (isOpen && messages.length === 0) {
       const welcomeMessage = {
         role: 'bot',
-        content: "👋 Hi there! I'm your AI assistant for Strive Workspaces! I can help you learn about our flexible coworking spaces, private offices, meeting rooms, and more. Feel free to ask me anything, or I can help you find the perfect workspace solution. What would you like to know?"
+        content: "Hi there! 👋\n\nI'm your AI assistant for Strive Workspaces!\n\nI can help you learn about our flexible coworking spaces, private offices, meeting rooms, and more.\n\nHow can I help you today?"
       };
       setMessages([welcomeMessage]);
       setShowQuickActions(true);
@@ -157,6 +157,13 @@ const ChatBot = ({ isOpen, onClose }) => {
     }
     if (input.includes('support') || input.includes('help') || input.includes('contact') || input.includes('phone') || input.includes('email') || input.includes('reach')) {
       return { type: 'question', topic: 'support' };
+    }
+    // Check for live agent requests
+    if (input.includes('live agent') || input.includes('human agent') || input.includes('real person') || 
+        input.includes('speak to someone') || input.includes('talk to someone') || 
+        input.includes('connect me with') || input.includes('transfer to') ||
+        (input.includes('agent') && (input.includes('connect') || input.includes('speak') || input.includes('talk')))) {
+      return { type: 'question', topic: 'schedule_call' };
     }
     // Check if user wants to schedule call/meeting/callback and doesn't want to chat - MAIN GOAL: CAPTURE EMAIL & PHONE
     const scheduleKeywords = [

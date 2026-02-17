@@ -1465,6 +1465,46 @@ img:hover {
   padding: 0 50px;
 }
 
+.carousel-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 100;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--core-white);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  color: var(--b-600);
+  pointer-events: auto;
+  user-select: none;
+}
+
+.carousel-arrow:hover {
+  background: var(--b-600);
+  color: var(--core-white);
+  box-shadow: 0 4px 12px rgba(87, 95, 185, 0.3);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-arrow:active {
+  transform: translateY(-50%) scale(0.95);
+}
+
+.carousel-arrow-left {
+  left: 0;
+}
+
+.carousel-arrow-right {
+  right: 0;
+}
+
 .workspace-types-carousel {
   display: flex;
   gap: 24px;
@@ -4225,10 +4265,24 @@ img:hover {
   }
 
   .workspace-types-carousel-wrapper {
-    padding: 0;
+    padding: 0 50px;
     margin-top: 0;
     overflow: hidden;
     width: 100%;
+    position: relative;
+  }
+
+  .carousel-arrow {
+    width: 36px;
+    height: 36px;
+  }
+
+  .carousel-arrow-left {
+    left: 8px;
+  }
+
+  .carousel-arrow-right {
+    right: 8px;
   }
 
   .workspace-types-carousel {
@@ -5580,10 +5634,24 @@ img:hover {
   }
 
   .workspace-types-carousel-wrapper {
-    padding: 0;
+    padding: 0 50px;
     margin-top: 0;
     overflow: hidden;
     width: 100%;
+    position: relative;
+  }
+
+  .carousel-arrow {
+    width: 36px;
+    height: 36px;
+  }
+
+  .carousel-arrow-left {
+    left: 8px;
+  }
+
+  .carousel-arrow-right {
+    right: 8px;
   }
 
   .workspace-types-carousel {
