@@ -8,6 +8,7 @@ import Features from './components/Features';
 import Workspaces from './components/Workspaces';
 import WorkspaceDesigns from './components/WorkspaceDesigns';
 import FindSpace from './components/FindSpace';
+import Gallery from './components/Gallery';
 import PrimeDesk from './components/PrimeDesk';
 import Solutions from './components/Solutions';
 import WorkspaceTypes from './components/WorkspaceTypes';
@@ -20,6 +21,7 @@ import './App.css';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const [isChatOpen, setIsChatOpen] = useState(false);
   // Scroll-triggered reveal for headings and text across the site
   useEffect(() => {
     if (isLoading) return;
@@ -72,11 +74,27 @@ function App() {
       '.faq-intro .section-title',
       '.faq-intro .section-description',
       '.workspaces-header .section-title',
-      '.workspaces-header .section-description'
+      '.workspaces-header .section-description',
+      '.gallery-header .section-title',
+      '.gallery-header .section-description'
     ];
 
     const revealElements = document.querySelectorAll(revealSelectors.join(', '));
-    revealElements.forEach((el) => revealObserver.observe(el));
+    
+    // Immediately mark elements already in viewport as visible, and also mark first elements
+    revealElements.forEach((el) => {
+      const rect = el.getBoundingClientRect();
+      const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+      const isFirstInSection = el.previousElementSibling === null || 
+                                el.previousElementSibling.classList.contains('section-title') ||
+                                el.previousElementSibling.classList.contains('section-description');
+      
+      if (isInViewport || isFirstInSection) {
+        el.classList.add('reveal-visible');
+      } else {
+        revealObserver.observe(el);
+      }
+    });
 
     return () => {
       revealElements.forEach((el) => revealObserver.unobserve(el));
@@ -102,14 +120,15 @@ function App() {
       {isLoading && <Preloader onComplete={handlePreloaderComplete} />}
       <div className={isLoading ? 'app-content-loading' : 'app-content-loaded'}>
         <Header />
-        <ChatButton />
+        <ChatButton isChatOpen={isChatOpen} setIsChatOpen={setIsChatOpen} />
         <div className="page-container">
-          <Hero />
+          <Hero onOpenChat={() => setIsChatOpen(true)} />
           <StatsBar />
           <Workspaces />
           <Features />
           <WorkspaceDesigns />
           <FindSpace />
+          <Gallery />
           <PrimeDesk />
           <Solutions />
           <WorkspaceTypes />

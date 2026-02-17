@@ -1,6 +1,41 @@
+import { useState } from 'react';
 import { STRIVE_LINKS } from '../links';
 
-const Hero = () => {
+const Hero = ({ onOpenChat }) => {
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  const handleChatClick = () => {
+    // Trigger pop animation
+    setIsAnimating(true);
+    setTimeout(() => setIsAnimating(false), 300);
+
+    // Play pop sound
+    try {
+      const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+      const oscillator = audioContext.createOscillator();
+      const gainNode = audioContext.createGain();
+      
+      oscillator.connect(gainNode);
+      gainNode.connect(audioContext.destination);
+      
+      oscillator.frequency.value = 800;
+      oscillator.type = 'sine';
+      
+      gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+      gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.1);
+      
+      oscillator.start(audioContext.currentTime);
+      oscillator.stop(audioContext.currentTime + 0.1);
+    } catch (e) {
+      // Fallback: silent if audio fails
+    }
+
+    // Open chat interface
+    if (onOpenChat) {
+      onOpenChat();
+    }
+  };
+
   return (
     <section className="hero-section">
       <div className="hero-background">
@@ -29,21 +64,32 @@ const Hero = () => {
 
           <div className="hero-actions">
             <a className="btn-primary" href={STRIVE_LINKS.scheduleTour} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', textDecoration: 'none' }}>Schedule a Tour</a>
-            <button className="btn-secondary">Chat With Us Now</button>
+            <button 
+              className={`btn-secondary ${isAnimating ? 'chat-pop-animation' : ''}`}
+              onClick={handleChatClick}
+            >
+              Chat With Us Now
+            </button>
           </div>
         </div>
 
-        <div className="location-card">
+        <a 
+          href={STRIVE_LINKS.marlton}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="location-card"
+          style={{ textDecoration: 'none', display: 'block' }}
+        >
           <img
-            src="https://api.builder.io/api/v1/image/assets/TEMP/fb75501e0d525fe5d00d0d78e1382ccfeb168784?width=592"
-            alt="Evesham District location"
+            src="/marlton-location.webp"
+            alt="Marlton, New Jersey location"
             className="location-image"
           />
           <div className="location-info">
-            <p className="location-district">Evesham District</p>
+            <p className="location-district">Marlton, NJ</p>
             <h3 className="location-title">New Location Active</h3>
           </div>
-        </div>
+        </a>
       </div>
     </section>
   );

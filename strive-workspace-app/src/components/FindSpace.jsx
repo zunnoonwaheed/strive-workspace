@@ -55,7 +55,6 @@ const FindSpace = () => {
 
           <form className="filter-form" onSubmit={handleFindSpaces}>
             <div className="filter-group" ref={regionRef}>
-              <label className="filter-label">Select Region</label>
               <div
                 className="filter-select filter-select-trigger"
                 role="button"
@@ -64,6 +63,7 @@ const FindSpace = () => {
                 onKeyDown={(e) => e.key === 'Enter' && setRegionOpen((o) => !o)}
                 aria-expanded={regionOpen}
                 aria-haspopup="listbox"
+                aria-label="Select Region"
               >
                 <span className={region ? '' : 'filter-select-placeholder'}>{regionLabel}</span>
               </div>
@@ -87,7 +87,6 @@ const FindSpace = () => {
               )}
             </div>
             <div className="filter-group" ref={typeRef}>
-              <label className="filter-label">Select Workspace Type</label>
               <div
                 className="filter-select filter-select-trigger"
                 role="button"
@@ -96,6 +95,7 @@ const FindSpace = () => {
                 onKeyDown={(e) => e.key === 'Enter' && setTypeOpen((o) => !o)}
                 aria-expanded={typeOpen}
                 aria-haspopup="listbox"
+                aria-label="Select Workspace Type"
               >
                 <span className={workspaceType ? '' : 'filter-select-placeholder'}>{typeLabel}</span>
               </div>

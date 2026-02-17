@@ -8,19 +8,19 @@ const testimonialsData = [
     title: "Agency Founder",
   },
   {
-    image: "https://api.builder.io/api/v1/image/assets/TEMP/206d688d0c43da9917b550a2ee25af9ab7bbbdd5?width=674",
+    image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=400&h=400&fit=crop&crop=faces",
     quote: "The flexible workspace options at Strive allowed our team to scale without the hassle of long-term leases. We love the professional environment and the community of like-minded entrepreneurs.",
     name: "Sarah Chen",
     title: "Startup CEO",
   },
   {
-    image: "https://api.builder.io/api/v1/image/assets/TEMP/206d688d0c43da9917b550a2ee25af9ab7bbbdd5?width=674",
+    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=faces",
     quote: "Best decision we made for our remote team. The meeting rooms are always available, and the high-speed internet keeps us connected with clients worldwide.",
     name: "James Rivera",
     title: "Tech Lead",
   },
   {
-    image: "https://api.builder.io/api/v1/image/assets/TEMP/206d688d0c43da9917b550a2ee25af9ab7bbbdd5?width=674",
+    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=faces",
     quote: "Strive's Marlton location is perfect for our hybrid workforce. Professional setting, great amenities, and the staff goes above and beyond.",
     name: "Emily Foster",
     title: "Operations Director",

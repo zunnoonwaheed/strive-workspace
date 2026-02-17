@@ -5,7 +5,7 @@ const PrimeDesk = () => {
     <section className="prime-desk-section">
       <div className="prime-desk-content">
         <div className="prime-desk-text">
-          <h2 className="section-title">Prime Marlton Office Space — Strategic Location in South Jersey</h2>
+          <h2 className="section-title">Prime Marlton Office Space Strategic Location in South Jersey</h2>
           <p className="section-description">
             Located at the intersection of Route 73 and Route 70, our Marlton office space puts you minutes from the NJ Turnpike, Cherry Hill, Mount Laurel, and Burlington County's professional business ecosystem.
           </p>

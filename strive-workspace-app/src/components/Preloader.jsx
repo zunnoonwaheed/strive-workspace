@@ -59,7 +59,7 @@ const Preloader = ({ onComplete }) => {
             <div className="progress-fill"></div>
           </div>
         </div>
-        <p className="preloader-text">Preparing your workspace...</p>
+        <p className="preloader-text">Flexible Coworking Built for Growth</p>
       </div>
     </div>
   );

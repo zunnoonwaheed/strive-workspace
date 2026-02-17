@@ -7,7 +7,7 @@ const WorkspaceTypes = () => {
       name: "Hot Desks/Coworking",
       description: "Flexible, day-pass or membership-based workspaces for freelancers, remote workers, and flexible professionals. Perfect for those who need workspace without long-term commitment.",
       pricing: "Starting from $25/day or $150/month",
-      image: "https://api.builder.io/api/v1/image/assets/TEMP/dd95b01da0823d5f625438e2f9eed069b4045a29?width=258",
+      image: "/workspace-hot-desks.webp",
       features: [
         "Flexible daily, weekly, or monthly passes",
         "First-come, first-served seating",
@@ -20,7 +20,7 @@ const WorkspaceTypes = () => {
       name: "Meeting Rooms",
       description: "Professional meeting room rentals in Marlton by the hour. Conference spaces with AV technology, whiteboards, and presentation equipment — ideal for client meetings, team workshops, and training sessions in South Jersey.",
       pricing: "Starting from $45/hour",
-      image: "https://api.builder.io/api/v1/image/assets/TEMP/da24caef5b16a5410c070a500e7ecfaebf6d923d?width=258",
+      image: "/workspace-meeting-rooms.webp",
       features: [
         "4K video conferencing and smart boards",
         "Capacity from 4 to 50+ people",
@@ -33,7 +33,7 @@ const WorkspaceTypes = () => {
       name: "Private Office",
       description: "Private office space for rent in Marlton with flexible month-to-month leasing. Fully-furnished executive suites perfect for consultants, startups, and growing teams in South Jersey.",
       pricing: "Starting from $800/month",
-      image: "https://api.builder.io/api/v1/image/assets/TEMP/a92347875beeccd7db59f05c9b267abd86e11728?width=258",
+      image: "/workspace-private-office.webp",
       features: [
         "Customizable layouts from 100–500+ sq ft",
         "Private bathrooms and kitchenette access",
@@ -46,7 +46,7 @@ const WorkspaceTypes = () => {
       name: "Dedicated Desks",
       description: "Reserved dedicated desk in Marlton's premier coworking space. Your personal workspace with the networking benefits of shared office space — includes 24/7 access, high-speed internet, and meeting room credits.",
       pricing: "Starting from $350/month",
-      image: "https://api.builder.io/api/v1/image/assets/TEMP/dd95b01da0823d5f625438e2f9eed069b4045a29?width=258",
+      image: "/workspace-dedicated-desks.webp",
       features: [
         "Ergonomic desk setup with dual monitor support",
         "24/7 building access with secure entry",
