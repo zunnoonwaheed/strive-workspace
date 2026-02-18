@@ -63,6 +63,8 @@ const Footer = () => {
                   <a href={STRIVE_LINKS.privacy} className="footer-link" target="_blank" rel="noopener noreferrer">Privacy Policy</a>
                   <span className="footer-bullet"> • </span>
                   <a href={STRIVE_LINKS.terms} className="footer-link" target="_blank" rel="noopener noreferrer">Terms of Service</a>
+                  <span className="footer-bullet"> • </span>
+                  <a href="/admin" className="footer-admin-link">Admin</a>
                 </div>
               </div>
             </div>
@@ -102,6 +104,7 @@ const Footer = () => {
 
               <div className="footer-copyright">
                 <p>© 2026 Strive Workspaces. All rights reserved.</p>
+                <a href="/admin" className="footer-admin-link">Admin</a>
               </div>
             </div>
           </div>

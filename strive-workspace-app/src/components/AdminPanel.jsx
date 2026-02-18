@@ -6,7 +6,7 @@ const AdminPanel = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [token, setToken] = useState(localStorage.getItem('admin_token'));
+  const [token, setToken] = useState(null);
   const [conversations, setConversations] = useState([]);
   const [sessions, setSessions] = useState([]);
   const [selectedSession, setSelectedSession] = useState(null);
@@ -22,6 +22,7 @@ const AdminPanel = () => {
   const [newPassword, setNewPassword] = useState('');
   const [editingUser, setEditingUser] = useState(null);
 
+  // Only allow access after successful login in this session (no auto-login from storage)
   useEffect(() => {
     if (token) {
       setIsAuthenticated(true);
@@ -241,7 +242,8 @@ const AdminPanel = () => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 required
-                placeholder="admin"
+                placeholder="Enter username"
+                autoComplete="username"
               />
             </div>
             <div className="form-group">
@@ -251,14 +253,14 @@ const AdminPanel = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                placeholder="admin123"
+                placeholder="Enter password"
+                autoComplete="current-password"
               />
             </div>
             <button type="submit" disabled={loading} className="btn-login">
               {loading ? 'Logging in...' : 'Login'}
             </button>
           </form>
-          <p className="login-hint">Default: admin / admin123</p>
         </div>
       </div>
     );
