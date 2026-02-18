@@ -1,8 +1,8 @@
 {
-  "buildCommand": "cd strive-workspace-app && npm run build",
-  "outputDirectory": "strive-workspace-app/dist",
-  "devCommand": "cd strive-workspace-app && npm run dev",
-  "installCommand": "cd strive-workspace-app && npm install",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "devCommand": "npm run dev",
+  "installCommand": "npm install",
   "framework": "vite",
   "rewrites": [
     {
