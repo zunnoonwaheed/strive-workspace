@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import './ChatBot.css';
+import { API_ENDPOINTS } from '../config';
 
 const ChatBot = ({ isOpen, onClose }) => {
   const [messages, setMessages] = useState([]);
@@ -33,7 +34,7 @@ const ChatBot = ({ isOpen, onClose }) => {
   // Function to save conversation to backend
   const saveConversation = async (userMessage, botResponse, intentTopic = null) => {
     try {
-      await fetch('http://localhost:3001/api/conversations', {
+      await fetch(API_ENDPOINTS.conversations, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

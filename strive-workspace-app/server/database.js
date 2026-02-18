@@ -6,7 +6,9 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const dbPath = path.join(__dirname, 'chatbot.db');
+// Use persistent storage path in production, local path in development
+const dataDir = process.env.NODE_ENV === 'production' ? '/app/data' : __dirname;
+const dbPath = path.join(dataDir, 'chatbot.db');
 const db = new sqlite3.Database(dbPath);
 
 // Promisify database methods

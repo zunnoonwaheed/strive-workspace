@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import './AdminPanel.css';
-
-const API_URL = 'http://localhost:3001/api';
+import { API_URL } from '../config';
 
 const AdminPanel = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
