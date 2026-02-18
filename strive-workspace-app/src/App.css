@@ -819,8 +819,8 @@ img:hover {
 
 .marquee-container {
   width: 100%;
-  overflow: hidden;
   position: relative;
+  overflow: hidden;
 }
 
 .marquee-track {
@@ -1265,10 +1265,19 @@ img:hover {
 .filter-select-trigger {
   user-select: none;
   cursor: pointer;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 .filter-select-placeholder {
   color: var(--neutral-400);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: block;
 }
 
 .filter-select-dropdown {
@@ -1503,6 +1512,176 @@ img:hover {
 
 .carousel-arrow-right {
   right: 0;
+}
+
+/* Carousel Dot Indicators */
+.carousel-dots {
+  display: flex; /* Show dots on all devices */
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 0 20px;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(87, 95, 185, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.carousel-dot:hover {
+  background: rgba(87, 95, 185, 0.5);
+  transform: scale(1.2);
+}
+
+.carousel-dot.active {
+  background: var(--b-600);
+  width: 24px;
+  height: 8px;
+  border-radius: 4px;
+}
+
+/* Gallery Dot Indicators */
+.gallery-dots {
+  display: flex; /* Show on all devices */
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 0 20px;
+}
+
+.gallery-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(87, 95, 185, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.gallery-dot:hover {
+  background: rgba(87, 95, 185, 0.5);
+  transform: scale(1.2);
+}
+
+.gallery-dot.active {
+  background: var(--b-600);
+  width: 24px;
+  height: 8px;
+  border-radius: 4px;
+}
+
+/* Professionals Dot Indicators */
+.professionals-dots {
+  display: flex; /* Show on all devices */
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 0 20px;
+}
+
+.professionals-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(87, 95, 185, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.professionals-dot:hover {
+  background: rgba(87, 95, 185, 0.5);
+  transform: scale(1.2);
+}
+
+.professionals-dot.active {
+  background: var(--b-600);
+  width: 24px;
+  height: 8px;
+  border-radius: 4px;
+}
+
+/* Space Cards Dot Indicators */
+.space-cards-dots {
+  display: flex; /* Show on all devices */
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 0 20px;
+}
+
+.space-cards-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(87, 95, 185, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.space-cards-dot:hover {
+  background: rgba(87, 95, 185, 0.5);
+  transform: scale(1.2);
+}
+
+.space-cards-dot.active {
+  background: var(--b-600);
+  width: 24px;
+  height: 8px;
+  border-radius: 4px;
+}
+
+/* Amenities Dot Indicators - Mobile Only */
+.amenities-dots {
+  display: none; /* Hidden on desktop */
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  padding: 0 20px;
+}
+
+.amenities-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(87, 95, 185, 0.3);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.amenities-dot:hover {
+  background: rgba(87, 95, 185, 0.5);
+  transform: scale(1.2);
+}
+
+.amenities-dot.active {
+  background: var(--b-600);
+  width: 24px;
+  height: 8px;
+  border-radius: 4px;
 }
 
 .workspace-types-carousel {
@@ -4004,16 +4183,15 @@ img:hover {
     font-family: 'Playfair Display', serif;
     font-size: 20px;
     font-weight: 700;
-    line-height: 1.2;
+    line-height: 1.3;
     max-width: 100%;
     color: var(--core-white);
     word-wrap: break-word;
     overflow-wrap: break-word;
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    display: block;
+    overflow: visible;
+    white-space: normal;
   }
 
   .hero-description {
@@ -4046,7 +4224,7 @@ img:hover {
 
   .hero-actions .btn-primary {
     font-size: 14px;
-    padding: 11px 18px;
+    padding: 12px 24px;
     width: auto;
     min-width: 0;
     flex: 0 1 auto;
@@ -4061,7 +4239,7 @@ img:hover {
 
   .hero-actions .btn-secondary {
     font-size: 14px;
-    padding: 11px 16px;
+    padding: 12px 24px;
     width: auto;
     min-width: 0;
     flex: 0 1 auto;
@@ -4076,7 +4254,7 @@ img:hover {
   }
 
   .location-card {
-    display: none; /* Hide on mobile as per screenshots */
+    display: none !important; /* Hide on mobile - New Location Active section */
   }
 
   .location-image {
@@ -4094,7 +4272,7 @@ img:hover {
   /* Stats Bar */
   .stats-bar {
     padding: 0 20px;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
     gap: 16px;
   }
 
@@ -4103,6 +4281,10 @@ img:hover {
     font-family: 'Playfair Display', serif;
     font-weight: 600;
     margin-bottom: 12px;
+  }
+
+  .marquee-container {
+    overflow: hidden;
   }
 
   .marquee-track {
@@ -4231,7 +4413,7 @@ img:hover {
 
   .btn-feature {
     font-size: 14px;
-    padding: 10px 20px;
+    padding: 12px 24px;
     background: var(--b-600);
     color: white;
     border-radius: 1000px;
@@ -4244,7 +4426,7 @@ img:hover {
 
   /* Workspace Designs Section - dito same as design (mobile) */
   .workspace-designs-section {
-    margin-bottom: 48px;
+    margin-bottom: 40px;
     padding-top: 0;
     margin-top: 0;
     gap: 24px;
@@ -4265,24 +4447,30 @@ img:hover {
   }
 
   .workspace-types-carousel-wrapper {
-    padding: 0 50px;
+    padding: 0;
     margin-top: 0;
-    overflow: hidden;
+    overflow: visible;
     width: 100%;
     position: relative;
   }
 
   .carousel-arrow {
-    width: 36px;
-    height: 36px;
+    display: none; /* Hide arrows on mobile */
   }
 
-  .carousel-arrow-left {
-    left: 8px;
+  /* Show dots on mobile to indicate scrollability */
+  .carousel-dots {
+    display: flex;
   }
 
-  .carousel-arrow-right {
-    right: 8px;
+  /* Show gallery dots on mobile */
+  .gallery-dots {
+    display: flex;
+  }
+
+  /* Show marquee dots on mobile */
+  .marquee-dots {
+    display: flex;
   }
 
   .workspace-types-carousel {
@@ -4483,6 +4671,11 @@ img:hover {
     gap: 16px;
   }
 
+  /* Show professionals dots on mobile */
+  .professionals-dots {
+    display: flex;
+  }
+
   .professional-image {
     height: 200px;
     border-radius: 12px;
@@ -4564,7 +4757,7 @@ img:hover {
 
   .filter-form .btn-primary {
     font-size: 14px;
-    padding: 10px 24px;
+    padding: 12px 24px;
     width: fit-content;
   }
 
@@ -4596,6 +4789,11 @@ img:hover {
     min-width: 100%;
     scroll-snap-align: start;
     gap: 12px;
+  }
+
+  /* Show space cards dots on mobile */
+  .space-cards-dots {
+    display: flex;
   }
 
   .space-image {
@@ -4661,17 +4859,24 @@ img:hover {
 
   .prime-desk-text .btn-primary {
     font-size: 14px;
-    padding: 10px 24px;
+    padding: 12px 24px;
     width: fit-content;
   }
 
   .prime-desk-image {
     order: -1;
+    width: 100%;
+    max-width: 100%;
   }
 
   .full-width-image {
-    height: 200px;
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+    height: auto;
+    max-height: 300px;
     border-radius: 16px;
+    object-fit: cover;
   }
 
   /* Solutions Section */
@@ -4719,19 +4924,11 @@ img:hover {
     scroll-snap-align: start;
     height: 280px;
     border-radius: 16px;
-    border: none !important;
-    box-shadow: 0 0 0 transparent !important;
-    -webkit-box-shadow: 0 0 0 transparent !important;
-    -moz-box-shadow: 0 0 0 transparent !important;
-    -ms-box-shadow: 0 0 0 transparent !important;
-    -o-box-shadow: 0 0 0 transparent !important;
-    filter: none !important;
-    -webkit-filter: none !important;
-    -moz-filter: none !important;
-    -ms-filter: none !important;
-    -o-filter: none !important;
-    drop-shadow: none !important;
-    -webkit-drop-shadow: none !important;
+  }
+
+  /* Show amenities dots on mobile */
+  .amenities-dots {
+    display: flex;
   }
 
   .amenity-overlay {
@@ -4800,7 +4997,7 @@ img:hover {
 
   .partners-section .btn-primary {
     font-size: 14px;
-    padding: 10px 24px;
+    padding: 12px 24px;
     width: fit-content;
   }
 
@@ -5060,7 +5257,7 @@ img:hover {
   .advantage-header .btn-primary {
     width: 100%;
     max-width: 100%;
-    padding: 10px 24px;
+    padding: 12px 24px;
     font-size: 14px;
   }
 
@@ -5256,7 +5453,7 @@ img:hover {
 
   .faq-intro .btn-primary {
     font-size: 14px;
-    padding: 10px 24px;
+    padding: 12px 24px;
     width: fit-content;
     /* Uses standard btn-primary gradient background */
   }
@@ -5476,7 +5673,7 @@ img:hover {
     margin: 8px auto 0 auto;
     font-size: 14px;
     font-weight: 600;
-    padding: 12px 28px;
+    padding: 12px 24px;
     background: #F3F5FB;
     color: #333C67;
     border: none;
@@ -5642,16 +5839,22 @@ img:hover {
   }
 
   .carousel-arrow {
-    width: 36px;
-    height: 36px;
+    display: none; /* Hide arrows on mobile */
   }
 
-  .carousel-arrow-left {
-    left: 8px;
+  /* Show dots on mobile to indicate scrollability */
+  .carousel-dots {
+    display: flex;
   }
 
-  .carousel-arrow-right {
-    right: 8px;
+  /* Show gallery dots on mobile */
+  .gallery-dots {
+    display: flex;
+  }
+
+  /* Show marquee dots on mobile */
+  .marquee-dots {
+    display: flex;
   }
 
   .workspace-types-carousel {
@@ -5665,12 +5868,13 @@ img:hover {
   }
 
   .workspace-type-card-carousel {
-    flex: 0 0 calc(100vw - 64px);
-    min-width: calc(100vw - 64px);
-    max-width: calc(100vw - 64px);
-    width: calc(100vw - 64px);
+    flex: 0 0 calc(100% - 32px);
+    min-width: calc(100% - 32px);
+    max-width: calc(100% - 32px);
+    width: calc(100% - 32px);
     height: 380px;
     border-radius: 16px;
+    overflow: hidden;
     scroll-snap-align: start;
     scroll-snap-stop: always;
     box-sizing: border-box;
@@ -5704,10 +5908,43 @@ img:hover {
     left: 0;
     right: 0;
     background: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 0.8) 100%);
-    padding: 32px 24px 24px;
+    padding: 24px 20px 20px;
     display: flex;
     flex-direction: column;
     gap: 8px;
+    box-sizing: border-box;
+    width: 100%;
+  }
+
+  .workspace-card-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--core-white);
+    margin: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    line-height: 1.3;
+  }
+
+  .workspace-card-description {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    line-height: 1.4;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .workspace-price-overlay {
+    top: 16px;
+    left: 16px;
+    padding: 6px 12px;
+    box-sizing: border-box;
+    max-width: calc(100% - 32px);
+    word-wrap: break-word;
   }
 
   .workspace-designs-section {
@@ -5720,6 +5957,10 @@ img:hover {
     margin-bottom: 0;
   }
 
+  .location-card {
+    display: none !important; /* Hide on mobile - New Location Active section */
+  }
+
   .workspace-designs-section .section-title {
     margin-top: 0;
     margin-bottom: 0;
@@ -5727,7 +5968,7 @@ img:hover {
 
   /* Gallery Section */
   .gallery-section {
-    margin-bottom: 48px;
+    margin-bottom: 40px;
     gap: 24px;
     padding-left: 20px;
     padding-right: 20px;
@@ -5854,13 +6095,14 @@ img:hover {
 
   .hero-title {
     font-size: 17px;
-    line-height: 1.2;
+    line-height: 1.3;
     font-weight: 700;
     text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
-    display: -webkit-box;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    display: block;
+    overflow: visible;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   .hero-description {
@@ -5898,14 +6140,14 @@ img:hover {
   }
 
   .hero-actions .btn-primary {
-    font-size: 12px;
-    padding: 10px 14px;
+    font-size: 14px;
+    padding: 12px 20px;
     box-shadow: none;
   }
 
   .hero-actions .btn-secondary {
-    font-size: 12px;
-    padding: 10px 12px;
+    font-size: 14px;
+    padding: 12px 20px;
     border: 1.5px solid rgba(255, 255, 255, 0.8);
     box-shadow: none;
   }
@@ -5913,7 +6155,7 @@ img:hover {
   /* Ensure all primary/secondary buttons stay visible and touch-friendly on mobile */
   .btn-primary,
   .btn-secondary {
-    min-height: 40px;
+    min-height: 44px;
     line-height: 1.3;
   }
 
@@ -5954,7 +6196,12 @@ img:hover {
   }
 
   .full-width-image {
-    height: 190px;
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+    height: auto;
+    max-height: 280px;
+    object-fit: cover;
   }
 
   .amenity-card {
@@ -6189,13 +6436,13 @@ img:hover {
   }
 
   .btn-submit {
-    font-size: 13px;
+    font-size: 14px;
     font-weight: 600;
-    padding: 11px 24px;
+    padding: 12px 24px;
     width: auto;
     max-width: fit-content;
     height: auto;
-    min-height: 40px;
+    min-height: 44px;
     margin: 8px auto 0 auto;
     box-sizing: border-box;
     background: #F3F5FB;

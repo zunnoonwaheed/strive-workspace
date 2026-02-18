@@ -98,6 +98,7 @@
 
 .user-message {
   justify-content: flex-end;
+  background: none !important;
 }
 
 .message-bubble {
@@ -117,9 +118,13 @@
 }
 
 .message-bubble.user {
-  background: var(--gradient);
-  color: var(--core-white);
+  background: rgba(87, 95, 185, 0.08) !important;
+  color: var(--neutral-800);
+  border: 1px solid rgba(87, 95, 185, 0.15) !important;
+  border-radius: 18px;
   border-bottom-right-radius: 4px;
+  padding: 12px 16px;
+  box-shadow: none !important;
 }
 
 .chatbot-options {

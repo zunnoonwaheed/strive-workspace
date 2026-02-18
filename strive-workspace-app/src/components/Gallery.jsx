@@ -1,4 +1,9 @@
+import { useState, useRef, useEffect } from 'react';
+
 const Gallery = () => {
+  const galleryRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
   const galleryImages = [
     {
       id: 1,
@@ -32,6 +37,35 @@ const Gallery = () => {
     },
   ];
 
+  useEffect(() => {
+    const gallery = galleryRef.current;
+    if (!gallery) return;
+
+    const handleScroll = () => {
+      const firstItem = gallery.querySelector('.gallery-item');
+      if (!firstItem) return;
+      const itemWidth = firstItem.offsetWidth;
+      const gap = 16; // Match CSS gap
+      const scrollLeft = gallery.scrollLeft;
+      const newIndex = Math.round(scrollLeft / (itemWidth + gap));
+      setCurrentIndex(newIndex);
+    };
+
+    gallery.addEventListener('scroll', handleScroll);
+    return () => gallery.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToIndex = (index) => {
+    const gallery = galleryRef.current;
+    if (!gallery) return;
+    const firstItem = gallery.querySelector('.gallery-item');
+    if (!firstItem) return;
+    const itemWidth = firstItem.offsetWidth;
+    const gap = 16;
+    const targetScroll = index * (itemWidth + gap);
+    gallery.scrollTo({ left: targetScroll, behavior: 'smooth' });
+  };
+
   return (
     <section className="gallery-section">
       <div className="gallery-header">
@@ -40,7 +74,7 @@ const Gallery = () => {
           Discover South Jersey's premium workspace. Filter by region and type.
         </p>
       </div>
-      <div className="gallery-grid">
+      <div className="gallery-grid" ref={galleryRef}>
         {galleryImages.map((image) => (
           <div key={image.id} className="gallery-item">
             <img
@@ -49,6 +83,17 @@ const Gallery = () => {
               className="gallery-image"
             />
           </div>
+        ))}
+      </div>
+      {/* Navigation Dots */}
+      <div className="gallery-dots">
+        {galleryImages.map((_, index) => (
+          <button
+            key={index}
+            className={`gallery-dot ${index === currentIndex ? 'active' : ''}`}
+            onClick={() => scrollToIndex(index)}
+            aria-label={`Go to image ${index + 1}`}
+          />
         ))}
       </div>
     </section>

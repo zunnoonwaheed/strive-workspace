@@ -17,11 +17,15 @@ import Testimonials from './components/Testimonials';
 import FAQ from './components/FAQ';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import AdminPanel from './components/AdminPanel';
 import './App.css';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [isChatOpen, setIsChatOpen] = useState(false);
+  
+  // Check if we're on admin route
+  const isAdminRoute = window.location.pathname === '/admin';
   // Scroll-triggered reveal for headings and text across the site
   useEffect(() => {
     if (isLoading) return;
@@ -114,6 +118,11 @@ function App() {
       document.body.style.overflow = 'auto';
     }
   }, [isLoading]);
+
+  // Show admin panel if on admin route
+  if (isAdminRoute) {
+    return <AdminPanel />;
+  }
 
   return (
     <>

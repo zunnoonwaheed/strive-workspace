@@ -21,6 +21,37 @@ const ChatBot = ({ isOpen, onClose }) => {
   const [showQuickActions, setShowQuickActions] = useState(true);
   const [conversationMode, setConversationMode] = useState('exploring'); // 'exploring', 'collecting', 'complete'
   const messagesEndRef = useRef(null);
+  const sessionIdRef = useRef(null);
+
+  // Generate or retrieve session ID
+  useEffect(() => {
+    if (!sessionIdRef.current) {
+      sessionIdRef.current = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    }
+  }, []);
+
+  // Function to save conversation to backend
+  const saveConversation = async (userMessage, botResponse, intentTopic = null) => {
+    try {
+      await fetch('http://localhost:3001/api/conversations', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          session_id: sessionIdRef.current,
+          user_message: userMessage,
+          bot_response: botResponse,
+          user_email: userInfo.email || null,
+          user_phone: userInfo.phone || null,
+          intent_topic: intentTopic || null
+        })
+      });
+    } catch (error) {
+      console.error('Error saving conversation:', error);
+      // Silently fail - don't interrupt user experience
+    }
+  };
 
   const GROK_API_KEY = import.meta.env.VITE_GROK_API_KEY || '';
   const GROK_API_URL = 'https://api.x.ai/v1/chat/completions';
@@ -158,11 +189,39 @@ const ChatBot = ({ isOpen, onClose }) => {
     if (input.includes('support') || input.includes('help') || input.includes('contact') || input.includes('phone') || input.includes('email') || input.includes('reach')) {
       return { type: 'question', topic: 'support' };
     }
+    // Check for requests for company contact details
+    if (input.includes('your number') || input.includes('your phone') || input.includes('your contact') ||
+        input.includes('give me your') || input.includes('what is your') || input.includes("what's your") ||
+        input.includes('company number') || input.includes('company phone') || input.includes('company contact') ||
+        input.includes('contact details') || input.includes('contact info') || input.includes('contact information') ||
+        input.includes('how to contact') || input.includes('reach you') || input.includes('call you') ||
+        input.includes('email you') || input.includes('your email')) {
+      return { type: 'question', topic: 'show_contact' };
+    }
+    
+    // Check for user declining to provide info
+    if (input.includes("don't want to give") || input.includes("dont want to give") ||
+        input.includes("don't want to provide") || input.includes("dont want to provide") ||
+        input.includes("don't want to share") || input.includes("dont want to share") ||
+        input.includes("won't give") || input.includes("wont give") ||
+        input.includes("can't give") || input.includes("cant give") ||
+        input.includes("prefer not to give") || input.includes("rather not give") ||
+        input.includes("no thanks") || input.includes("no thank you") ||
+        (input.includes("no") && (input.includes("email") || input.includes("phone") || input.includes("number"))) ||
+        input.includes("skip") || input.includes("not interested")) {
+      return { type: 'question', topic: 'show_contact' };
+    }
+    
     // Check for live agent requests
     if (input.includes('live agent') || input.includes('human agent') || input.includes('real person') || 
         input.includes('speak to someone') || input.includes('talk to someone') || 
-        input.includes('connect me with') || input.includes('transfer to') ||
-        (input.includes('agent') && (input.includes('connect') || input.includes('speak') || input.includes('talk')))) {
+        input.includes('connect me with') || input.includes('connect me to') ||
+        input.includes('transfer to') || input.includes('transfer me') ||
+        input.includes('connect with agent') || input.includes('speak with agent') ||
+        input.includes('talk with agent') || input.includes('contact agent') ||
+        input.includes('connect to live') || input.includes('connect to agent') ||
+        (input.includes('agent') && (input.includes('connect') || input.includes('speak') || input.includes('talk'))) ||
+        (input.includes('person') && (input.includes('connect') || input.includes('speak') || input.includes('talk') || input.includes('live')))) {
       return { type: 'question', topic: 'schedule_call' };
     }
     // Check if user wants to schedule call/meeting/callback and doesn't want to chat - MAIN GOAL: CAPTURE EMAIL & PHONE
@@ -294,6 +353,14 @@ const ChatBot = ({ isOpen, onClose }) => {
                `⏰ ${knowledgeBase.support.hours}\n` +
                `🏢 ${knowledgeBase.support.availability}\n\n` +
                `Feel free to reach out anytime - we'd love to help you find your perfect workspace!`;
+      
+      case 'show_contact':
+        return `Absolutely! Here's how you can reach us: 📞\n\n` +
+               `📧 Email: ${knowledgeBase.support.email}\n` +
+               `📞 Phone: ${knowledgeBase.support.phone}\n` +
+               `⏰ ${knowledgeBase.support.hours}\n` +
+               `🏢 ${knowledgeBase.support.availability}\n\n` +
+               `Feel free to call or email us anytime - we'd love to help you find your perfect workspace!`;
       
       case 'schedule_call':
         return null; // Will be handled by collecting email/phone
@@ -488,8 +555,17 @@ IMPORTANT:
 
     let botResponse = null;
 
-    // Handle schedule call/meeting/callback request FIRST (priority) - MAIN GOAL: CAPTURE EMAIL & PHONE
-    if (intent.topic === 'schedule_call' || collectingContact) {
+    // Handle show contact request - show contact details immediately
+    if (intent.topic === 'show_contact') {
+      const contactResponse = getKnowledgeResponse('show_contact');
+      if (contactResponse) {
+        botResponse = contactResponse;
+        setCollectingContact(false);
+        setContactStep('email');
+      }
+    }
+    // Handle schedule call/meeting/callback/live person request FIRST (priority) - MAIN GOAL: CAPTURE EMAIL & PHONE
+    else if (intent.topic === 'schedule_call' || collectingContact) {
       setCollectingContact(true);
       
       // Check if user provided email (extract from any input)
@@ -509,7 +585,7 @@ IMPORTANT:
           updatedInfo.email = foundEmail[0];
           setUserInfo(updatedInfo);
           setContactStep('phone');
-          botResponse = `Perfect! I have your email: ${foundEmail[0]}\n\nWhat's your phone number? We'll call you to discuss your workspace needs.`;
+          botResponse = `Perfect! I have your email: ${foundEmail[0]}\n\nWhat's your phone number? We'll get back to you shortly to connect you with a live person.`;
         }
         // If we need phone and user provided it
         else if (contactStep === 'phone' && isValidPhone) {
@@ -518,7 +594,7 @@ IMPORTANT:
           setCollectingContact(false);
           setContactStep('email');
           setConversationMode('complete');
-          botResponse = `Excellent! I have your contact information:\n📧 Email: ${updatedInfo.email}\n📞 Phone: ${updatedInfo.phone}\n\nOur team will get in touch with you within 24 hours to schedule a call and discuss your workspace needs. We're excited to help you find your perfect space at Strive Workspaces! 🎉`;
+          botResponse = `Perfect! I have your contact information:\n📧 Email: ${updatedInfo.email}\n📞 Phone: ${updatedInfo.phone}\n\nOur team will get back to you shortly to connect you with a live person. We're excited to help you find your perfect space at Strive Workspaces! 🎉`;
           
           // Submit the data
           const finalData = { ...updatedInfo, requestType: 'schedule_call', timestamp: new Date().toISOString() };
@@ -534,18 +610,38 @@ IMPORTANT:
           setCollectingContact(false);
           setContactStep('email');
           setConversationMode('complete');
-          botResponse = `Perfect! I have your contact information:\n📧 Email: ${updatedInfo.email}\n📞 Phone: ${updatedInfo.phone}\n\nOur team will get in touch with you within 24 hours to schedule a call and discuss your workspace needs. We're excited to help you find your perfect space at Strive Workspaces! 🎉`;
+          botResponse = `Perfect! I have your contact information:\n📧 Email: ${updatedInfo.email}\n📞 Phone: ${updatedInfo.phone}\n\nOur team will get back to you shortly to connect you with a live person. We're excited to help you find your perfect space at Strive Workspaces! 🎉`;
           
           const finalData = { ...updatedInfo, requestType: 'schedule_call', timestamp: new Date().toISOString() };
           console.log('✅ Contact info collected for call/meeting:', finalData);
         }
-        // Waiting for email but user didn't provide it
+        // Waiting for email but user didn't provide it - check if they're declining
         else if (contactStep === 'email' && !foundEmail) {
-          botResponse = `I'd love to schedule a call with you! Please provide your email address so we can contact you.`;
+          const declineKeywords = ["don't want", "dont want", "won't", "wont", "can't", "cant", "prefer not", "rather not", "no", "skip", "not interested"];
+          const isDeclining = declineKeywords.some(keyword => userInput.toLowerCase().includes(keyword));
+          
+          if (isDeclining || userInput.toLowerCase().includes('your number') || userInput.toLowerCase().includes('your contact')) {
+            // User doesn't want to provide info or is asking for our contact - show contact details
+            botResponse = getKnowledgeResponse('show_contact');
+            setCollectingContact(false);
+            setContactStep('email');
+          } else {
+            botResponse = `I'd love to schedule a call with you! Please provide your email address so we can contact you.`;
+          }
         }
-        // Waiting for phone but user didn't provide it
+        // Waiting for phone but user didn't provide it - check if they're declining
         else if (contactStep === 'phone' && !isValidPhone) {
-          botResponse = `Great! Now, what's your phone number? We'll call you to discuss your workspace needs.\n\nPlease provide a valid phone number (at least 10 digits).`;
+          const declineKeywords = ["don't want", "dont want", "won't", "wont", "can't", "cant", "prefer not", "rather not", "no", "skip", "not interested"];
+          const isDeclining = declineKeywords.some(keyword => userInput.toLowerCase().includes(keyword));
+          
+          if (isDeclining || userInput.toLowerCase().includes('your number') || userInput.toLowerCase().includes('your contact')) {
+            // User doesn't want to provide info or is asking for our contact - show contact details
+            botResponse = getKnowledgeResponse('show_contact');
+            setCollectingContact(false);
+            setContactStep('email');
+          } else {
+            botResponse = `Great! Now, what's your phone number? We'll get back to you shortly to connect you with a live person.\n\nPlease provide a valid phone number (at least 10 digits).`;
+          }
         }
       }
       // First time asking for schedule call/meeting/callback
@@ -557,7 +653,7 @@ IMPORTANT:
           setUserInfo(updatedInfo);
           setCollectingContact(false);
           setConversationMode('complete');
-          botResponse = `Perfect! I have your contact information:\n📧 Email: ${updatedInfo.email}\n📞 Phone: ${updatedInfo.phone}\n\nOur team will get in touch with you within 24 hours to schedule a call and discuss your workspace needs. We're excited to help you find your perfect space at Strive Workspaces! 🎉`;
+          botResponse = `Perfect! I have your contact information:\n📧 Email: ${updatedInfo.email}\n📞 Phone: ${updatedInfo.phone}\n\nOur team will get back to you shortly to connect you with a live person. We're excited to help you find your perfect space at Strive Workspaces! 🎉`;
           
           const finalData = { ...updatedInfo, requestType: 'schedule_call', timestamp: new Date().toISOString() };
           console.log('✅ Contact info collected for call/meeting:', finalData);
@@ -566,16 +662,16 @@ IMPORTANT:
           updatedInfo.email = foundEmail[0];
           setUserInfo(updatedInfo);
           setContactStep('phone');
-          botResponse = `Perfect! I have your email: ${foundEmail[0]}\n\nWhat's your phone number? We'll call you to discuss your workspace needs.`;
+          botResponse = `Perfect! I have your email: ${foundEmail[0]}\n\nWhat's your phone number? We'll get back to you shortly to connect you with a live person.`;
         }
         else if (isValidPhone) {
           updatedInfo.phone = foundPhone[0].trim();
           setUserInfo(updatedInfo);
           setContactStep('email');
-          botResponse = `Great! I have your phone number: ${updatedInfo.phone}\n\nWhat's your email address? We'll send you a confirmation and our team will call you.`;
+          botResponse = `Great! I have your phone number: ${updatedInfo.phone}\n\nWhat's your email address? We'll get back to you shortly to connect you with a live person.`;
         }
         else {
-          botResponse = `Absolutely! I'd be happy to schedule a call for you. Let me get your contact information so our team can reach out.\n\nWhat's your email address?`;
+          botResponse = `Absolutely! I'd be happy to connect you with a live person. Here's our contact information:\n\n📧 Email: ${knowledgeBase.support.email}\n📞 Phone: ${knowledgeBase.support.phone}\n\nTo help us get back to you quickly, could you please provide your email address?`;
           setCollectingContact(true);
           setContactStep('email');
         }
@@ -617,6 +713,11 @@ IMPORTANT:
       content: botResponse
     };
     setMessages(prev => [...prev, botMessage]);
+
+    // Save conversation to backend
+    if (botResponse) {
+      saveConversation(userInput, botResponse, intent.topic || null);
+    }
 
     // Show quick actions again after a moment
     setTimeout(() => {

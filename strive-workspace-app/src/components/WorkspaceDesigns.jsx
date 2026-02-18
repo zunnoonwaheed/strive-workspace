@@ -1,10 +1,11 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { STRIVE_LINKS } from '../links';
 
 const WorkspaceDesigns = () => {
   const carouselRef = useRef(null);
   const isArrowClickRef = useRef(false);
   const pauseAutoScrollRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
 
   const workspaces = [
     {
@@ -79,6 +80,10 @@ const WorkspaceDesigns = () => {
     
     carousel.scrollTo({ left: targetScroll, behavior: 'smooth' });
     
+    // Update index
+    const newIndex = (currentIndex + 1) % workspaces.length;
+    setCurrentIndex(newIndex);
+    
     // Reset flag and resume auto-scroll after scroll completes
     setTimeout(() => {
       isArrowClickRef.current = false;
@@ -107,7 +112,37 @@ const WorkspaceDesigns = () => {
     
     carousel.scrollTo({ left: targetScroll, behavior: 'smooth' });
     
+    // Update index
+    const newIndex = (currentIndex - 1 + workspaces.length) % workspaces.length;
+    setCurrentIndex(newIndex);
+    
     // Reset flag and resume auto-scroll after scroll completes
+    setTimeout(() => {
+      isArrowClickRef.current = false;
+      if (pauseAutoScrollRef.current) {
+        pauseAutoScrollRef.current(false);
+      }
+    }, 800);
+  };
+
+  const scrollToIndex = (index) => {
+    const carousel = carouselRef.current;
+    if (!carousel) return;
+    const firstCard = carousel.querySelector('.workspace-type-card-carousel');
+    if (!firstCard) return;
+    const computedStyle = window.getComputedStyle(carousel);
+    const gap = parseFloat(computedStyle.gap) || 24;
+    const cardWidth = firstCard.offsetWidth + gap;
+    const targetScroll = index * cardWidth;
+    
+    isArrowClickRef.current = true;
+    if (pauseAutoScrollRef.current) {
+      pauseAutoScrollRef.current(true);
+    }
+    
+    carousel.scrollTo({ left: targetScroll, behavior: 'smooth' });
+    setCurrentIndex(index);
+    
     setTimeout(() => {
       isArrowClickRef.current = false;
       if (pauseAutoScrollRef.current) {
@@ -198,6 +233,11 @@ const WorkspaceDesigns = () => {
     };
 
     const handleScroll = () => {
+      // Update current index based on scroll position
+      const cardWidth = getCardWidth();
+      const newIndex = Math.round(carousel.scrollLeft / cardWidth) % workspaces.length;
+      setCurrentIndex(newIndex);
+      
       // Ignore scroll events triggered by arrow clicks
       if (isArrowClickRef.current) {
         lastScrollLeft = carousel.scrollLeft;
@@ -302,6 +342,18 @@ const WorkspaceDesigns = () => {
             <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
         </button>
+      </div>
+
+      {/* Dot Indicators for Mobile */}
+      <div className="carousel-dots">
+        {workspaces.map((_, index) => (
+          <button
+            key={index}
+            className={`carousel-dot ${index === currentIndex ? 'active' : ''}`}
+            onClick={() => scrollToIndex(index)}
+            aria-label={`Go to slide ${index + 1}`}
+          />
+        ))}
       </div>
     </section>
   );

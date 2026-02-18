@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react';
-import Login from './Login';
+import { STRIVE_LINKS } from '../links';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
 
   useEffect(() => {
     if (isMenuOpen) {
@@ -45,18 +44,17 @@ const Header = () => {
 
             <div className="nav-content">
               <ul className="mobile-nav-list">
-                <li><a href="#home" onClick={() => setIsMenuOpen(false)}>Home</a></li>
-                <li><a href="#features" onClick={() => setIsMenuOpen(false)}>Features</a></li>
-                <li><a href="#workspaces" onClick={() => setIsMenuOpen(false)}>Workspaces</a></li>
-                <li><a href="#locations" onClick={() => setIsMenuOpen(false)}>Locations</a></li>
-                <li><a href="#amenities" onClick={() => setIsMenuOpen(false)}>Amenities</a></li>
-                <li><a href="#about" onClick={() => setIsMenuOpen(false)}>About Us</a></li>
-                <li><a href="#contact" onClick={() => setIsMenuOpen(false)}>Contact</a></li>
+                <li><a href={STRIVE_LINKS.home} target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>Home</a></li>
+                <li><a href={STRIVE_LINKS.home + '#amenities'} target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>Features</a></li>
+                <li><a href={STRIVE_LINKS.home + '#spaces'} target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>Workspaces</a></li>
+                <li><a href={STRIVE_LINKS.locations} target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>Locations</a></li>
+                <li><a href={STRIVE_LINKS.home + '#amenities'} target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>Amenities</a></li>
+                <li><a href={STRIVE_LINKS.about} target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>About Us</a></li>
+                <li><a href={STRIVE_LINKS.contact} target="_blank" rel="noopener noreferrer" onClick={() => setIsMenuOpen(false)}>Contact</a></li>
               </ul>
 
               <div className="nav-footer">
-                <button className="nav-cta-btn" onClick={() => { setIsMenuOpen(false); setIsLoginOpen(true); }}>Sign In</button>
-                <button className="nav-cta-btn" onClick={() => setIsMenuOpen(false)}>Schedule a Tour</button>
+                <a href={STRIVE_LINKS.scheduleTour} target="_blank" rel="noopener noreferrer" className="nav-cta-btn" onClick={() => setIsMenuOpen(false)} style={{ display: 'block', textDecoration: 'none', textAlign: 'center' }}>Schedule a Tour</a>
                 <div className="nav-contact">
                   <p className="nav-contact-label">Get in Touch</p>
                   <a href="tel:214-851-1233" className="nav-contact-link">(214) 851-1233</a>
@@ -68,7 +66,6 @@ const Header = () => {
         </div>
       )}
 
-      {isLoginOpen && <Login onClose={() => setIsLoginOpen(false)} />}
     </>
   );
 };

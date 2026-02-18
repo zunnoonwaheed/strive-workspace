@@ -1,4 +1,45 @@
+import { useState, useRef, useEffect } from 'react';
+
 const Workspaces = () => {
+  const gridRef = useRef(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const professionalCards = [
+    { id: 1, title: 'Startups & Entrepreneurs in South Jersey' },
+    { id: 2, title: 'Remote Workers & Freelancers' },
+    { id: 3, title: 'Marketing Agencies & Consultants' },
+    { id: 4, title: 'Growing Teams & Small Businesses' },
+  ];
+
+  useEffect(() => {
+    const grid = gridRef.current;
+    if (!grid) return;
+
+    const handleScroll = () => {
+      const firstCard = grid.querySelector('.professional-card');
+      if (!firstCard) return;
+      const cardWidth = firstCard.offsetWidth;
+      const gap = 24; // Match CSS gap
+      const scrollLeft = grid.scrollLeft;
+      const newIndex = Math.round(scrollLeft / (cardWidth + gap));
+      setCurrentIndex(newIndex);
+    };
+
+    grid.addEventListener('scroll', handleScroll);
+    return () => grid.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToIndex = (index) => {
+    const grid = gridRef.current;
+    if (!grid) return;
+    const firstCard = grid.querySelector('.professional-card');
+    if (!firstCard) return;
+    const cardWidth = firstCard.offsetWidth;
+    const gap = 24;
+    const targetScroll = index * (cardWidth + gap);
+    grid.scrollTo({ left: targetScroll, behavior: 'smooth' });
+  };
+
   return (
     <section className="workspaces-section">
       <div className="workspaces-header">
@@ -8,7 +49,7 @@ const Workspaces = () => {
         </p>
       </div>
 
-      <div className="professionals-grid">
+      <div className="professionals-grid" ref={gridRef}>
         <div className="professional-card">
           <img
             src="https://api.builder.io/api/v1/image/assets/TEMP/0a08a15401856f742f44ebd49f45f64201d91208?width=798"
@@ -64,6 +105,17 @@ const Workspaces = () => {
             </p>
           </div>
         </div>
+      </div>
+      {/* Navigation Dots */}
+      <div className="professionals-dots">
+        {professionalCards.map((_, index) => (
+          <button
+            key={index}
+            className={`professionals-dot ${index === currentIndex ? 'active' : ''}`}
+            onClick={() => scrollToIndex(index)}
+            aria-label={`Go to card ${index + 1}`}
+          />
+        ))}
       </div>
     </section>
   );

@@ -21,6 +21,7 @@ const FindSpace = () => {
   const [workspaceType, setWorkspaceType] = useState('');
   const [regionOpen, setRegionOpen] = useState(false);
   const [typeOpen, setTypeOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const cardsRef = useRef(null);
   const regionRef = useRef(null);
   const typeRef = useRef(null);
@@ -33,6 +34,40 @@ const FindSpace = () => {
     document.addEventListener('click', close);
     return () => document.removeEventListener('click', close);
   }, []);
+
+  useEffect(() => {
+    const cards = cardsRef.current;
+    if (!cards) return;
+
+    const handleScroll = () => {
+      const firstCard = cards.querySelector('.space-card');
+      if (!firstCard) return;
+      const cardWidth = firstCard.offsetWidth;
+      const gap = 24; // Match CSS gap
+      const scrollLeft = cards.scrollLeft;
+      const newIndex = Math.round(scrollLeft / (cardWidth + gap));
+      setCurrentIndex(newIndex);
+    };
+
+    cards.addEventListener('scroll', handleScroll);
+    return () => cards.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToIndex = (index) => {
+    const cards = cardsRef.current;
+    if (!cards) return;
+    const firstCard = cards.querySelector('.space-card');
+    if (!firstCard) return;
+    const cardWidth = firstCard.offsetWidth;
+    const gap = 24;
+    const targetScroll = index * (cardWidth + gap);
+    cards.scrollTo({ left: targetScroll, behavior: 'smooth' });
+  };
+
+  const spaceCards = [
+    { id: 1, name: 'Marlton West' },
+    { id: 2, name: 'Cherry Hill' },
+  ];
 
   const handleFindSpaces = (e) => {
     e.preventDefault();
@@ -174,6 +209,17 @@ const FindSpace = () => {
               <h3 className="space-name">Modern Co-Working with Premium Amenities</h3>
             </div>
           </div>
+        </div>
+        {/* Navigation Dots */}
+        <div className="space-cards-dots">
+          {spaceCards.map((_, index) => (
+            <button
+              key={index}
+              className={`space-cards-dot ${index === currentIndex ? 'active' : ''}`}
+              onClick={() => scrollToIndex(index)}
+              aria-label={`Go to space ${index + 1}`}
+            />
+          ))}
         </div>
       </div>
     </section>
