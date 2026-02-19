@@ -40,14 +40,14 @@ const ChatBot = ({ isOpen, onClose }) => {
   }, []);
 
   // Function to save conversation to backend
-  const saveConversation = async (userMessage, botResponse, intentTopic = null) => {
+  const saveConversation = async (userMessage, botResponse, intentTopic = null, overrideEmail = null, overridePhone = null) => {
     try {
       const payload = {
         session_id: sessionIdRef.current,
         user_message: userMessage,
         bot_response: botResponse,
-        user_email: userInfo.email || null,
-        user_phone: userInfo.phone || null,
+        user_email: overrideEmail || userInfo.email || null,
+        user_phone: overridePhone || userInfo.phone || null,
         intent_topic: intentTopic || null
       };
 
@@ -741,9 +741,10 @@ IMPORTANT:
     };
     setMessages(prev => [...prev, botMessage]);
 
-    // Save conversation to backend
+    // Save conversation to backend — pass updatedInfo directly so email/phone
+    // are captured even if React state hasn't flushed yet
     if (botResponse) {
-      saveConversation(userInput, botResponse, intent.topic || null);
+      saveConversation(userInput, botResponse, intent.topic || null, updatedInfo.email || null, updatedInfo.phone || null);
     }
 
     // Show quick actions again after a moment
