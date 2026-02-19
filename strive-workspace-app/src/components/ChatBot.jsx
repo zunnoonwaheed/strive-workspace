@@ -28,7 +28,15 @@ const ChatBot = ({ isOpen, onClose }) => {
   useEffect(() => {
     if (!sessionIdRef.current) {
       sessionIdRef.current = `session_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      console.log('🆔 New session created:', sessionIdRef.current);
     }
+  }, []);
+
+  // Log API configuration on component mount
+  useEffect(() => {
+    console.log('🔧 ChatBot API Configuration:');
+    console.log('  - Conversations endpoint:', API_ENDPOINTS.conversations);
+    console.log('  - VITE_API_URL:', import.meta.env.VITE_API_URL);
   }, []);
 
   // Function to save conversation to backend
@@ -43,7 +51,9 @@ const ChatBot = ({ isOpen, onClose }) => {
         intent_topic: intentTopic || null
       };
 
-      console.log('💾 Saving conversation to backend:', payload);
+      console.log('💾 Saving conversation to backend');
+      console.log('📍 API Endpoint:', API_ENDPOINTS.conversations);
+      console.log('📦 Payload:', payload);
 
       const response = await fetch(API_ENDPOINTS.conversations, {
         method: 'POST',
@@ -53,15 +63,19 @@ const ChatBot = ({ isOpen, onClose }) => {
         body: JSON.stringify(payload)
       });
 
+      console.log('📡 Response status:', response.status);
+
       if (response.ok) {
         const data = await response.json();
         console.log('✅ Conversation saved successfully:', data);
       } else {
         const errorText = await response.text();
-        console.error('❌ Failed to save conversation:', response.status, errorText);
+        console.error('❌ Failed to save conversation. Status:', response.status);
+        console.error('❌ Error details:', errorText);
       }
     } catch (error) {
-      console.error('❌ Error saving conversation:', error);
+      console.error('❌ Network error saving conversation:', error);
+      console.error('❌ Error details:', error.message, error.stack);
       // Silently fail - don't interrupt user experience
     }
   };
