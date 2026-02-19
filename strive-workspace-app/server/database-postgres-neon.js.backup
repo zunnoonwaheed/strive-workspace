@@ -1,34 +1,30 @@
-import pkg from 'pg';
-const { Pool } = pkg;
+import { neon } from '@neondatabase/serverless';
 import bcrypt from 'bcryptjs';
 
 // Get database URL from environment variable (lazy loaded)
-let pool = null;
+let sql = null;
 
-function getPool() {
-  if (!pool) {
+function getSqlClient() {
+  if (!sql) {
     const DATABASE_URL = process.env.DATABASE_URL || process.env.POSTGRES_URL;
 
     if (!DATABASE_URL) {
       throw new Error('DATABASE_URL or POSTGRES_URL environment variable is not set!');
     }
 
-    pool = new Pool({
-      connectionString: DATABASE_URL,
-      ssl: { rejectUnauthorized: false }
-    });
+    sql = neon(DATABASE_URL);
   }
-  return pool;
+  return sql;
 }
 
 // Initialize database tables
 export const initDatabase = async () => {
   try {
     console.log('🔄 Initializing database...');
-    const pool = getPool();
+    const sql = getSqlClient();
 
     // Create conversations table
-    await pool.query(`
+    await sql`
       CREATE TABLE IF NOT EXISTS conversations (
         id SERIAL PRIMARY KEY,
         session_id TEXT NOT NULL,
@@ -39,20 +35,20 @@ export const initDatabase = async () => {
         intent_topic TEXT,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
-    `);
+    `;
 
     // Create admin_users table
-    await pool.query(`
+    await sql`
       CREATE TABLE IF NOT EXISTS admin_users (
         id SERIAL PRIMARY KEY,
         username TEXT UNIQUE NOT NULL,
         password_hash TEXT NOT NULL,
         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
-    `);
+    `;
 
     // Create sessions table
-    await pool.query(`
+    await sql`
       CREATE TABLE IF NOT EXISTS sessions (
         id SERIAL PRIMARY KEY,
         session_id TEXT UNIQUE NOT NULL,
@@ -61,30 +57,30 @@ export const initDatabase = async () => {
         first_message_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         last_message_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
       )
-    `);
+    `;
 
-    // Create indexes
-    await pool.query(`
+    // Create index on session_id for faster queries
+    await sql`
       CREATE INDEX IF NOT EXISTS idx_conversations_session_id
       ON conversations(session_id)
-    `);
+    `;
 
-    await pool.query(`
+    await sql`
       CREATE INDEX IF NOT EXISTS idx_conversations_created_at
       ON conversations(created_at DESC)
-    `);
+    `;
 
     // Check if admin user exists
-    const adminCheck = await pool.query(`
+    const adminUsers = await sql`
       SELECT * FROM admin_users WHERE username = 'admin'
-    `);
+    `;
 
-    if (adminCheck.rows.length === 0) {
+    if (adminUsers.length === 0) {
       const passwordHash = await bcrypt.hash('admin123', 10);
-      await pool.query(`
+      await sql`
         INSERT INTO admin_users (username, password_hash)
-        VALUES ($1, $2)
-      `, ['admin', passwordHash]);
+        VALUES ('admin', ${passwordHash})
+      `;
       console.log('✅ Default admin user created: admin / admin123');
     }
 
@@ -100,22 +96,23 @@ export const db = {
   // Run a query (INSERT, UPDATE, DELETE)
   run: async (query, params = []) => {
     try {
-      const pool = getPool();
+      const sql = getSqlClient();
 
       // Replace ? with $1, $2, etc for Postgres
       let paramIndex = 1;
-      let pgQuery = query.replace(/\?/g, () => `$${paramIndex++}`);
+      const pgQuery = query.replace(/\?/g, () => `$${paramIndex++}`);
 
       // Add RETURNING clause for INSERT queries
-      if (pgQuery.toUpperCase().includes('INSERT INTO') && !pgQuery.toUpperCase().includes('RETURNING')) {
-        pgQuery += ' RETURNING *';
-      }
+      const finalQuery = pgQuery.toUpperCase().includes('INSERT INTO') && !pgQuery.toUpperCase().includes('RETURNING')
+        ? pgQuery + ' RETURNING *'
+        : pgQuery;
 
-      const result = await pool.query(pgQuery, params);
+      // Use sql() directly with properly formatted query
+      const result = await sql(finalQuery, params);
 
       return {
-        lastID: result.rows[0]?.id,
-        changes: result.rowCount || 0
+        lastID: result[0]?.id,
+        changes: result.length || 0
       };
     } catch (error) {
       console.error('Database run error:', error, { query, params });
@@ -126,14 +123,14 @@ export const db = {
   // Get a single row
   get: async (query, params = []) => {
     try {
-      const pool = getPool();
+      const sql = getSqlClient();
 
       // Replace ? with $1, $2, etc for Postgres
       let paramIndex = 1;
       const pgQuery = query.replace(/\?/g, () => `$${paramIndex++}`);
 
-      const result = await pool.query(pgQuery, params);
-      return result.rows[0] || null;
+      const result = await sql(pgQuery, params);
+      return result[0] || null;
     } catch (error) {
       console.error('Database get error:', error, { query, params });
       throw error;
@@ -143,14 +140,14 @@ export const db = {
   // Get all rows
   all: async (query, params = []) => {
     try {
-      const pool = getPool();
+      const sql = getSqlClient();
 
       // Replace ? with $1, $2, etc for Postgres
       let paramIndex = 1;
       const pgQuery = query.replace(/\?/g, () => `$${paramIndex++}`);
 
-      const result = await pool.query(pgQuery, params);
-      return result.rows;
+      const result = await sql(pgQuery, params);
+      return result;
     } catch (error) {
       console.error('Database all error:', error, { query, params });
       throw error;
