@@ -223,6 +223,30 @@ const AdminPanel = () => {
     setActiveTab('conversations');
   };
 
+  const downloadCSV = (data, filename = 'conversations.csv') => {
+    const headers = ['#', 'Date & Time', 'Session ID', 'Email', 'Phone', 'User Message', 'Bot Response', 'Topic'];
+    const rows = data.map((conv, i) => [
+      i + 1,
+      new Date(conv.created_at).toLocaleString(),
+      conv.session_id,
+      conv.user_email || '',
+      conv.user_phone || '',
+      conv.user_message,
+      conv.bot_response,
+      conv.intent_topic || ''
+    ]);
+
+    const escape = (val) => `"${String(val).replace(/"/g, '""')}"`;
+    const csv = [headers.map(escape).join(','), ...rows.map(r => r.map(escape).join(','))].join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
   useEffect(() => {
     if (isAuthenticated && activeTab === 'conversations') {
       fetchConversations();
@@ -407,14 +431,24 @@ const AdminPanel = () => {
             /* All conversations list */
             <>
               <div className="conversations-header">
-                <h2>All Conversations</h2>
-                <div className="search-box">
-                  <input
-                    type="text"
-                    placeholder="Search conversations..."
-                    value={searchQuery}
-                    onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }}
-                  />
+                <h2>Chatbot Conversations</h2>
+                <div className="header-actions">
+                  <div className="search-box">
+                    <input
+                      type="text"
+                      placeholder="Search conversations..."
+                      value={searchQuery}
+                      onChange={(e) => { setSearchQuery(e.target.value); setCurrentPage(1); }}
+                    />
+                  </div>
+                  {conversations.length > 0 && (
+                    <button
+                      className="btn-download"
+                      onClick={() => downloadCSV(conversations, 'chatbot-conversations.csv')}
+                    >
+                      ⬇ Download CSV
+                    </button>
+                  )}
                 </div>
               </div>
 
@@ -424,34 +458,41 @@ const AdminPanel = () => {
                 <div className="no-data">No conversations found</div>
               ) : (
                 <>
-                  <div className="conversations-list">
-                    {conversations.map((conv) => (
-                      <div key={conv.id} className="conversation-item">
-                        <div className="conversation-header">
-                          <span className="session-id">Session: {conv.session_id.substring(0, 15)}...</span>
-                          <span className="timestamp">{new Date(conv.created_at).toLocaleString()}</span>
-                        </div>
-                        <div className="conversation-content">
-                          <div className="user-message">
-                            <strong>User:</strong> {conv.user_message}
-                          </div>
-                          <div className="bot-response">
-                            <strong>Bot:</strong> {conv.bot_response}
-                          </div>
-                          {(conv.user_email || conv.user_phone) && (
-                            <div className="contact-info">
-                              {conv.user_email && <span>📧 {conv.user_email}</span>}
-                              {conv.user_phone && <span>📞 {conv.user_phone}</span>}
-                            </div>
-                          )}
-                          {conv.intent_topic && (
-                            <div className="intent-topic">
-                              <strong>Intent:</strong> {conv.intent_topic}
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    ))}
+                  <div className="table-wrapper">
+                    <table className="conversations-table">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Date & Time</th>
+                          <th>Email</th>
+                          <th>Phone</th>
+                          <th>User Message</th>
+                          <th>Bot Response</th>
+                          <th>Topic</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {conversations.map((conv, index) => (
+                          <tr key={conv.id}>
+                            <td className="col-num">{index + 1}</td>
+                            <td className="col-date">{new Date(conv.created_at).toLocaleString()}</td>
+                            <td className="col-contact">{conv.user_email || <span className="empty-cell">—</span>}</td>
+                            <td className="col-contact">{conv.user_phone || <span className="empty-cell">—</span>}</td>
+                            <td className="col-message">
+                              <div className="message-user">{conv.user_message}</div>
+                            </td>
+                            <td className="col-response">
+                              <div className="message-bot">{conv.bot_response}</div>
+                            </td>
+                            <td className="col-topic">
+                              {conv.intent_topic
+                                ? <span className="topic-badge">{conv.intent_topic}</span>
+                                : <span className="empty-cell">—</span>}
+                            </td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
                   </div>
 
                   {pagination && pagination.totalPages > 1 && (
@@ -462,7 +503,7 @@ const AdminPanel = () => {
                       >
                         Previous
                       </button>
-                      <span>Page {pagination.page} of {pagination.totalPages}</span>
+                      <span>Page {pagination.page} of {pagination.totalPages} ({pagination.total} total)</span>
                       <button
                         onClick={() => setCurrentPage(p => Math.min(pagination.totalPages, p + 1))}
                         disabled={currentPage === pagination.totalPages}
