@@ -293,7 +293,7 @@ const AdminPanel = () => {
   return (
     <div className="admin-panel">
       <header className="admin-header">
-        <h1>🤖 Chatbot Admin Panel</h1>
+        <h1>Strive Admin Panel</h1>
         <button onClick={handleLogout} className="btn-logout">Logout</button>
       </header>
 
@@ -431,7 +431,7 @@ const AdminPanel = () => {
             /* All conversations list */
             <>
               <div className="conversations-header">
-                <h2>Chatbot Conversations</h2>
+                <h2>Conversations</h2>
                 <div className="header-actions">
                   <div className="search-box">
                     <input

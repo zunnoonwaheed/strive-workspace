@@ -143,25 +143,39 @@ app.get('/api/conversations', authenticateToken, async (req, res) => {
     const { page = 1, limit = 50, session_id, search } = req.query;
     const offset = (page - 1) * limit;
 
-    let query = 'SELECT * FROM conversations WHERE 1=1';
+    // JOIN with sessions to always get the complete email/phone (captured over time)
+    let query = `
+      SELECT c.id, c.session_id, c.user_message, c.bot_response, c.intent_topic, c.created_at,
+             COALESCE(s.user_email, c.user_email) AS user_email,
+             COALESCE(s.user_phone, c.user_phone) AS user_phone
+      FROM conversations c
+      LEFT JOIN sessions s ON c.session_id = s.session_id
+      WHERE 1=1`;
     const params = [];
 
     if (session_id) {
-      query += ' AND session_id = ?';
+      query += ' AND c.session_id = ?';
       params.push(session_id);
     }
 
     if (search) {
-      query += ' AND (user_message LIKE ? OR bot_response LIKE ?)';
-      params.push(`%${search}%`, `%${search}%`);
+      query += ' AND (c.user_message LIKE ? OR c.bot_response LIKE ? OR s.user_email LIKE ? OR s.user_phone LIKE ?)';
+      params.push(`%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`);
     }
 
-    query += ' ORDER BY created_at DESC LIMIT ? OFFSET ?';
+    query += ' ORDER BY c.created_at DESC LIMIT ? OFFSET ?';
     params.push(parseInt(limit), parseInt(offset));
 
     const conversations = await db.all(query, params);
-    const total = await db.get('SELECT COUNT(*) as count FROM conversations WHERE 1=1' + (session_id ? ' AND session_id = ?' : '') + (search ? ' AND (user_message LIKE ? OR bot_response LIKE ?)' : ''), 
-      session_id ? [session_id] : search ? [`%${search}%`, `%${search}%`] : []);
+
+    let countQuery = 'SELECT COUNT(*) as count FROM conversations c LEFT JOIN sessions s ON c.session_id = s.session_id WHERE 1=1';
+    const countParams = [];
+    if (session_id) { countQuery += ' AND c.session_id = ?'; countParams.push(session_id); }
+    if (search) {
+      countQuery += ' AND (c.user_message LIKE ? OR c.bot_response LIKE ? OR s.user_email LIKE ? OR s.user_phone LIKE ?)';
+      countParams.push(`%${search}%`, `%${search}%`, `%${search}%`, `%${search}%`);
+    }
+    const total = await db.get(countQuery, countParams);
 
     res.json({
       conversations,
@@ -304,6 +318,18 @@ app.delete('/api/admin/users/:userId', authenticateToken, async (req, res) => {
     res.json({ success: true, message: 'User deleted successfully' });
   } catch (error) {
     console.error('Delete user error:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Clear all conversations and sessions (admin only)
+app.delete('/api/admin/clear-data', authenticateToken, async (req, res) => {
+  try {
+    await db.run('DELETE FROM conversations');
+    await db.run('DELETE FROM sessions');
+    res.json({ success: true, message: 'All conversations and sessions cleared' });
+  } catch (error) {
+    console.error('Clear data error:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });
