@@ -11,7 +11,19 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 const JWT_SECRET = process.env.JWT_SECRET || 'your-secret-key-change-in-production';
 
-app.use(cors());
+// Configure CORS for production
+const corsOptions = {
+  origin: [
+    'http://localhost:5173',
+    'https://strive-workspace-app.vercel.app',
+    'https://strive-workspace-app-*.vercel.app'
+  ],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Middleware to verify JWT token
@@ -263,6 +275,19 @@ app.delete('/api/admin/users/:userId', authenticateToken, async (req, res) => {
   }
 });
 
+// Health check endpoint
+app.get('/', (req, res) => {
+  res.json({
+    status: 'ok',
+    message: 'Strive Workspace Backend API',
+    version: '1.0.0'
+  });
+});
+
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', timestamp: new Date().toISOString() });
+});
+
 // Start server after database initialization
 initDatabase().then(() => {
   app.listen(PORT, () => {
@@ -274,3 +299,6 @@ initDatabase().then(() => {
   console.error('❌ Failed to start server:', err);
   process.exit(1);
 });
+
+// Export for Vercel serverless
+export default app;

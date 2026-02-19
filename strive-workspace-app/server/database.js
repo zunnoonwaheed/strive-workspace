@@ -6,10 +6,19 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// Use persistent storage path in production, local path in development
-const dataDir = process.env.NODE_ENV === 'production' ? '/app/data' : __dirname;
+// Use /tmp for Vercel serverless, local path in development
+const dataDir = process.env.NODE_ENV === 'production' ? '/tmp' : __dirname;
 const dbPath = path.join(dataDir, 'chatbot.db');
-const db = new sqlite3.Database(dbPath);
+
+console.log(`📂 Database path: ${dbPath}`);
+
+const db = new sqlite3.Database(dbPath, (err) => {
+  if (err) {
+    console.error('❌ Database connection error:', err);
+  } else {
+    console.log('✅ Database connected');
+  }
+});
 
 // Promisify database methods
 db.run = promisify(db.run.bind(db));

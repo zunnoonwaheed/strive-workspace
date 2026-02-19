@@ -34,22 +34,34 @@ const ChatBot = ({ isOpen, onClose }) => {
   // Function to save conversation to backend
   const saveConversation = async (userMessage, botResponse, intentTopic = null) => {
     try {
-      await fetch(API_ENDPOINTS.conversations, {
+      const payload = {
+        session_id: sessionIdRef.current,
+        user_message: userMessage,
+        bot_response: botResponse,
+        user_email: userInfo.email || null,
+        user_phone: userInfo.phone || null,
+        intent_topic: intentTopic || null
+      };
+
+      console.log('💾 Saving conversation to backend:', payload);
+
+      const response = await fetch(API_ENDPOINTS.conversations, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({
-          session_id: sessionIdRef.current,
-          user_message: userMessage,
-          bot_response: botResponse,
-          user_email: userInfo.email || null,
-          user_phone: userInfo.phone || null,
-          intent_topic: intentTopic || null
-        })
+        body: JSON.stringify(payload)
       });
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('✅ Conversation saved successfully:', data);
+      } else {
+        const errorText = await response.text();
+        console.error('❌ Failed to save conversation:', response.status, errorText);
+      }
     } catch (error) {
-      console.error('Error saving conversation:', error);
+      console.error('❌ Error saving conversation:', error);
       // Silently fail - don't interrupt user experience
     }
   };
@@ -686,25 +698,25 @@ IMPORTANT:
         botResponse = knowledgeResponse;
       }
     }
-    
+
     // Handle specific questions that need accurate answers
     if (intent.type === 'question' && !botResponse && !collectingContact) {
       const input = userInput.toLowerCase();
-      
+
       // Handle location questions (especially international)
       if (input.includes('pakistan') || input.includes('india') || input.includes('uk') || input.includes('canada') || input.includes('australia') || (input.includes('available') && (input.includes('pakistan') || input.includes('india') || input.includes('country')))) {
         botResponse = `I appreciate your interest! 🌍 Currently, Strive Workspaces operates exclusively in the United States. We have amazing locations across New Jersey, Texas, Tennessee, Michigan, Colorado, and Washington.\n\nHowever, we do offer Virtual Office services that might work for you! This gives you a professional US business address and mail handling services.\n\nWould you like to learn more about our US locations or our Virtual Office services?`;
       }
-      
-      // Generic fallback for questions - let Grok handle it
-      else {
-        // If Grok didn't respond and we don't have a knowledge base answer, use Grok with better prompt
-        if (!botResponse) {
-          // This will be handled by Grok API with improved prompts
-        }
+    }
+
+    // If we still don't have a response and not collecting contact, use Grok API
+    if (!botResponse && !collectingContact) {
+      const grokResponse = await callGrokAPI(userInput, messages, updatedInfo, intent);
+      if (grokResponse) {
+        botResponse = grokResponse;
+      } else {
+        botResponse = "Thanks for sharing that! How can I help you find the perfect workspace?";
       }
-    } else if (!botResponse && !collectingContact) {
-      botResponse = "Thanks for sharing that! How can I help you find the perfect workspace?";
     }
 
     setIsTyping(false);
