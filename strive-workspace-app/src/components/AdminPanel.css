@@ -148,6 +148,39 @@
 }
 .btn-logout:hover { background: rgba(255,255,255,0.25); }
 
+/* ── Tab Navigation ─────────────────────────────────────────────────────────── */
+.tab-nav {
+  flex-shrink: 0;
+  display: flex;
+  gap: 0;
+  background: white;
+  border-bottom: 2px solid #ebebf5;
+  padding: 0 32px;
+}
+
+.tab-btn {
+  padding: 14px 24px;
+  background: none;
+  border: none;
+  border-bottom: 3px solid transparent;
+  margin-bottom: -2px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #888;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+  letter-spacing: 0.2px;
+}
+
+.tab-btn:hover {
+  color: #667eea;
+}
+
+.tab-btn.active {
+  color: #667eea;
+  border-bottom-color: #667eea;
+}
+
 /* ── Admin body ─────────────────────────────────────────────────────────────── */
 .admin-body {
   flex: 1;
@@ -507,13 +540,115 @@
   margin-top: 5px;
 }
 
+/* ── Add User Card ───────────────────────────────────────────────────────────── */
+.add-user-card {
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+  border: 1px solid #ebebf5;
+  padding: 24px 28px;
+}
+
+.add-user-title {
+  margin: 0 0 16px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1a1a2e;
+}
+
+.add-user-form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.add-user-form .search-input {
+  min-width: 180px;
+  flex: 1;
+}
+
+.btn-add-user {
+  padding: 10px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(102,126,234,0.3);
+  transition: opacity 0.2s, transform 0.2s;
+}
+.btn-add-user:hover:not(:disabled) { opacity: 0.9; transform: translateY(-1px); }
+.btn-add-user:disabled { opacity: 0.55; cursor: not-allowed; }
+
+.user-msg {
+  margin: 12px 0 0;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 14px;
+  border-radius: 8px;
+}
+.user-msg-error {
+  background: #fff0f0;
+  color: #d63031;
+  border: 1px solid #fab1b1;
+}
+.user-msg-success {
+  background: #f0fff4;
+  color: #00b894;
+  border: 1px solid #b2dfdb;
+}
+
+/* ── Users table extras ──────────────────────────────────────────────────────── */
+.admin-badge {
+  display: inline-block;
+  margin-left: 8px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 12px;
+  letter-spacing: 0.3px;
+}
+
+.protected-label {
+  font-size: 12px;
+  color: #bbb;
+  font-style: italic;
+}
+
+.btn-delete-user {
+  padding: 6px 14px;
+  background: #fff0f0;
+  color: #d63031;
+  border: 1.5px solid #fab1b1;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  transition: background 0.2s, color 0.2s;
+}
+.btn-delete-user:hover {
+  background: #d63031;
+  color: white;
+  border-color: #d63031;
+}
+
 /* ── Responsive ─────────────────────────────────────────────────────────────── */
 @media (max-width: 768px) {
   .admin-body { padding: 16px; }
   .admin-header { padding: 0 16px; }
+  .tab-nav { padding: 0 16px; }
   .toolbar { flex-direction: column; align-items: stretch; }
   .toolbar-right { flex-direction: column; }
   .search-input { min-width: unset; width: 100%; }
   .btn-download { width: 100%; text-align: center; }
   .modal-panel { max-height: 95vh; border-radius: 12px; }
+  .add-user-form { flex-direction: column; }
+  .add-user-form .search-input { width: 100%; }
+  .btn-add-user { width: 100%; }
 }
