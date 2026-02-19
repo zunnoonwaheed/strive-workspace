@@ -89,30 +89,25 @@ export const db = {
   // Run a query (INSERT, UPDATE, DELETE)
   run: async (query, params = []) => {
     try {
-      // Convert SQLite-style queries to Postgres
-      let pgQuery = query;
-      let pgParams = params;
+      // Replace ? with $1, $2, etc.
+      let paramIndex = 1;
+      let pgQuery = query.replace(/\?/g, () => `$${paramIndex++}`);
 
-      // Handle INSERT with RETURNING
-      if (query.includes('INSERT INTO')) {
-        pgQuery = query.replace(/\?/g, (match, offset) => {
-          const index = query.substring(0, offset).split('?').length;
-          return `$${index}`;
-        }) + ' RETURNING *';
-      } else {
-        // Replace ? with $1, $2, etc.
-        let paramIndex = 1;
-        pgQuery = query.replace(/\?/g, () => `$${paramIndex++}`);
+      // Add RETURNING clause for INSERT queries
+      if (query.toUpperCase().includes('INSERT INTO') && !query.toUpperCase().includes('RETURNING')) {
+        pgQuery += ' RETURNING *';
       }
 
-      const result = await sql.unsafe(pgQuery, pgParams);
+      // Build parameterized query string
+      const queryParts = [pgQuery];
+      const result = await sql(queryParts, ...params);
 
       return {
         lastID: result[0]?.id,
-        changes: result.length
+        changes: result.length || 0
       };
     } catch (error) {
-      console.error('Database run error:', error);
+      console.error('Database run error:', error, { query, params });
       throw error;
     }
   },
@@ -124,10 +119,12 @@ export const db = {
       let paramIndex = 1;
       const pgQuery = query.replace(/\?/g, () => `$${paramIndex++}`);
 
-      const result = await sql.unsafe(pgQuery, params);
+      // Build parameterized query string
+      const queryParts = [pgQuery];
+      const result = await sql(queryParts, ...params);
       return result[0] || null;
     } catch (error) {
-      console.error('Database get error:', error);
+      console.error('Database get error:', error, { query, params });
       throw error;
     }
   },
@@ -139,10 +136,12 @@ export const db = {
       let paramIndex = 1;
       const pgQuery = query.replace(/\?/g, () => `$${paramIndex++}`);
 
-      const result = await sql.unsafe(pgQuery, params);
+      // Build parameterized query string
+      const queryParts = [pgQuery];
+      const result = await sql(queryParts, ...params);
       return result;
     } catch (error) {
-      console.error('Database all error:', error);
+      console.error('Database all error:', error, { query, params });
       throw error;
     }
   }
