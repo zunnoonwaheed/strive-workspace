@@ -172,10 +172,13 @@ app.get('/api/conversations', authenticateToken, async (req, res) => {
 app.get('/api/sessions', authenticateToken, async (req, res) => {
   try {
     const sessions = await db.all(`
-      SELECT s.*, COUNT(c.id) as message_count
+      SELECT s.id, s.session_id, s.user_email, s.user_phone,
+             s.first_message_at, s.last_message_at,
+             COUNT(c.id) as message_count
       FROM sessions s
       LEFT JOIN conversations c ON s.session_id = c.session_id
-      GROUP BY s.session_id
+      GROUP BY s.id, s.session_id, s.user_email, s.user_phone,
+               s.first_message_at, s.last_message_at
       ORDER BY s.last_message_at DESC
     `);
 
