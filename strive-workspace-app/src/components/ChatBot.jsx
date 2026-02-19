@@ -846,9 +846,12 @@ IMPORTANT:
           {isTyping && (
             <div className="bot-message">
               <div className="message-bubble bot typing-indicator">
-                <span></span>
-                <span></span>
-                <span></span>
+                <span className="typing-label">Strive AI is thinking…</span>
+                <div className="typing-dots">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
               </div>
             </div>
           )}
