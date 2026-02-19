@@ -26,6 +26,26 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
+// Initialize database on startup
+let dbInitialized = false;
+const ensureDbInitialized = async () => {
+  if (!dbInitialized) {
+    await initDatabase();
+    dbInitialized = true;
+  }
+};
+
+// Ensure database is initialized for all requests
+app.use(async (req, res, next) => {
+  try {
+    await ensureDbInitialized();
+    next();
+  } catch (error) {
+    console.error('Database initialization error:', error);
+    res.status(500).json({ error: 'Database initialization failed' });
+  }
+});
+
 // Middleware to verify JWT token
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers['authorization'];
@@ -288,17 +308,14 @@ app.get('/api/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
-// Start server after database initialization
-initDatabase().then(() => {
+// For local development
+if (process.env.NODE_ENV !== 'production') {
   app.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
     console.log(`📊 Admin panel will be available at http://localhost:5173/admin`);
     console.log(`🔐 Default admin credentials: admin / admin123`);
   });
-}).catch(err => {
-  console.error('❌ Failed to start server:', err);
-  process.exit(1);
-});
+}
 
 // Export for Vercel serverless
 export default app;
