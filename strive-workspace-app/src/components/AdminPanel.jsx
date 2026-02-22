@@ -71,7 +71,7 @@ const AdminPanel = () => {
     if (!token) return;
     setLoading(true);
     try {
-      const response = await fetch(`${API_URL}/sessions`, {
+      const response = await fetch(`${API_URL}/api/sessions`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await response.json();
@@ -85,7 +85,7 @@ const AdminPanel = () => {
 
   const fetchSessionConversations = async (sessionId) => {
     try {
-      const response = await fetch(`${API_URL}/sessions/${sessionId}/conversations`, {
+      const response = await fetch(`${API_URL}/api/sessions/${sessionId}/conversations`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await response.json();
@@ -113,7 +113,7 @@ const AdminPanel = () => {
     if (!token) return;
     setUsersLoading(true);
     try {
-      const response = await fetch(`${API_URL}/admin/users`, {
+      const response = await fetch(`${API_URL}/api/admin/users`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       const data = await response.json();
@@ -131,7 +131,7 @@ const AdminPanel = () => {
     setUserSuccess('');
     setAddingUser(true);
     try {
-      const response = await fetch(`${API_URL}/admin/users`, {
+      const response = await fetch(`${API_URL}/api/admin/users`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -160,7 +160,7 @@ const AdminPanel = () => {
     setUserError('');
     setUserSuccess('');
     try {
-      const response = await fetch(`${API_URL}/admin/users/${userId}`, {
+      const response = await fetch(`${API_URL}/api/admin/users/${userId}`, {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` }
       });
@@ -220,7 +220,7 @@ const AdminPanel = () => {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await fetch(`${API_URL}/admin/login`, {
+      const response = await fetch(`${API_URL}/api/admin/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
