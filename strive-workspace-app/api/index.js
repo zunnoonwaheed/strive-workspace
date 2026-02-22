@@ -1,4 +1,4 @@
 // Vercel Serverless Function Entry Point
-import app from '../server/server.js';
+// This wraps the Express app for Vercel's serverless environment
 
-export default app;
+export { default } from '../server/server.js';
