@@ -32,3 +32,5 @@ dist-ssr
 # Database
 server/chatbot.db
 server/chatbot.db-journal
+.vercel
+.env*.local
