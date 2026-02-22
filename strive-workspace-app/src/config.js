@@ -10,4 +10,5 @@ export const API_ENDPOINTS = {
   stats: `${baseUrl}/api/stats`,
   adminLogin: `${baseUrl}/api/admin/login`,
   adminUsers: `${baseUrl}/api/admin/users`,
+  chatbot: `${baseUrl}/api/chatbot/message`,
 };

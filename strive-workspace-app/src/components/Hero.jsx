@@ -56,7 +56,7 @@ const Hero = ({ onOpenChat }) => {
 
         <div className="hero-main-content">
           <div className="hero-text-block">
-            <h2 className="hero-title">Premium Private Offices & Coworking Space in Marlton, NJ</h2>
+            <h2 className="hero-title">Premium Private Offices &<br className="hero-title-br" /> Coworking Space in Marlton, NJ</h2>
             <p className="hero-description">
               Professional coworking and office space in Marlton, South Jersey — built for client meetings, flexible growth, and focused work. High-speed internet, meeting rooms, and workspace you'll feel proud to call your own.
             </p>

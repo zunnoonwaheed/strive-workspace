@@ -34,12 +34,12 @@ const Contact = () => {
 
   return (
     <section className="contact-section" style={{
-      background: 'transparent',
-      backgroundColor: 'transparent'
+      background: '#FFFFFF',
+      backgroundColor: '#FFFFFF'
     }}>
       <div className="contact-content" style={{
-      background: 'transparent',
-      backgroundColor: 'transparent'
+      background: '#FFFFFF',
+      backgroundColor: '#FFFFFF'
     }}>
         <div className="contact-info">
           <h2 className="section-title">Ready to Tour Your New Workspace?</h2>

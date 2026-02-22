@@ -80,8 +80,8 @@ const ChatBot = ({ isOpen, onClose }) => {
     }
   };
 
-  const GROK_API_KEY = import.meta.env.VITE_GROK_API_KEY || '';
-  const GROK_API_URL = 'https://api.x.ai/v1/chat/completions';
+  // Use backend API endpoint instead of calling Claude directly (avoids CORS and protects API key)
+  const CHATBOT_API_URL = API_ENDPOINTS.chatbot;
 
   // Knowledge base from Strive Workspaces website
   const knowledgeBase = {
@@ -301,9 +301,11 @@ const ChatBot = ({ isOpen, onClose }) => {
       return { type: 'question', topic: 'schedule_call' };
     }
     
-    // Check for "contact me" or "call me" requests
-    if ((input.includes('contact me') || input.includes('call me') || input.includes('reach me') || 
-         input.includes('get in touch') || input.includes('connect with me')) &&
+    // Check for "contact me" or "call me" or "get on call" requests
+    if ((input.includes('contact me') || input.includes('call me') || input.includes('reach me') ||
+         input.includes('get in touch') || input.includes('connect with me') ||
+         input.includes('get on call') || input.includes('get a call') ||
+         input.includes('get on a call') || input.includes('on call')) &&
         !input.includes('email') && !input.includes('phone')) {
       return { type: 'question', topic: 'schedule_call' };
     }
@@ -433,7 +435,8 @@ const ChatBot = ({ isOpen, onClose }) => {
     }
   };
 
-  const callGrokAPI = async (userMessage, conversationContext, userInfo, intent) => {
+  const callClaudeAPI = async (userMessage, conversationContext, userInfo, intent) => {
+    console.log('🤖 Calling Claude API for:', userMessage);
     try {
       const knowledgeContext = `
 STRIVE WORKSPACES KNOWLEDGE BASE (from striveworkspaces.com):
@@ -502,39 +505,46 @@ IMPORTANT:
 - ALWAYS be accurate about our locations - we ONLY operate in the United States
 - ALWAYS answer questions directly - don't ask for more info if you can answer from the knowledge base`;
 
-      const conversationMessages = [
-        { role: 'system', content: systemPrompt },
-        ...conversationContext.map(msg => ({
+      // Build conversation messages for Claude (no system in messages array)
+      const conversationMessages = conversationContext
+        .filter(msg => msg.role !== 'system')
+        .map(msg => ({
           role: msg.role === 'bot' ? 'assistant' : 'user',
           content: msg.content
-        })),
-        { role: 'user', content: userMessage }
-      ];
+        }));
 
-      const response = await fetch(GROK_API_URL, {
+      // Add current user message
+      conversationMessages.push({ role: 'user', content: userMessage });
+
+      // Call backend API instead of Claude directly (avoids CORS and protects API key)
+      const response = await fetch(CHATBOT_API_URL, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${GROK_API_KEY}`
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          model: 'grok-beta',
           messages: conversationMessages,
+          systemPrompt: systemPrompt,
           temperature: 0.85,
-          max_tokens: 300
+          maxTokens: 300
         })
       });
 
       if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Grok API error:', response.status, errorText);
+        const errorData = await response.json().catch(() => ({ error: 'Unknown error' }));
+        console.error('❌ Backend API HTTP error:', response.status, errorData);
+        console.error('❌ Request was to:', CHATBOT_API_URL);
         throw new Error(`API error: ${response.status}`);
       }
 
       const data = await response.json();
-      return data.choices[0].message.content;
+      const responseText = data.response;
+      console.log('✅ Claude API response received:', responseText.substring(0, 50) + '...');
+      return responseText;
     } catch (error) {
-      console.error('Grok API error:', error);
+      console.error('❌ Claude API failed:', error.message);
+      console.error('❌ Full error:', error);
+      console.error('❌ Falling back to knowledge base...');
       return null;
     }
   };
@@ -591,7 +601,7 @@ IMPORTANT:
         setContactStep('email');
       }
     }
-    // Handle schedule call/meeting/callback/live person request FIRST (priority) - MAIN GOAL: CAPTURE EMAIL & PHONE
+    // Handle schedule call/meeting/callback/live person request - MAIN GOAL: CAPTURE EMAIL & PHONE
     else if (intent.topic === 'schedule_call' || collectingContact) {
       setCollectingContact(true);
       
@@ -607,67 +617,78 @@ IMPORTANT:
       
       // If we're collecting contact info
       if (collectingContact) {
-        // If we need email and user provided it
-        if (contactStep === 'email' && foundEmail) {
+        // If user provided both email and phone in one message
+        if (foundEmail && isValidPhone) {
+          updatedInfo.email = foundEmail[0];
+          updatedInfo.phone = foundPhone[0].trim();
+          setUserInfo(updatedInfo);
+          setCollectingContact(false);
+          setContactStep('email');
+          setConversationMode('complete');
+          botResponse = `Perfect! I have your contact information:\n📧 Email: ${updatedInfo.email}\n📞 Phone: ${updatedInfo.phone}\n\nThank you! We'll contact you within 24 hours. 🎉`;
+
+          const finalData = { ...updatedInfo, requestType: 'schedule_call', timestamp: new Date().toISOString() };
+          console.log('✅ Contact info collected for call/meeting:', finalData);
+        }
+        // If we're asking for email and user provided email
+        else if (contactStep === 'email' && foundEmail) {
           updatedInfo.email = foundEmail[0];
           setUserInfo(updatedInfo);
           setContactStep('phone');
-          botResponse = `Perfect! I have your email: ${foundEmail[0]}\n\nWhat's your phone number? We'll get back to you shortly to connect you with a live person.`;
+          botResponse = `Perfect! I have your email: ${foundEmail[0]}\n\nWhat's your phone number? We'll get back to you shortly.`;
         }
-        // If we need phone and user provided it
+        // If we're asking for email but user provided phone instead
+        else if (contactStep === 'email' && !foundEmail && isValidPhone) {
+          updatedInfo.phone = foundPhone[0].trim();
+          setUserInfo(updatedInfo);
+          setContactStep('email');
+          botResponse = `Great! I have your phone number: ${updatedInfo.phone}\n\nWhat's your email address? We'll get back to you shortly.`;
+        }
+        // If we're asking for phone and user provided phone
         else if (contactStep === 'phone' && isValidPhone) {
           updatedInfo.phone = foundPhone[0].trim();
           setUserInfo(updatedInfo);
           setCollectingContact(false);
           setContactStep('email');
           setConversationMode('complete');
-          botResponse = `Perfect! I have your contact information:\n📧 Email: ${updatedInfo.email}\n📞 Phone: ${updatedInfo.phone}\n\nOur team will get back to you shortly to connect you with a live person. We're excited to help you find your perfect space at Strive Workspaces! 🎉`;
-          
-          // Submit the data
+          botResponse = `Perfect! I have your contact information:\n📧 Email: ${updatedInfo.email}\n📞 Phone: ${updatedInfo.phone}\n\nThank you! We'll contact you within 24 hours. 🎉`;
+
           const finalData = { ...updatedInfo, requestType: 'schedule_call', timestamp: new Date().toISOString() };
           console.log('✅ Contact info collected for call/meeting:', finalData);
-          // TODO: Add API call here to send to backend
-          // await fetch('/api/chatbot-lead', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(finalData) });
         }
-        // If user provided both email and phone in one message
-        else if (foundEmail && isValidPhone && contactStep === 'email') {
+        // If we're asking for phone but user provided email instead
+        else if (contactStep === 'phone' && !isValidPhone && foundEmail) {
           updatedInfo.email = foundEmail[0];
-          updatedInfo.phone = foundPhone[0].trim();
           setUserInfo(updatedInfo);
-          setCollectingContact(false);
-          setContactStep('email');
-          setConversationMode('complete');
-          botResponse = `Perfect! I have your contact information:\n📧 Email: ${updatedInfo.email}\n📞 Phone: ${updatedInfo.phone}\n\nOur team will get back to you shortly to connect you with a live person. We're excited to help you find your perfect space at Strive Workspaces! 🎉`;
-          
-          const finalData = { ...updatedInfo, requestType: 'schedule_call', timestamp: new Date().toISOString() };
-          console.log('✅ Contact info collected for call/meeting:', finalData);
+          setContactStep('phone');
+          botResponse = `Perfect! I have your email: ${foundEmail[0]}\n\nWhat's your phone number? We'll get back to you shortly.`;
         }
-        // Waiting for email but user didn't provide it - check if they're declining
-        else if (contactStep === 'email' && !foundEmail) {
+        // Waiting for email but user didn't provide email or phone - check if they're declining
+        else if (contactStep === 'email' && !foundEmail && !isValidPhone) {
           const declineKeywords = ["don't want", "dont want", "won't", "wont", "can't", "cant", "prefer not", "rather not", "no", "skip", "not interested"];
           const isDeclining = declineKeywords.some(keyword => userInput.toLowerCase().includes(keyword));
-          
+
           if (isDeclining || userInput.toLowerCase().includes('your number') || userInput.toLowerCase().includes('your contact')) {
             // User doesn't want to provide info or is asking for our contact - show contact details
             botResponse = getKnowledgeResponse('show_contact');
             setCollectingContact(false);
             setContactStep('email');
           } else {
-            botResponse = `I'd love to schedule a call with you! Please provide your email address so we can contact you.`;
+            botResponse = `To help us get back to you, please provide your email address or phone number.`;
           }
         }
-        // Waiting for phone but user didn't provide it - check if they're declining
-        else if (contactStep === 'phone' && !isValidPhone) {
+        // Waiting for phone but user didn't provide phone or email - check if they're declining
+        else if (contactStep === 'phone' && !isValidPhone && !foundEmail) {
           const declineKeywords = ["don't want", "dont want", "won't", "wont", "can't", "cant", "prefer not", "rather not", "no", "skip", "not interested"];
           const isDeclining = declineKeywords.some(keyword => userInput.toLowerCase().includes(keyword));
-          
+
           if (isDeclining || userInput.toLowerCase().includes('your number') || userInput.toLowerCase().includes('your contact')) {
             // User doesn't want to provide info or is asking for our contact - show contact details
             botResponse = getKnowledgeResponse('show_contact');
             setCollectingContact(false);
             setContactStep('email');
           } else {
-            botResponse = `Great! Now, what's your phone number? We'll get back to you shortly to connect you with a live person.\n\nPlease provide a valid phone number (at least 10 digits).`;
+            botResponse = `What's your phone number? We'll get back to you shortly.`;
           }
         }
       }
@@ -680,7 +701,7 @@ IMPORTANT:
           setUserInfo(updatedInfo);
           setCollectingContact(false);
           setConversationMode('complete');
-          botResponse = `Perfect! I have your contact information:\n📧 Email: ${updatedInfo.email}\n📞 Phone: ${updatedInfo.phone}\n\nOur team will get back to you shortly to connect you with a live person. We're excited to help you find your perfect space at Strive Workspaces! 🎉`;
+          botResponse = `Perfect! I have your contact information:\n📧 Email: ${updatedInfo.email}\n📞 Phone: ${updatedInfo.phone}\n\nThank you! We'll contact you within 24 hours. 🎉`;
           
           const finalData = { ...updatedInfo, requestType: 'schedule_call', timestamp: new Date().toISOString() };
           console.log('✅ Contact info collected for call/meeting:', finalData);
@@ -704,32 +725,24 @@ IMPORTANT:
         }
       }
     }
-    // Handle specific questions that need accurate answers - check knowledge base first
-    else if (intent.type === 'question' && intent.topic !== 'general') {
-      // Try knowledge base first for specific topics
-      const knowledgeResponse = getKnowledgeResponse(intent.topic, userInput);
-      if (knowledgeResponse) {
-        botResponse = knowledgeResponse;
-      }
-    }
-
-    // Handle specific questions that need accurate answers
-    if (intent.type === 'question' && !botResponse && !collectingContact) {
-      const input = userInput.toLowerCase();
-
-      // Handle location questions (especially international)
-      if (input.includes('pakistan') || input.includes('india') || input.includes('uk') || input.includes('canada') || input.includes('australia') || (input.includes('available') && (input.includes('pakistan') || input.includes('india') || input.includes('country')))) {
-        botResponse = `I appreciate your interest! 🌍 Currently, Strive Workspaces operates exclusively in the United States. We have amazing locations across New Jersey, Texas, Tennessee, Michigan, Colorado, and Washington.\n\nHowever, we do offer Virtual Office services that might work for you! This gives you a professional US business address and mail handling services.\n\nWould you like to learn more about our US locations or our Virtual Office services?`;
-      }
-    }
-
-    // If we still don't have a response and not collecting contact, use Grok API
+    // Try Claude API first for all questions (unless collecting contact info)
     if (!botResponse && !collectingContact) {
-      const grokResponse = await callGrokAPI(userInput, messages, updatedInfo, intent);
-      if (grokResponse) {
-        botResponse = grokResponse;
+      const claudeResponse = await callClaudeAPI(userInput, messages, updatedInfo, intent);
+      if (claudeResponse) {
+        botResponse = claudeResponse;
       } else {
-        botResponse = "Thanks for sharing that! How can I help you find the perfect workspace?";
+        // Grok API failed - fall back to knowledge base for known topics
+        if (intent.type === 'question' && intent.topic !== 'general') {
+          const knowledgeResponse = getKnowledgeResponse(intent.topic, userInput);
+          if (knowledgeResponse) {
+            botResponse = knowledgeResponse;
+          }
+        }
+
+        // If still no response, use generic fallback
+        if (!botResponse) {
+          botResponse = "I'm having trouble connecting right now, but I can still help! Try asking me about our pricing, locations, amenities, or private offices.";
+        }
       }
     }
 
@@ -769,29 +782,27 @@ IMPORTANT:
     const thankYouPrompt = `All information has been collected. The user's name is ${userInfo.name}, email is ${userInfo.email}, and phone is ${userInfo.phone}. They're interested in ${userInfo.lookingFor || 'a workspace'} for ${userInfo.peopleCount || 'their team'} at ${userInfo.location || 'one of our locations'}. Provide a warm, personalized thank you message (2-3 sentences) mentioning that the team will contact them within 24 hours. Be enthusiastic and welcoming.`;
     
     try {
-      const response = await fetch(GROK_API_URL, {
+      const response = await fetch(CHATBOT_API_URL, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${GROK_API_KEY}`
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          model: 'grok-beta',
           messages: [
-            { role: 'system', content: 'You are a friendly assistant for Strive Workspaces. Provide warm, personalized thank you messages.' },
             { role: 'user', content: thankYouPrompt }
           ],
+          systemPrompt: 'You are a friendly assistant for Strive Workspaces. Provide warm, personalized thank you messages.',
           temperature: 0.8,
-          max_tokens: 150
+          maxTokens: 150
         })
       });
 
       if (response.ok) {
         const data = await response.json();
-        const grokThankYou = data.choices[0].message.content;
+        const claudeThankYou = data.response;
         const thankYouMessage = {
           role: 'bot',
-          content: grokThankYou
+          content: claudeThankYou
         };
         setMessages(prev => [...prev, thankYouMessage]);
         setConversationMode('complete');
@@ -896,7 +907,7 @@ IMPORTANT:
 
           {isComplete && !isTyping && (
             <div className="chatbot-complete">
-              <p>Feel free to ask me anything else about Strive Workspaces!</p>
+              <p>We'll contact you within 24 hours. Feel free to ask me anything else!</p>
             </div>
           )}
 

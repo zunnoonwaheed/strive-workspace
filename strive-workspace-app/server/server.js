@@ -334,6 +334,58 @@ app.delete('/api/admin/clear-data', authenticateToken, async (req, res) => {
   }
 });
 
+// Claude AI chatbot endpoint (proxy to avoid CORS and protect API key)
+app.post('/api/chatbot/message', async (req, res) => {
+  try {
+    const { messages, systemPrompt, temperature = 0.85, maxTokens = 300 } = req.body;
+
+    if (!messages || !Array.isArray(messages)) {
+      return res.status(400).json({ error: 'Messages array is required' });
+    }
+
+    const CLAUDE_API_KEY = process.env.CLAUDE_API_KEY;
+    if (!CLAUDE_API_KEY) {
+      console.error('❌ CLAUDE_API_KEY not found in environment');
+      return res.status(500).json({ error: 'Claude API not configured' });
+    }
+
+    console.log('🤖 Proxying request to Claude API...');
+
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-api-key': CLAUDE_API_KEY,
+        'anthropic-version': '2023-06-01'
+      },
+      body: JSON.stringify({
+        model: 'claude-3-haiku-20240307',
+        max_tokens: maxTokens,
+        temperature: temperature,
+        system: systemPrompt || 'You are a helpful AI assistant.',
+        messages: messages
+      })
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('❌ Claude API error:', response.status, errorText);
+      return res.status(response.status).json({ error: 'Claude API request failed', details: errorText });
+    }
+
+    const data = await response.json();
+    console.log('✅ Claude API response received');
+
+    res.json({
+      success: true,
+      response: data.content[0].text
+    });
+  } catch (error) {
+    console.error('❌ Chatbot message error:', error);
+    res.status(500).json({ error: 'Internal server error', message: error.message });
+  }
+});
+
 // Health check endpoint
 app.get('/', (req, res) => {
   res.json({
